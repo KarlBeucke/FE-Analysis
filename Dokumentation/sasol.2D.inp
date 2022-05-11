@@ -1,0 +1,124 @@
+ModellName
+sasol 2D Anlaufkurve in Sec
+Raumdimension
+2	1
+Knoten
+n00b	0	0
+n01b	0,01	0
+n02b	0,0206	0
+n03b	0,0312	0
+n04b	0,0418	0
+n05b	0,0524	0
+n06b	0,0630	0
+n07b	0,0736	0
+n08b	0,0842	0
+n09b	0,0948	0
+n10b	0,1054	0
+n11b	0,1160	0
+n12b	0,1245	0
+n13b	0,1330	0
+n14b	0,1415	0
+n15b	0,1500	0
+n16b	0,1585	0
+n17b	0,1670	0
+n18b	0,1755	0
+n19b	0,1840	0
+n20b	0,1925	0
+n21b	0,2010	0
+n22b	0,2110	0
+n00t	0,0000	0,01
+n01t	0,0100	0,01
+n02t	0,0206	0,01
+n03t	0,0312	0,01
+n04t	0,0418	0,01
+n05t	0,0524	0,01
+n06t	0,0630	0,01
+n07t	0,0736	0,01
+n08t	0,0842	0,01
+n09t	0,0948	0,01
+n10t	0,1054	0,01
+n11t	0,1160	0,01
+n12t	0,1245	0,01
+n13t	0,1330	0,01
+n14t	0,1415	0,01
+n15t	0,1500	0,01
+n16t	0,1585	0,01
+n17t	0,1670	0,01
+n18t	0,1755	0,01
+n19t	0,1840	0,01
+n20t	0,1925	0,01
+n21t	0,2010	0,01
+n22t	0,2110	0,01
+
+Elemente2D3Knoten
+e00	n00b	n01b	n01t	mat0
+e01	n01t	n00t	n00b	mat0
+e02	n01b	n02b	n02t	mat1
+e03	n02t	n01t	n01b	mat1
+e04	n02b	n03b	n03t	mat1
+e05	n03t	n02t	n02b	mat1
+e06	n03b	n04b	n04t	mat1
+e07	n04t	n03t	n03b	mat1
+e08	n04b	n05b	n05t	mat1
+e09	n05t	n04t	n04b	mat1
+e10	n05b	n06b	n06t	mat1
+e11	n06t	n05t	n05b	mat1
+e12	n06b	n07b	n07t	mat1
+e13	n07t	n06t	n06b	mat1
+e14	n07b	n08b	n08t	mat1
+e15	n08t	n07t	n07b	mat1
+e16	n08b	n09b	n09t	mat1
+e17	n09t	n08t	n08b	mat1
+e18	n09b	n10b	n10t	mat1
+e19	n10t	n09t	n09b	mat1
+e20	n10b	n11b	n11t	mat1
+e21	n11t	n10t	n10b	mat1
+e22	n11b	n12b	n12t	mat2
+e23	n12t	n11t	n11b	mat2
+e24	n12b	n13b	n13t	mat2
+e25	n13t	n12t	n12b	mat2
+e26	n13b	n14b	n14t	mat2
+e27	n14t	n13t	n13b	mat2
+e28	n14b	n15b	n15t	mat2
+e29	n15t	n14t	n14b	mat2
+e30	n15b	n16b	n16t	mat2
+e31	n16t	n15t	n15b	mat2
+e32	n16b	n17b	n17t	mat2
+e33	n17t	n16t	n16b	mat2
+e34	n17b	n18b	n18t	mat2
+e35	n18t	n17t	n17b	mat2
+e36	n18b	n19b	n19t	mat2
+e37	n19t	n18t	n18b	mat2
+e38	n19b	n20b	n20t	mat2
+e39	n20t	n19t	n19b	mat2
+e40	n20b	n21b	n21t	mat2
+e41	n21t	n20t	n20b	mat2
+e42	n21b	n22b	n22t	mat3
+e43	n22t	n21t	n21b	mat3
+
+// name, conductivity, (specificHeat*density)
+Material
+mat0	0,3	1
+mat1	1,4	1932000
+mat2	0,035	150000
+mat3	0,08	1
+
+Randbedingungen
+s01	n00b	211
+s02	n00t	211
+s03	n22b	0
+s04	n22t	0
+
+Eigenstates
+DOFEigen	5
+
+// id, tmax, dt, alfa
+Zeitintegration
+Anlaufkurve 0,50	43200	120	1
+
+// id, Knoten, 6 Intervalle sec  temp (1sec  55GradCelsius) usw.
+Randtemperaturen
+ff1	n00b	1	55	1800	81	3600	94	7800	106	9900	211	25200	211
+ff2	n00t	1	55	1800	81	3600	94	7800	106	9900	211	25200	211
+
+end

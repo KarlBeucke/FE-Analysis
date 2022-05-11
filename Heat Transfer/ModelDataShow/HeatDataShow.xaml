@@ -1,0 +1,146 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.ModelDataShow.HeatDataShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Display Heat Model Data" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="150" />
+            <RowDefinition Height="150" />
+        </Grid.RowDefinitions>
+        <Label x:Name="NodeDefinitions" Content="NodeDefinitions" HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="5,0,0,0" Width="140" Grid.Row="0" Grid.Column="0" />
+        <DataGrid
+            Name="NodesGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140"
+            Margin="5,20,0,0" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Height="395"
+            AlternatingRowBackground="Aqua" Loaded="Nodes_Loaded" AutoGenerateColumns="False"
+            CellEditEnding="Model_Changed"
+            MouseDoubleClick="NewNode" UnloadingRow="NodeRowRemove" SelectionChanged="NodeRowSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nodes" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" />
+                <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}" />
+                <DataGridTextColumn Header="Z" Binding="{Binding Coordinates[2]}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label x:Name="ElementDefinitions" Content="ElementDefinitions" HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="5,0,0,0" Width="250" Grid.Row="0" Grid.Column="1" />
+        <DataGrid
+            Name="ElementGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="5,20,0,0" Height="395" Width="290" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+            AlternatingRowBackground="Aqua" AutoGenerateColumns="False" Loaded="Elements_Loaded"
+            CellEditEnding="Model_Changed"
+            MouseDoubleClick="NewElement" UnloadingRow="ElementRowRemove" SelectionChanged="ElementRowSelected"
+            d:DataContext="{d:DesignData }">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Element" Binding="{Binding ElementId}" />
+                <DataGridTextColumn Header="k1" Binding="{Binding NodeIds[0]}" />
+                <DataGridTextColumn Header="k2" Binding="{Binding NodeIds[1]}" />
+                <DataGridTextColumn Header="k3" Binding="{Binding NodeIds[2]}" />
+                <DataGridTextColumn Header="k4" Binding="{Binding NodeIds[3]}" />
+                <DataGridTextColumn Header="k5" Binding="{Binding NodeIds[4]}" />
+                <DataGridTextColumn Header="k6" Binding="{Binding NodeIds[5]}" />
+                <DataGridTextColumn Header="k7" Binding="{Binding NodeIds[6]}" />
+                <DataGridTextColumn Header="k8" Binding="{Binding NodeIds[7]}" />
+                <DataGridTextColumn Header="Material" Binding="{Binding ElementMaterialId}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label x:Name="Materialdefinitions" Content="Materialdefinitions" HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="5,0,0,0" Width="140" Grid.Row="0" Grid.Column="2" />
+        <DataGrid
+            Name="MaterialGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="5,20,0,0" Height="125" Width="140" Grid.Column="2" Grid.Row="0"
+            AlternatingRowBackground="Aqua"
+            Loaded="Material_Loaded" AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+            MouseDoubleClick="NewMaterial" UnloadingRow="MaterialRowRemove"
+            SelectionChanged="MaterialRowSelected"
+            d:DataContext="{d:DesignData }">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding MaterialId}" />
+                <DataGridTextColumn Header="cx" Binding="{Binding MaterialValues[0]}" />
+                <DataGridTextColumn Header="cy" Binding="{Binding MaterialValues[1]}" />
+                <DataGridTextColumn Header="cz" Binding="{Binding MaterialValues[2]}" />
+                <DataGridTextColumn Header="rhoC" Binding="{Binding MaterialValues[3]}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label x:Name="BoundaryConditions" Content="Boundary Conditions" HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="5,0,0,0" Width="140" Grid.Row="1" Grid.Column="2" />
+        <DataGrid
+            Name="BoundaryConditionGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="5,20,0,0" Height="245" Width="140" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
+            AlternatingRowBackground="Aqua" Loaded="BoundaryConditions_Loaded" AutoGenerateColumns="False"
+            CellEditEnding="Model_Changed" MouseDoubleClick="NewBoundaryCondition"
+            UnloadingRow="BoundaryConditionRowRemove" SelectionChanged="BoundaryConditionRowSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding SupportId}" />
+                <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                <DataGridTextColumn Header="Temperature" Binding="{Binding Prescribed[0]}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label x:Name="Influences" Content="Influences" HorizontalAlignment="Left" VerticalAlignment="Top"
+               Margin="5,0,0,0" Width="180" Grid.Row="0" Grid.Column="3" />
+        <DataGrid
+            Name="NodalInfluenceGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="5,20,0,0" Height="125" Width="185" Grid.Column="3" Grid.Row="0"
+            AlternatingRowBackground="Aqua" Loaded="NodalInfluences_Loaded" AutoGenerateColumns="False"
+            CellEditEnding="Model_Changed" MouseDoubleClick="NewNodeLoad"
+            UnloadingRow="NodeLoadRowRemove" SelectionChanged="NodeLoadRowSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                <DataGridTextColumn Header="Temperature" Binding="{Binding Intensity[0]}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid
+            Name="LineInfluencesGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="5,0,0,0" Height="145" Width="185" Grid.Column="3" Grid.Row="1"
+            AlternatingRowBackground="Aqua" Loaded="LineLoads_Loaded" AutoGenerateColumns="False"
+            MouseDoubleClick="NewLineLoad" UnloadingRow="LineLoadRowRemove"
+            SelectionChanged="LineLoadRowSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                <DataGridTextColumn Header="start node" Binding="{Binding StartNodeId}" />
+                <DataGridTextColumn Header="Ts" Binding="{Binding Intensity[0]}" />
+                <DataGridTextColumn Header="end node" Binding="{Binding EndNodeId}" />
+                <DataGridTextColumn Header="Te" Binding="{Binding Intensity[1]}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid
+            Name="ElementInfluencesGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="5,0,0,0" Height="115" Width="185" Grid.Column="3" Grid.Row="2"
+            AlternatingRowBackground="Aqua"
+            Loaded="ElementLoads_Loaded" AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+            MouseDoubleClick="NewElementLoad" UnloadingRow="ElementLoadRowRemove"
+            SelectionChanged="ElementLoadRowSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                <DataGridTextColumn Header="Element" Binding="{Binding ElementId}" />
+                <DataGridTextColumn Header="T1" Binding="{Binding Intensity[0]}" />
+                <DataGridTextColumn Header="T2" Binding="{Binding Intensity[1]}" />
+                <DataGridTextColumn Header="T3" Binding="{Binding Intensity[2]}" />
+                <DataGridTextColumn Header="T4" Binding="{Binding Intensity[3]}" />
+                <DataGridTextColumn Header="T5" Binding="{Binding Intensity[4]}" />
+                <DataGridTextColumn Header="T6" Binding="{Binding Intensity[5]}" />
+                <DataGridTextColumn Header="T7" Binding="{Binding Intensity[6]}" />
+                <DataGridTextColumn Header="T8" Binding="{Binding Intensity[7]}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

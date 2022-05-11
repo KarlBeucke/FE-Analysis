@@ -1,0 +1,39 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.ModelDataShow.HeatDataVisualize"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Visualize Heat Model Data" Height="800" Width="1000">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <Grid Margin="10,10,10,10" x:Name="HeatModel">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button x:Name="NodeLoads" Content="Nodal Loads" HorizontalAlignment="Left" Margin="27,8,0,0"
+                    VerticalAlignment="Top"
+                    Grid.Row="0" Width="80" Click="BtnKnotenlasten_Click" Height="19" />
+            <Button x:Name="ElementLoads" Content="Element Loads" HorizontalAlignment="Left" Margin="122,8,0,0"
+                    VerticalAlignment="Top"
+                    Grid.Row="0" Width="83" Click="BtnElementlasten_Click" />
+            <Button x:Name="BoundaryConditions" Content="Boundary Conditions" HorizontalAlignment="Left" Margin="221,0,0,0"
+                    VerticalAlignment="Center" Width="118" Click="BtnRandbedingungen_Click" />
+            <Button x:Name="Nodes" Content="Node Ids" HorizontalAlignment="Left" Margin="460,8,0,0"
+                    VerticalAlignment="Top"
+                    Grid.Row="0" Width="105" Click="BtnKnoten_Click" />
+            <Button x:Name="Elemente" Content="Element IDs" HorizontalAlignment="Left" Margin="600,8,0,0"
+                    VerticalAlignment="Top"
+                    Grid.Row="0" Width="105" Click="BtnElemente_Click" />
+            <Canvas Name="VisualModel" HorizontalAlignment="Left" Height="690" Width="1000" Margin="0,0,0,0"
+                    VerticalAlignment="Top"
+                    Grid.Row="1" ScrollViewer.CanContentScroll="True" SnapsToDevicePixels="True"
+                    MouseLeftButtonDown="OnMouseLeftButtonDown"
+                    MouseRightButtonDown="OnMouseRightButtonDown">
+                <Popup x:Name="MyPopup" Placement="MousePoint">
+                    <TextBlock x:Name="MyPopupText" Background="LightBlue" Foreground="Blue" Padding="10" />
+                </Popup>
+            </Canvas>
+        </Grid>
+    </ScrollViewer>
+</Window>

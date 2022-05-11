@@ -1,0 +1,33 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.Results.InstationaryModelStatesVisualize"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="visualize results of instationary Heat Transfer Analysis" Height="800" Width="1000">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="751">
+            <Grid Background="AliceBlue" Width="1000" Height="60">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Label x:Name="TimeStep" Content="State of Heat Model Analysis at selected time step" Width="300"
+                       Grid.Column="0" Margin="10,0,0,0"
+                       VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Label Content="Select integration time" Grid.Column="0" HorizontalAlignment="Left" Margin="10,25,0,0"
+                       VerticalAlignment="Top" Width="137" Height="25" />
+                <ComboBox Name="TimeStepSelection" Grid.Column="0" Margin="151,28,0,10" Height="22" Width="100"
+                          HorizontalAlignment="Left"
+                          DropDownClosed="DropDownTimeStepSelectionClosed" ItemStringFormat="N2" />
+                <Button Content="Nodal Temperatures" Margin="300,30,0,10" Height="20" Width="120"
+                        HorizontalAlignment="Left" Click="BtnNodalTemperatures_Click" />
+                <Button Content="Nodal Gradients" Margin="450,30,0,10" Height="20" Width="108"
+                        HorizontalAlignment="Left" Click="BtnNodalGradients_Click" />
+                <Button Content="Element Temperatures" Margin="594,30,0,10" Height="20" Width="123"
+                        HorizontalAlignment="Left" Click="BtnElementTemperatures_Click" />
+            </Grid>
+            <Canvas x:Name="VisualResults" Height="690" Width="1000" ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+        </StackPanel>
+    </ScrollViewer>
+</Window>

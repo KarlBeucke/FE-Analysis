@@ -1,0 +1,63 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.Results.InstationaryResultsShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Results of instationary heat transfer analysis" Height="680" Width="790">
+    <Grid Margin="5,10,15,2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="350" />
+            <ColumnDefinition Width="Auto" MinWidth="420" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="68" />
+            <RowDefinition Height="Auto" MinHeight="570.4" />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="NodalTemperatures" Content="Temperature time history at node" HorizontalAlignment="Left" Margin="5,0,0,40"
+               Grid.Column="0" Width="272" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Select Node" HorizontalAlignment="Left" Margin="5,30,0,0"
+               VerticalAlignment="Top" Width="200" Height="25" />
+        <ComboBox Name="NodeSelection" HorizontalAlignment="Left" Margin="136,30,0,0" VerticalAlignment="Top"
+                  Width="100"
+                  Grid.Row="0" Grid.Column="0" Height="22"
+                  DropDownClosed="DropDownNodeSelectionClosed" />
+        <Button Name="BtnNode" Grid.Column="0" Grid.Row="0" Click="NodalTemperatureGrid_Show"
+                Margin="250,33,57.4,15">
+            display
+        </Button>
+
+        <DataGrid Name="NodalTemperatureGrid" HorizontalAlignment="Left" Height="550" Width="358" Margin="4,6,0,0"
+                  Grid.Column="0" Grid.Row="1"
+                  VerticalAlignment="Top" AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                  HeadersVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Key}" />
+                <DataGridTextColumn Binding="{Binding Path=Value}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label x:Name="TimeStep" Content="Model State at a specific time step" HorizontalAlignment="Left"
+               Margin="4.8,0,0,39"
+               Grid.Row="0" Grid.Column="1" Width="242" />
+        <Label Content="Select integration time" HorizontalAlignment="Left" Margin="5,30,0,0"
+               VerticalAlignment="Top" Width="180" Height="28"
+               Grid.Row="0" Grid.Column="1" />
+        <ComboBox Name="TimeStepSelection" HorizontalAlignment="Left" Margin="190,30,0,0" VerticalAlignment="Top"
+                  Width="100"
+                  Grid.Row="0" Grid.Column="1" Height="23"
+                  DropDownClosed="DropDownTimeStepSelectionClosed" ItemStringFormat="N2" />
+        <Button Name="BtnTime" Grid.Column="1" Grid.Row="0" Click="TimeStepGrid_Show" Margin="308,33,59,15">display</Button>
+
+        <DataGrid Name="TimeStepGrid" HorizontalAlignment="Left" Height="550" Width="394" Margin="7,6,0,0"
+                  Grid.Column="1" Grid.Row="1"
+                  VerticalAlignment="Top" AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                  HeadersVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Key}" />
+                <DataGridTextColumn Binding="{Binding Path=Value}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -1,0 +1,90 @@
+﻿<Window x:Class="FE_Analysis.Elasticity.Results.StaticResults3DVisualize"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="3d visualization of results of static analysis" Height="800" Width="1200"
+        Loaded="Window_Loaded"
+        KeyDown="Window_KeyDown">
+    <Grid HorizontalAlignment="Left" Margin="0,0,-3.4,-5.6" Width="1197">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="47" />
+            <RowDefinition />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1160" />
+            <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+        <Viewport3D Grid.Row="1" Grid.Column="0" Name="Viewport" Margin="0,0,2,1" />
+
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="30" HorizontalAlignment="Left" Margin="10,16,0,0"
+                  Name="Coordinates" VerticalAlignment="Top" Width="150"
+                  Checked="ShowCoordinates" IsChecked="True" Content="coordinate system" Unchecked="RemoveCoordinates" />
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="20" HorizontalAlignment="Left" Margin="140,18,0,0"
+                  x:Name="WireFrameModel" VerticalAlignment="Top" Width="92"
+                  Checked="ShowWireFrameModel" Unchecked="RemoveWireFrameModel" IsChecked="True" Content="wire frame model " />
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="15" HorizontalAlignment="Left" Margin="240,18,0,0"
+                  Name="DeformationModel" VerticalAlignment="Top" Width="150"
+                  Checked="ShowDeformations" Unchecked="RemoveDeformations" IsChecked="False"
+                  Content="deformation model" />
+
+        <Label Grid.Row="0" Grid.Column="0" Content="selection of stresses" Margin="506,12,536,7.2" />
+        <ComboBox Grid.Row="0" Grid.Column="0" Name="StressSelection" Margin="415,14,658,0" VerticalAlignment="Top"
+                  Focusable="false" DropDownClosed="DropDownStressSelectionClosed" />
+
+        <Button Name="BtnScaling" Grid.Row="0" Grid.Column="0" Click="BtnScaling_Click" Margin="776,16,0,8.2"
+                IsDefault="True"
+                MaxWidth="200" HorizontalAlignment="Left" Width="161">
+            scaling deformations
+        </Button>
+        <TextBox Name="Scaling" Height="23" Text="1" Grid.Row="0" Grid.Column="0" Margin="944,18,193,6.2" />
+
+        <TextBlock Grid.Column="0" Name="Scrollbars" Margin="1020,1,5,27.2" Grid.Row="0"
+                   RenderTransformOrigin="0.5,0.5">
+            <Bold>Scrollbars</Bold>
+        </TextBlock>
+        <TextBlock Grid.Column="0" x:Name="RotateTilt" Margin="1020,12,14,0"
+                   Grid.Row="0" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top">
+            <Run Text="rotate, tilt" />
+        </TextBlock>
+        <TextBlock Grid.Column="0" Name="KeyControl" Margin="1016,31,9,690.6" Grid.Row="0" Grid.RowSpan="2">
+            <Bold>numeric key controls</Bold>
+        </TextBlock>
+        <TextBlock Grid.Column="0" x:Name="Distance" Margin="1020,46,0,0" Height="21" VerticalAlignment="Top"
+                   Grid.Row="0"
+                   Grid.RowSpan="2">
+            <Run Text="distance       PgUp" /><Run Text="/PgDn" />
+        </TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" x:Name="Rotate" Margin="1020,14.8,0,659.6"
+                   Text="horizontal    le/ri" />
+        <TextBlock Grid.Column="0" x:Name="Tilt" Margin="1019,27.8,10,0"
+                   Text="vertical         up/down" Height="19" VerticalAlignment="Top" Grid.Row="1" />
+        <RichTextBox Grid.Row="1" Grid.Column="0" x:Name="Axes" Margin="1019,47.8,1,0" Height="53"
+                     VerticalAlignment="Top" Focusable="False">
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </RichTextBox.Resources>
+            <FlowDocument>
+                <Paragraph Foreground="Red">x-Axis</Paragraph>
+                <Paragraph Foreground="Green">y-Axis</Paragraph>
+                <Paragraph Foreground="Blue">z-Axis</Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" x:Name="MaxMin" Margin="5,47,198,656.6" Grid.RowSpan="2" />
+
+        <ScrollBar Grid.Row="2" Grid.Column="0"
+                   Orientation="Horizontal" Value="1.65"
+                   Minimum="0" Maximum="6.28"
+                   Name="ScrTheta" Scroll="ScrThetaScroll" Height="30" VerticalAlignment="Top" Margin="0,0,0,0"
+                   Grid.ColumnSpan="2" />
+        <ScrollBar Grid.Column="1" Grid.Row="1"
+                   Orientation="Vertical" Value="0.13"
+                   Minimum="-1.57" Maximum="1.57"
+                   Name="ScrPhi" Scroll="ScrPhiScroll" Margin="0,0,0,0" Width="Auto" />
+    </Grid>
+</Window>

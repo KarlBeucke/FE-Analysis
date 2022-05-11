@@ -1,0 +1,117 @@
+﻿<Window x:Class="FE_Analysis.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="FE Analysis in Structural Engineering       Version March 2022                                © Prof. Karl Beucke"
+        Height="450" Width="800">
+    <Grid>
+        <Menu HorizontalAlignment="Left" Height="30" Margin="2,1,0,0" VerticalAlignment="Top" Width="451"
+              FlowDirection="LeftToRight">
+            <MenuItem Header="Structural Analysis" Height="30" Width="150" Background="Beige">
+                <MenuItem Header="Structural Model read" HorizontalAlignment="Left" Height="20" Width="400"
+                          Margin="0,0,0,0" Click="StructuralModelDataRead" />
+                <MenuItem Header="Structural Model edit" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelDataEdit" />
+                <MenuItem Header="Structural Model save" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelDataSave" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Structural Model show" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelDataShow" />
+                <MenuItem Header="Structural Model visualize" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelDataVisualize" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Static Analysis" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelStaticAnalysis" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Static Analysis Results show" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelStaticResultsShow" />
+                <MenuItem Header="Static Analysis Results visualize" HorizontalAlignment="Left" Height="20"
+                          Width="300" Margin="0,0,0,0" Click="StructuralModelStaticResultsVisualize" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="dynamic Model Data show" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelDynamicDataShow" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Eigensolution analyse" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelEigensolutionAnalysis" />
+                <MenuItem Header="Eigensolution Results show" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelEigensolutionShow" />
+                <MenuItem Header="Eigensolution Results visualize" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelEigensolutionVisualize" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="dynamic Structural Analysis" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="StructuralModelDynamicAnalysis" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Dynamic Analysis Results show" HorizontalAlignment="Left" Height="20" Width="271"
+                          Margin="0,0,0,0" Click="StructuralModelDynamicResultsShow" />
+                <MenuItem Header="time dependent Model States visualize" HorizontalAlignment="Left" Height="20"
+                          Width="350" Margin="0,0,0,0" Click="StructuralModelDynamicModelStatesVisualize" />
+                <MenuItem Header="Nodal Time Histories visualize" HorizontalAlignment="Left" Height="20" Width="300"
+                          Margin="0,0,0,0" Click="StructuralModelNodalTimeHistoriesVisualize" />
+            </MenuItem>
+            <MenuItem Header="Heat Transfer Analysis" Height="30" Width="150" Background="AliceBlue">
+                <MenuItem Header="Heat Model Data read" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="HeatDataRead" />
+                <MenuItem Header="Heat Model Data edit" HorizontalAlignment="Left" Height="16" Width="300"
+                          Margin="0,0,0,0" Click="HeatDataEdit" />
+                <MenuItem Header="Heat Model Data save" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="HeatDataSave" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Heat Model Data Show" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="HeatDataShow" />
+                <MenuItem Header="Heat Model Data Visualize" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="HeatDataVisualize" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="stationary Heat Transfer Analysis" HorizontalAlignment="Left" Height="20" Width="300"
+                          Margin="0,0,10,0" Click="HeatDataAnalyse" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Stationary Analysis Results show" HorizontalAlignment="Left" Height="20" Width="300"
+                          Margin="0,0,10,0" Click="HeatTransferAnalysisResultsShow" />
+                <MenuItem Header="Stationary Analysis Results visualize" HorizontalAlignment="Left" Height="20"
+                          Width="300" Margin="0,0,0,0" Click="HeatTransferAnalysisResultsVisualize" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="instationary Heat Model Data show" HorizontalAlignment="Left" Height="20" Width="300"
+                          Margin="0,0,0,0" Click="InstationaryData" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Eigensolution analyse" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="EigensolutionHeatAnalyse" />
+                <MenuItem Header="Eigensolution Results show" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="EigensolutionHeatShow" />
+                <MenuItem Header="Eigensolution Results visualize" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="EigensolutionHeatVisualize" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="instationary Analysis" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="InstationaryHeatTransferAnalysis" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="instationary Analysis Results show" HorizontalAlignment="Left" Height="20" Width="300"
+                          Margin="0,0,10,0" Click="InstationaryHeatTransferAnalysisResultsShow" />
+                <MenuItem Header="time varying Model States visualize" HorizontalAlignment="Left" Height="20"
+                          Width="350" Margin="0,0,0,0" Click="InstationaryModelStatesVisualize" />
+                <MenuItem Header="Nodal Time Histories visualize" HorizontalAlignment="Left" Height="20" Width="300"
+                          Margin="0,0,10,0" Click="NodalTimeHistoryVisualize" />
+            </MenuItem>
+            <MenuItem Header="Elasticity Analysis" Height="30" Width="150" Background="BlanchedAlmond">
+                <MenuItem Header="Elasticity Data read" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataRead" />
+                <MenuItem Header="Elasticity Data edit" HorizontalAlignment="Left" Height="20" Width="400"
+                          Margin="0,0,0,0" Click="ElasticityDataEdit" />
+                <MenuItem Header="Elasticity Data save" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataSave" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Elasticity Data show" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataShow" />
+                <MenuItem Header="Elasticity Model visualize" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataVisualize" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Elasticity Model analyse" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataAnalyze" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Static Analysis Results show" HorizontalAlignment="Left"
+                          Height="20" Width="250" Margin="0,0,0,0" Click="ElasticityAnalysisResults" />
+                <MenuItem Header="Static Analysis Results visualize" HorizontalAlignment="Left" Height="20"
+                          Width="261" Margin="0,0,-11.4,0" Click="ElasticityResultsVisualize" />
+            </MenuItem>
+        </Menu>
+    </Grid>
+</Window>

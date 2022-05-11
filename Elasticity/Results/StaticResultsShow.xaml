@@ -1,0 +1,65 @@
+﻿<Window x:Class="FE_Analysis.Elasticity.Results.StaticResultsShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="display results of static analysis" Height="450" Width="832.586">
+    <Grid Margin="0,25,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="200*" />
+            <ColumnDefinition Width="100*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="0,0,10,0" Grid.Column="0">
+            <Label x:Name="NodeDeformations" Content="Node deformations" HorizontalAlignment="Left"
+                   Margin="5,-24,0,0"
+                   VerticalAlignment="Top" Width="180" />
+            <DataGrid
+                Name="NodeDeformationGrid" Margin="5,0,0,5" AlternatingRowBackground="Aqua"
+                Loaded="NodeDeformations_Loaded" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Node" Binding="{Binding Key}" />
+                    <DataGridTextColumn Header="u-x" Binding="{Binding Value.NodalDof[0], StringFormat=N4}" />
+                    <DataGridTextColumn Header="u-y" Binding="{Binding Value.NodalDof[1], StringFormat=N4}" />
+                    <DataGridTextColumn Header="u-z" Binding="{Binding Value.NodalDof[2], StringFormat=N4}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,10,0" Grid.Column="1">
+            <Label x:Name="ElementStresses" Content="Element stresses" HorizontalAlignment="Left" Margin="5,-24,0,0"
+                   VerticalAlignment="Top" Width="200" />
+            <DataGrid
+                Name="ElementStressesGrid" Margin="0,0,0,5" AlternatingRowBackground="Aqua"
+                Loaded="ElementStressesGrid_Loaded" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Element" Binding="{Binding Key, StringFormat=N4}" />
+                    <DataGridTextColumn Header="sig-xx" Binding="{Binding Value.Stresses[0], StringFormat=N4}" />
+                    <DataGridTextColumn Header="sig-yy" Binding="{Binding Value.Stresses[1], StringFormat=N4}" />
+                    <DataGridTextColumn Header="sig-xy" Binding="{Binding Value.Stresses[2], StringFormat=N4}" />
+                    <DataGridTextColumn Header="sig-zz" Binding="{Binding Value.Stresses[3], StringFormat=N4}" />
+                    <DataGridTextColumn Header="sig-yz" Binding="{Binding Value.Stresses[4], StringFormat=N4}" />
+                    <DataGridTextColumn Header="sig-zx" Binding="{Binding Value.Stresses[5], StringFormat=N4}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,5,0" Grid.Column="2">
+            <Label x:Name="Reactions" Content="Reactions" HorizontalAlignment="Left" Margin="5,-24,0,0"
+                   VerticalAlignment="Top" Width="158" />
+            <DataGrid
+                Name="ReactionGrid" Margin="0,0,0,5" AlternatingRowBackground="Aqua"
+                Loaded="ReactionGrid_Loaded" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Key}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding Value.NodeId}" />
+                    <DataGridTextColumn Header="Kx" Binding="{Binding Value.Node.Reactions[0], StringFormat=N4}" />
+                    <DataGridTextColumn Header="Sy" Binding="{Binding Value.Node.Reactions[1], StringFormat=N4}" />
+                    <DataGridTextColumn Header="Sz" Binding="{Binding Value.Node.Reactions[2], StringFormat=N4}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

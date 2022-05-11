@@ -1,0 +1,53 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.Results.EigensolutionsShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="display Eigensolutions" Height="320" Width="450">
+    <Grid Margin="0,10,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="120" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Content="Eigenvalues" FontWeight="Bold" Margin="5,0,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Height="30" Grid.Column="0" />
+        <Grid Margin="0,30,0,0" HorizontalAlignment="Right" Width="100" Grid.Column="0" Height="240"
+              VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+            </Grid.ColumnDefinitions>
+            <DataGrid
+                Name="EigenvaluesGrid" Height="240" Margin="-10,0,-10,0" Grid.Column="0"
+                VerticalAlignment="Top" AlternatingRowBackground="Aqua" HeadersVisibility="None"
+                Loaded="EigenvaluesGrid_Loaded" AutoGenerateColumns="False" HorizontalAlignment="Right" Width="110"
+                d:DataContext="{d:DesignData }">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Key}" />
+                    <DataGridTextColumn Binding="{Binding Value, StringFormat=N4}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Content="Eigenvectors" FontWeight="Bold" Margin="10,0,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="30" Grid.Column="1" />
+        <Grid Margin="10,0,0,0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <DataGrid
+                Name="EigenvectorsGrid" Height="240" Margin="5,30,-155,0" VerticalAlignment="Top" AlternatingRowBackground="Aqua" HeadersVisibility="None"
+                Loaded="EigenvectorsGrid_Loaded" AutoGenerateColumns="False"
+                d:DataContext="{d:DesignData }">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Key}" />
+                    <DataGridTextColumn Binding="{Binding Value}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

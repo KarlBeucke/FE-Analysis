@@ -1,0 +1,58 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.ModelDataRead.NewLineLoad"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="New Line Load" Height="300" Width="360">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Label Name="Header" Grid.Row="0" Grid.ColumnSpan="4" Margin="0,0,0,37.4" Grid.RowSpan="2">
+            Definition of a new Line Load
+        </Label>
+
+        <Label Grid.Row="1" Grid.Column="0" Margin="0,5,0,0">LineLoad ID:</Label>
+        <TextBox Name="LineLoadId" Grid.Row="1" Grid.Column="1" Margin="10,13.2,0,6.8" Height="20"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="32" />
+        <Label Grid.Row="2" Grid.Column="0" Margin="0,5,0,0">Id of start node of line:</Label>
+        <TextBox Name="StartNodeId" Grid.Row="2" Grid.Column="1" Margin="12.2,13.2,0,6.8" Height="20"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="32" />
+        <Label Grid.Row="3" Grid.Column="0" Margin="0,7.2,0,7.6" Width="199"
+               HorizontalAlignment="Left" VerticalAlignment="Center">
+            Nodal temperature at start node:
+        </Label>
+        <TextBox Name="Start" Grid.Row="3" Grid.Column="1" Margin="13.2,13.2,0,6.8" Height="20"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="32" />
+        <Label Grid.Row="4" Grid.Column="0" Margin="0,7.2,0,7.6" Width="199"
+               HorizontalAlignment="Left" VerticalAlignment="Center">
+            Id of end node of line:
+        </Label>
+        <TextBox Name="EndNodeId" Grid.Row="4" Grid.Column="1" Margin="13.2,13.2,0,6.8" Height="20"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="32" />
+        <Label Grid.Row="5" Grid.Column="0" Margin="0,7.2,0,7.6" Width="199"
+               HorizontalAlignment="Left" VerticalAlignment="Center">
+            Nodal temperature at end node:
+        </Label>
+        <TextBox Name="End" Grid.Row="5" Grid.Column="1" Margin="13.2,13.2,0,6.8" Height="20"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="32" />
+
+        <Button IsDefault="True" Grid.Row="6" Grid.Column="1" Height="26" Margin="101,0,-40,0"
+                Click="BtnDialogOk_Click" VerticalAlignment="Center">
+            _Ok
+        </Button>
+        <Button Grid.Row="6" Grid.Column="1" Height="26" Margin="21,0,8,0"
+                Click="BtnDialogCancel_Click" VerticalAlignment="Center" Content="_Cancel" />
+    </Grid>
+</Window>

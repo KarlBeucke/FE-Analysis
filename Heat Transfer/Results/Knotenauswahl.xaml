@@ -1,0 +1,26 @@
+﻿<Window x:Name="AuswahlKnoten" x:Class="FE_Berechnungen.Wärmeberechnung.WärmeErgebnisse.Knotenauswahl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Zustand eines festzulegenden Knotens" Height="156" Width="300" Topmost="True">
+    <Grid Margin="15,15,3.6,3.2" Unloaded="KnotenErgebnisse" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="126.4" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ComboBox Name="Auswahl" HorizontalAlignment="Left" Margin="8.6,41,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="22"/>
+        <Label Content="Auswahl des Knotens" HorizontalAlignment="Left" Margin="1,38,0,0" VerticalAlignment="Top" Width="124" Height="26"/>
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Right" 
+			Margin="0,15,0.2,0.8" Grid.Column="1" Width="133">
+            <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" 
+				MinWidth="60" Margin="1,0,10,0">_Ok</Button>
+            <Button IsCancel="True" MinWidth="60">_Cancel</Button>
+        </WrapPanel>
+    </Grid>
+</Window>

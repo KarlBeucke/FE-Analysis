@@ -1,0 +1,54 @@
+﻿<Window x:Class="FE_Analysis.Structural_Analysis.Results.NodalTimeHistoriesVisualize"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Nodal Time History distribution of Deformations and Accelerations" Height="600" Width="1000">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid Background="AliceBlue" Width="1000" Height="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="240" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="110" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Label Content="Selection of Node" HorizontalAlignment="Left" Margin="5,24,0,0"
+                       VerticalAlignment="Top" Width="132" Height="28" />
+                <ComboBox Grid.Column="0" Name="NodeSelection" Margin="138,24,43.2,0" VerticalAlignment="Top"
+                          Height="23"
+                          DropDownClosed="DropDownNodeSelectionClosed" ItemStringFormat="N2" />
+                <Button Grid.Row="0" Click="BtnDeltaX_Click" Margin="2.8,28,0,12" IsDefault="False" MaxWidth="100"
+                        HorizontalAlignment="Left" Width="80" Grid.Column="1">
+                    Deformation X
+                </Button>
+                <Button Grid.Row="0" Click="BtnDeltaY_Click" Margin="4.2,28,0,12" IsDefault="False" MaxWidth="100"
+                        HorizontalAlignment="Left" Width="80" Grid.Column="2">
+                    Deformation Y
+                </Button>
+                <Button Grid.Row="0" Click="BtnAccX_Click" Margin="4.8,28,0,12" IsDefault="False" MaxWidth="100"
+                        HorizontalAlignment="Left" Width="105" Grid.Column="3">
+                    Acceleration X
+                </Button>
+                <Button Grid.Row="0" Click="BtnAccY_Click" Margin="5,28,0,12" IsDefault="False" MaxWidth="100"
+                        HorizontalAlignment="Left" Width="105" Grid.Column="4">
+                    Acceleration Y
+                </Button>
+                <Button Grid.Row="0" Click="ClippingFrameChangeDialog_Click" Margin="0,10,-134.8,28"
+                        IsDefault="False" Grid.Column="5" HorizontalAlignment="Right" Width="153">
+                    change Clipping Frame
+                </Button>
+                <TextBlock x:Name="ClippingFrame" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Left"
+                           Width="150" Margin="95,35,-133.8,0" />
+            </Grid>
+            <Canvas x:Name="VisualResults" Height="489" Width="1000" ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+        </StackPanel>
+    </ScrollViewer>
+</Window>

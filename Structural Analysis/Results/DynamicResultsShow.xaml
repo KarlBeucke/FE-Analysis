@@ -1,0 +1,72 @@
+﻿<Window x:Class="FE_Analysis.Structural_Analysis.Results.DynamicResultsShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Results of Time History Analysis at specified nodes or time steps" Height="500" Width="800">
+    <Grid Margin="0,5,2.4,0.4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="400" />
+            <ColumnDefinition Width="Auto" MinWidth="404.8" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="68" />
+            <RowDefinition Height="Auto" MinHeight="300" />
+        </Grid.RowDefinitions>
+
+        <Label Content="Nodal Time History" HorizontalAlignment="Left" Margin="5,0,0,38.8"
+               Grid.Column="0" Width="130" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Selection of Node" HorizontalAlignment="Left" Margin="5,30,0,0"
+               VerticalAlignment="Top" Width="200" Height="25" />
+        <ComboBox Name="NodeSelection" HorizontalAlignment="Left" Margin="136,30,0,0" VerticalAlignment="Top"
+                  Width="100"
+                  Grid.Row="0" Grid.Column="0" Height="22"
+                  DropDownClosed="DropDownNodeSelectionClosed" />
+        <Button Grid.Column="0" Grid.Row="0" Click="NodeDeformationsShow"
+                Margin="250,33,62,14.8">
+            Show
+        </Button>
+
+        <DataGrid Name="NodeDeformationsGrid" HorizontalAlignment="Left" Width="390" Margin="5,0.2,0,-0.2"
+                  AlternatingRowBackground="Aqua"
+                  AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Height="396" VerticalAlignment="Top">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Time" Binding="{Binding Time, StringFormat=N2}" />
+                <DataGridTextColumn Header="DeltaX" Binding="{Binding DeformationX, StringFormat=N4}" />
+                <DataGridTextColumn Header="DeltaY" Binding="{Binding DeformationY, StringFormat=N4}" />
+                <DataGridTextColumn Header="Phi" Binding="{Binding Rotation, StringFormat=N4}" />
+                <DataGridTextColumn Header="AccX" Binding="{Binding AccelerationX, StringFormat=N4}" />
+                <DataGridTextColumn Header="AccY" Binding="{Binding AccelerationY, StringFormat=N4}" />
+                <DataGridTextColumn Header="AccPhi" Binding="{Binding AccelerationPhi, StringFormat=N4}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label Content="State of Model at a specified Time Step"
+               HorizontalAlignment="Left" Margin="5,0,0,38.8" Grid.Column="1" Grid.Row="0" Width="285" />
+        <Label Content="Selection of Time Step" HorizontalAlignment="Left" Margin="5,30,0,0" VerticalAlignment="Top"
+               Grid.Column="1" Grid.Row="0" Width="200" Height="25" />
+        <ComboBox Name="TimeStepSelection" HorizontalAlignment="Left" Margin="154,30,0,0" VerticalAlignment="Top"
+                  Width="100"
+                  Grid.Row="0" Grid.Column="1" Height="22"
+                  DropDownClosed="DropDownTimeStepSelectionClosed" ItemStringFormat="N2" />
+        <Button Name="BtnZeitschritt" Grid.Column="1" Grid.Row="0" Click="TimeStepGridShow"
+                Margin="268,33,43.8,14.8">
+            Show
+        </Button>
+
+        <DataGrid Name="TimeStepGrid" HorizontalAlignment="Left" Width="390" Margin="5,0.2,0,-0.2"
+                  AlternatingRowBackground="Aqua"
+                  AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" Height="396" VerticalAlignment="Top">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Node" Binding="{Binding Node}" />
+                <DataGridTextColumn Header="DeltaX" Binding="{Binding DeformationX, StringFormat=N4}" />
+                <DataGridTextColumn Header="DeltaY" Binding="{Binding DeformationY, StringFormat=N4}" />
+                <DataGridTextColumn Header="Phi" Binding="{Binding Rotation, StringFormat=N4}" />
+                <DataGridTextColumn Header="AccX" Binding="{Binding AccelerationX, StringFormat=N4}" />
+                <DataGridTextColumn Header="AccY" Binding="{Binding AccelerationY, StringFormat=N4}" />
+                <DataGridTextColumn Header="AccPhi" Binding="{Binding AccelerationPhi, StringFormat=N4}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

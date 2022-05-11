@@ -1,0 +1,134 @@
+﻿<Window x:Class="FE_Analysis.Elasticity.ModelDataShow.ElasticityDataShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Elastizitätsdaten anzeigen" Height="450" Width="800">
+    <Grid Margin="0,25,0,0" Loaded="DatenLoaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="195*" />
+            <ColumnDefinition Width="361*" />
+            <ColumnDefinition Width="238*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="71*" />
+            <RowDefinition Height="71*" />
+            <RowDefinition Height="71*" />
+            <RowDefinition Height="71*" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,0,5,0" Grid.Column="0" Grid.RowSpan="4">
+            <Label x:Name="NodeDefinitions" Content="Node definitions" HorizontalAlignment="Left"
+                   Margin="10,-24,-134,0"
+                   VerticalAlignment="Top" Width="250" />
+            <DataGrid
+                Name="NodeGrid" Margin="5,0,0,5" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+                MouseDoubleClick="NewNode" UnloadingRow="NodeRowDelete"
+                SelectionChanged="NodeRowSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Node" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" />
+                    <DataGridTextColumn Header="Y" Binding="{Binding Coordinates[1]}" />
+                    <DataGridTextColumn Header="Z" Binding="{Binding Coordinates[2]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,5,0" Grid.Row="0" Grid.RowSpan="4" Grid.Column="1">
+            <Label x:Name="Elementdefinitionen" Content="Element definitions" HorizontalAlignment="Left"
+                   Margin="10,-24,-134,0"
+                   VerticalAlignment="Top" Width="200" />
+            <DataGrid
+                Name="ElementGrid" Margin="5,0,0,5" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+                MouseDoubleClick="NewElement" UnloadingRow="ElementRowDelete"
+                SelectionChanged="ElementRowSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Element" Binding="{Binding ElementId}" />
+                    <DataGridTextColumn Header="k 1" Binding="{Binding NodeIds[0]}" />
+                    <DataGridTextColumn Header="k 2" Binding="{Binding NodeIds[1]}" />
+                    <DataGridTextColumn Header="k 3" Binding="{Binding NodeIds[2]}" />
+                    <DataGridTextColumn Header="k 4" Binding="{Binding NodeIds[3]}" />
+                    <DataGridTextColumn Header="k 5" Binding="{Binding NodeIds[4]}" />
+                    <DataGridTextColumn Header="k 6" Binding="{Binding NodeIds[5]}" />
+                    <DataGridTextColumn Header="k 7" Binding="{Binding NodeIds[6]}" />
+                    <DataGridTextColumn Header="k 8" Binding="{Binding NodeIds[7]}" />
+                    <DataGridTextColumn Header="Material" Binding="{Binding ElementMaterialId}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,5,0" Grid.Column="2" Grid.Row="0">
+            <Label x:Name="Materialdefinitionen" Content="Material definitions" HorizontalAlignment="Left"
+                   Margin="5,-24,0,0"
+                   VerticalAlignment="Top" Width="158" />
+            <DataGrid
+                Name="MaterialGrid" Margin="5,0,0,5" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+                MouseDoubleClick="NewMaterial" UnloadingRow="MaterialRowDelete"
+                SelectionChanged="MaterialRowSelected">
+                >>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Material" Binding="{Binding MaterialId}" />
+                    <DataGridTextColumn Header="Youngs Modulus" Binding="{Binding MaterialValues[0], StringFormat=E2}" />
+                    <DataGridTextColumn Header="Poisson" Binding="{Binding MaterialValues[1]}" />
+                    <DataGridTextColumn Header="Mass" Binding="{Binding MaterialValues[2]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,5,0" Grid.Column="2" Grid.Row="1">
+            <Label x:Name="CrossSectionDefinitions" Content="CrossSection definitions" HorizontalAlignment="Left"
+                   Margin="5,0,0,0"
+                   VerticalAlignment="Top" Width="158" />
+            <DataGrid
+                Name="CrossSectionGrid" Margin="5,20,0,5" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+                MouseDoubleClick="NewCrossSection" UnloadingRow="CrossSectionRowDelete"
+                SelectionChanged="CrossSectionRowSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CrossSection" Binding="{Binding QuerschnittId}" />
+                    <DataGridTextColumn Header="Thickness" Binding="{Binding QuerschnittsWerte[0]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,5,0" Grid.Column="2" Grid.Row="2">
+            <Label x:Name="SupportDefinitions" Content="Support definitions" HorizontalAlignment="Left" Margin="5,0,0,0"
+                   VerticalAlignment="Top" Width="158" />
+            <DataGrid
+                Name="SupportGrid" Margin="5,20,0,5" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+                MouseDoubleClick="NewBoundaryCondition" UnloadingRow="BoundaryConditionRowDelete"
+                SelectionChanged="BoundaryConditionRowSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Support" Binding="{Binding SupportId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="u-x" Binding="{Binding Predefined[0]}" />
+                    <DataGridTextColumn Header="u-y" Binding="{Binding Predefined[1]}" />
+                    <DataGridTextColumn Header="u-z" Binding="{Binding Predefined[2]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,5,0" Grid.Column="2" Grid.Row="3">
+            <Label x:Name="NodeLoads" Content="Node Load Definitions" HorizontalAlignment="Left" Margin="5,0,0,0"
+                   VerticalAlignment="Top" Width="158" />
+            <DataGrid
+                Name="NodeLoadGrid" Margin="5,20,-0.4,5.4" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+                MouseDoubleClick="NewNodeLoad" UnloadingRow="NodeLoadRowDelete"
+                SelectionChanged="NodeLoadRowSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Load" Binding="{Binding LoadId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="px" Binding="{Binding Intensity[0]}" />
+                    <DataGridTextColumn Header="py" Binding="{Binding Intensity[1]}" />
+                    <DataGridTextColumn Header="pz" Binding="{Binding Intensity[2]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

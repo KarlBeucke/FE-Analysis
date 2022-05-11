@@ -1,0 +1,30 @@
+﻿<Window x:Class="FE_Analysis.DataInput.ModelDataEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Modelldaten editieren" Height="400" Width="600">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid Background="AliceBlue" Width="600" Height="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Button x:Name="btnOpenFile" Grid.Row="0" Grid.Column="0" Click="BtnOpenFileClick" Margin="15,20,0,15"
+                        IsDefault="True"
+                        MaxWidth="200" HorizontalAlignment="Left" Width="170" Content="Modelldatendatei einlesen" />
+                <Button x:Name="btnSaveFile" Grid.Row="0" Grid.Column="1" Click="BtnSaveFile_Click" Margin="15,20,0,15"
+                        IsDefault="True"
+                        MaxWidth="200" HorizontalAlignment="Left" Width="170" Content="Modelldatendatei sichern" />
+            </Grid>
+            <TextBox Name="txtEditor" TextWrapping="Wrap" AcceptsReturn="True"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsTab="True"
+                     Height="290" Width="600" />
+        </StackPanel>
+    </ScrollViewer>
+</Window>

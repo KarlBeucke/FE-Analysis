@@ -1,0 +1,64 @@
+﻿<Window x:Class="FE_Analysis.Structural_Analysis.Results.StaticResultsShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Results of Static Analysis of Structural Model" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200*" />
+            <ColumnDefinition Width="330*" />
+            <ColumnDefinition Width="170*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="0,0,0,0" Grid.Column="0">
+            <Label x:Name="NodeDeformations" Content="Node deformations" HorizontalAlignment="Left" Margin="0,5,0,0"
+                   VerticalAlignment="Top" Width="160" />
+            <DataGrid
+                Name="NodeDeformationsGrid" Margin="5,30,0,0" Grid.Column="0" AlternatingRowBackground="Aqua"
+                Loaded="NodeDeformations_Loaded" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Node" Binding="{Binding Key}" />
+                    <DataGridTextColumn Header="ux" Binding="{Binding Value.NodalDof[0], StringFormat=N4}" />
+                    <DataGridTextColumn Header="uy" Binding="{Binding Value.NodalDof[1], StringFormat=N4}" />
+                    <DataGridTextColumn Header="phi" Binding="{Binding Value.NodalDof[2], StringFormat=N4}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,0,0" Grid.Column="1">
+            <Label x:Name="ElementEndForces" Content="Axial Forces, Shear Forces and Bending Moments at ends of beam"
+                   HorizontalAlignment="Left" Margin="0,5,0,0"
+                   VerticalAlignment="Top" Width="367" />
+            <DataGrid
+                Name="ElementEndForcesGrid" Margin="5,30,0,0" AlternatingRowBackground="Aqua"
+                Loaded="ElementEndForces_Loaded" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Element" Binding="{Binding ElementId}" />
+                    <DataGridTextColumn Header="Na" Binding="{Binding Na, StringFormat=N2}" />
+                    <DataGridTextColumn Header="Qa" Binding="{Binding Qa, StringFormat=N2}" />
+                    <DataGridTextColumn Header="Ma" Binding="{Binding Ma, StringFormat=N2}" />
+                    <DataGridTextColumn Header="Nb" Binding="{Binding Nb, StringFormat=N2}" />
+                    <DataGridTextColumn Header="Qb" Binding="{Binding Qb, StringFormat=N2}" />
+                    <DataGridTextColumn Header="Mb" Binding="{Binding Mb, StringFormat=N2}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Margin="0,0,0,0" Grid.Column="2">
+            <Label x:Name="SupportReactions" Content="Support Reactions" HorizontalAlignment="Left" Margin="0,5,0,0"
+                   VerticalAlignment="Top" Width="161" />
+            <DataGrid
+                Name="SupportReactionsGrid" Margin="5,30,0,0" AlternatingRowBackground="Aqua"
+                Loaded="SupportReactions_Loaded" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Node" Binding="{Binding Key}" />
+                    <DataGridTextColumn Header="Rx" Binding="{Binding Value.Reactions[0], StringFormat=N2}" />
+                    <DataGridTextColumn Header="Ry" Binding="{Binding Value.Reactions[1], StringFormat=N2}" />
+                    <DataGridTextColumn Header="M" Binding="{Binding Value.Reactions[2], StringFormat=N2}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

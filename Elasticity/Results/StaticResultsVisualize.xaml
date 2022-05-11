@@ -1,0 +1,67 @@
+﻿<Window x:Class="FE_Analysis.Elasticity.Results.StaticResultsVisualize"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Static Results Visualize" Height="720" Width="1200">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid Background="AliceBlue" Width="1200" Height="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Button Name="BtnVerformung" Grid.Row="0" Grid.Column="0" Click="BtnVerformung_Click"
+                        Margin="10,23,0,17" IsDefault="False"
+                        MaxWidth="200" HorizontalAlignment="Left" Width="133">
+                    state of deformation
+                </Button>
+                <Button Name="BtnSpannungen" Grid.Row="0" Grid.Column="1" Click="BtnSpannungen_Click"
+                        Margin="10,23,0,17" IsDefault="False"
+                        MaxWidth="200" HorizontalAlignment="Left" Width="133">
+                    element stresses
+                </Button>
+                <Button Name="Reaktionen" Grid.Row="0" Grid.Column="2" Click="Reaktionen_Click" Margin="10,23,0,17"
+                        IsDefault="False"
+                        MaxWidth="200" HorizontalAlignment="Left" Width="133">
+                    reactions
+                </Button>
+
+                <Button Name="BtnElementIDs" Grid.Row="0" Grid.Column="4" Click="BtnElementIDs_Click"
+                        Margin="100,20,0,17" IsDefault="True"
+                        MaxWidth="200" HorizontalAlignment="Left" Width="90">
+                    ElementIDs
+                </Button>
+                <Button Name="BtnKnotenIDs" Grid.Row="0" Grid.Column="5" Click="BtnKnotenIDs_Click" Margin="10,20,0,17"
+                        IsDefault="True"
+                        MaxWidth="200" HorizontalAlignment="Left" Width="90">
+                    NodeIDs
+                </Button>
+                <Button Name="BtnÜberhöhung" Grid.Row="0" Grid.Column="6" Click="BtnÜberhöhung_Click"
+                        Margin="10.2,20,-70.4,17" IsDefault="True"
+                        MaxWidth="200" HorizontalAlignment="Left" Width="161">
+                    scale factor deformation
+                </Button>
+                <TextBox Name="Überhöhung" Height="23" Text="1" Width="30" Grid.Column="6" Margin="180,20,-110,18" 
+                         LostFocus="BtnÜberhöhung_Click"/>
+            </Grid>
+            <Canvas x:Name="VisualErgebnisse" Height="660" Width="1200" ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                    MouseLeftButtonDown="OnMouseLeftButtonDown"
+                    MouseRightButtonDown="OnMouseRightButtonDown">
+                <Popup x:Name="MyPopup" Placement="MousePoint">
+                    <TextBlock x:Name="MyPopupText" Background="LightBlue" Foreground="Blue" Padding="10" />
+                </Popup>
+            </Canvas>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,171 @@
+﻿<Window x:Class="FE_Analysis.Structural_Analysis.ModelDataShow.DynamicModelDataShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="display Dynamic Model Data for Time History Analysis" Height="666" Width="850">
+    <Grid Loaded="DynamicLoaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260" />
+            <ColumnDefinition Width="330" />
+            <ColumnDefinition Width="260" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <RowDefinition />
+            <RowDefinition Height="170.4" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="Parameter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40,20,0,0" Width="288"
+              Height="155"
+              Grid.Row="0" Grid.ColumnSpan="2" Background="AliceBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="58" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock FontSize="12" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="0" Margin="0,0,0,0">Anzahl Eigenlösungen und Integrationsparameter</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,0,0">number of Eigensolutions =</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,0,0">Time Interval Delta T =</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,0,0">maximum time Tmax =</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,0,0">Integration Method =</TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,0,0,0">Integration parameter =</TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,0,0,0">Integration parameter =</TextBlock>
+
+            <TextBox Name="Eigen" Grid.Column="1" Grid.Row="1" Text="{Binding Eigenstate.NumberOfStates}"
+                     Margin="0,0,0,0" />
+            <TextBox Name="TimeIntDt" Grid.Column="1" Grid.Row="2" Text="{Binding TimeIntegration.Dt}" Margin="0,0,0,0" />
+            <TextBox Name="ZeitintTmax" Grid.Column="1" Grid.Row="3" Text="{Binding TimeIntegration.Tmax}"
+                     Margin="0,0,0,0" />
+            <TextBox Name="TimeIntMethod" Grid.Column="1" Grid.Row="4" Text="{Binding TimeIntegration.Method}"
+                     Margin="0,0,0,0" />
+            <TextBox Name="TimeIntParameter1" Grid.Column="1" Grid.Row="5" Text="{Binding TimeIntegration.Parameter1}"
+                     Margin="0,0,0,0" />
+            <TextBox Name="TimeIntParameter2" Grid.Column="1" Grid.Row="6" Text="{Binding TimeIntegration.Parameter2}"
+                     Margin="0,0,0,0" />
+        </Grid>
+
+        <Label Content="Initial Nodal Conditions" FontWeight="Bold" HorizontalAlignment="Left"
+               Grid.Column="0" Width="191"
+               Margin="10,1,0,0" Height="30" VerticalAlignment="Top" Grid.Row="1" />
+        <DataGrid
+            Name="InitialConditionsGrid" Margin="10,25,1,1" AlternatingRowBackground="Aqua"
+            Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" AutoGenerateColumns="False"
+            MouseDoubleClick="NewTimeNodalInitialConditions" CellEditEnding="Model_Changed"
+            UnloadingRow="InitialConditionRowRemove" SelectionChanged="InitialConditionRowSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                <DataGridTextColumn Header="1 d0" Binding="{Binding Values[0]}" />
+                <DataGridTextColumn Header="1 v0" Binding="{Binding Values[1]}" />
+                <DataGridTextColumn Header="2 d0" Binding="{Binding Values[2]}" />
+                <DataGridTextColumn Header="2 v0" Binding="{Binding Values[3]}" />
+                <DataGridTextColumn Header="3 d0" Binding="{Binding Values[4]}" />
+                <DataGridTextColumn Header="3 v0" Binding="{Binding Values[5]}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="time dependent Nodal Loads"
+               FontWeight="Bold"
+               Margin="10,1,77.6,0" Height="30" VerticalAlignment="Top" />
+
+        <Label x:Name="Ground" Grid.Row="1" Grid.Column="1" Margin="188,1,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" />
+        <Label Grid.Row="1" Grid.Column="1" Content="from File" Margin="7,21,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" />
+        <Grid Margin="2,28,1,1" Grid.Row="1" Grid.Column="1">
+            <DataGrid Grid.Column="0"
+                      Name="FileGrid" Margin="5,17,-1.6,-64" AlternatingRowBackground="Aqua"
+                      AutoGenerateColumns="False" MouseDoubleClick="NewTimeNodeLoad" CellEditEnding="Model_Changed"
+                      SelectionChanged="NodeLoadFileSelectionChanged" UnloadingRow="NodeLoadFileRowRemove"
+                      HorizontalAlignment="Left" Width="321" Height="93" VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="DoF" Binding="{Binding NodalDof}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="harmonic" Margin="1,134,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" />
+        <Grid Margin="4,160,0.6,0" Grid.Row="1" Grid.Column="1" Height="104"
+              VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*" />
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="60*" />
+                <ColumnDefinition Width="60*" />
+            </Grid.ColumnDefinitions>
+            <DataGrid
+                Name="HarmonicGrid" Margin="1,1,1,1" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" Grid.ColumnSpan="5"
+                MouseDoubleClick="NewTimeNodeLoad" CellEditEnding="Model_Changed"
+                SelectionChanged="NodeLoadHarmonicSelectionChanged" UnloadingRow="NodeLoadHarmonicRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="DoF" Binding="{Binding NodalDof}" />
+                    <DataGridTextColumn Header="Amplitude" Binding="{Binding Amplitude}" />
+                    <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency, StringFormat=N4}" />
+                    <DataGridTextColumn Header="Phase Angle" Binding="{Binding PhaseAngle, StringFormat=N4}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Grid.Column="1" Content="picewise linear" Margin="5,0.4,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="24" Grid.Row="2" />
+        <Label Grid.Column="1" Content="pairs of values (t=time,D=Deformation)" Margin="5,14,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="243" Height="30" Grid.Row="2" />
+        <Grid Margin="3,40,1,1" Grid.Row="2" Grid.Column="1">
+            <DataGrid
+                Name="LinearGrid" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" Height="127" VerticalAlignment="Top"
+                Margin="1,0,1,0"
+                MouseDoubleClick="NewTimeNodeLoad" CellEditEnding="Model_Changed"
+                SelectionChanged="NodeLoadLinearSelectionChanged" UnloadingRow="NodeLoadLinearRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="DoF" Binding="{Binding NodalDof}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[0]}" />
+                    <DataGridTextColumn Header="D" Binding="{Binding Interval[1]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[2]}" />
+                    <DataGridTextColumn Header="D" Binding="{Binding Interval[3]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[4]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[5]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[6]}" />
+                    <DataGridTextColumn Header="D" Binding="{Binding Interval[7]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[8]}" />
+                    <DataGridTextColumn Header="D" Binding="{Binding Interval[9]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[10]}" />
+                    <DataGridTextColumn Header="D" Binding="{Binding Interval[11]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+
+        <Label Content="Modal Damping Ratios" FontWeight="Bold" Grid.Column="2"
+               Margin="10.6,1,0,0" Height="30" VerticalAlignment="Top" Grid.Row="1" />
+        <DataGrid
+            Name="DampingGrid" Margin="5,27,1,100" AlternatingRowBackground="Aqua"
+            Grid.Row="1" Grid.Column="2" AutoGenerateColumns="False"
+            MouseDoubleClick="NewModalDampingRatio" CellEditEnding="Model_Changed"
+            UnloadingRow="DampingRowRemove" SelectionChanged="DampingRowSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="damping ratios" Binding="{Binding Damping}" />
+                <DataGridTextColumn Binding="{Binding Text}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

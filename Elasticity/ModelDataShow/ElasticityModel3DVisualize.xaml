@@ -1,0 +1,85 @@
+﻿<Window x:Class="FE_Analysis.Elasticity.ModelDataShow.ElasticityModel3DVisualize"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Elastizitätsmodell3DVisualisieren" Height="800" Width="1200"
+        Loaded="Window_Loaded"
+        KeyDown="Window_KeyDown">
+    <Grid HorizontalAlignment="Left" Margin="0,-1,-3.4,-6.6" Width="1197">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" MinHeight="0" />
+            <RowDefinition />
+            <RowDefinition Height="30.4" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="25" />
+        </Grid.ColumnDefinitions>
+        <Viewport3D Grid.Row="1" Grid.Column="0" Name="Viewport" Margin="0,0,2,1" />
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="16" HorizontalAlignment="Left" Margin="10,20,0,0"
+                  Name="Koordinaten" VerticalAlignment="Top" Width="150"
+                  Checked="ShowCoordinates" IsChecked="True" Content="Koordinatensystem" Unchecked="RemoveCoordinates" />
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="16" HorizontalAlignment="Left" Margin="141,20,0,0"
+                  Name="Oberflächen" VerticalAlignment="Top" Width="150"
+                  Checked="ShowSurfaces" Unchecked="RemoveSurfaces" IsChecked="True" Content="Oberflächenmodell" />
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="16" HorizontalAlignment="Left" Margin="270,20,0,0"
+                  x:Name="Drahtmodell" VerticalAlignment="Top" Width="92"
+                  Checked="ShowWireFrameModel" Unchecked="RemoveWireFrameModel" IsChecked="True" Content="Drahtmodell" />
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="16" HorizontalAlignment="Left" Margin="370,30,0,0"
+                  x:Name="RandbedingungenFest" VerticalAlignment="Top" Width="150"
+                  Checked="ShowFixedBoundaryConditions" Unchecked="RemoveFixedBoundaryConditions" IsChecked="True"
+                  Content="Randbedingungen fest" />
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="16" HorizontalAlignment="Left" Margin="370,11,0,0"
+                  x:Name="RandbedingungenVor" VerticalAlignment="Top" Width="188"
+                  Checked="ShowPreBoundaryConditions" Unchecked="RemovePreBoundaryConditions" IsChecked="True"
+                  Content="Randbedingungen vordefiniert" />
+        <CheckBox Grid.Column="0" Grid.Row="0" Height="16" HorizontalAlignment="Left" Margin="600,20,0,0"
+                  x:Name="Knotenlasten" VerticalAlignment="Top" Width="188"
+                  Checked="ShowNodeLoads" Unchecked="RemoveNodeLoads" IsChecked="True" Content="Knotenlasten" />
+
+        <TextBlock Grid.Column="0" Name="Scrollbars" Margin="1020,1,5,27.2" Grid.Row="0"
+                   RenderTransformOrigin="0.5,0.5">
+            <Bold>Scrollbars</Bold>
+        </TextBlock>
+        <TextBlock Grid.Column="0" x:Name="DrehenKippen" Margin="1020,12,14,0"
+                   Grid.Row="0" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top">
+            <Run Text="drehen, kippen" />
+        </TextBlock>
+        <TextBlock Grid.Column="0" Name="Tastensteuerung" Margin="1016,31,9,690.6" Grid.Row="0" Grid.RowSpan="2">
+            <Bold>Tastensteuerung</Bold>
+        </TextBlock>
+        <TextBlock Grid.Column="0" x:Name="Abstand" Margin="1020,46,0,0" Height="26" VerticalAlignment="Top"
+                   Grid.Row="0"
+                   Grid.RowSpan="2">
+            <Run Text="Abstand  PgUp" /><Run Text="/PgDn" />
+        </TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" x:Name="Drehen" Margin="1020,1,0,664"
+                   Text="horizontal     li/re" />
+        <TextBlock Grid.Column="0" x:Name="Kippen" Margin="1019,18,10,0"
+                   Text="vertikal   hoch/runter" Height="19" VerticalAlignment="Top" Grid.Row="1" />
+        <RichTextBox Grid.Row="1" Grid.Column="0" x:Name="x_Achse" Margin="1019,47.8,1,0" Height="53"
+                     VerticalAlignment="Top">
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </RichTextBox.Resources>
+            <FlowDocument>
+                <Paragraph Foreground="Red">x-Achse</Paragraph>
+                <Paragraph Foreground="Green">y-Achse</Paragraph>
+                <Paragraph Foreground="Blue">z-Achse</Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+
+        <ScrollBar Grid.Row="2" Grid.Column="0"
+                   Orientation="Horizontal" Value="1.65"
+                   Minimum="0" Maximum="6.28"
+                   Name="ScrTheta" Scroll="ScrThetaScroll" Height="29" VerticalAlignment="Top" Margin="0,1,0,0" />
+        <ScrollBar Grid.Column="1" Grid.Row="1"
+                   Orientation="Vertical" Value="0.13"
+                   Minimum="-1.57" Maximum="1.57"
+                   Name="ScrPhi" Scroll="ScrPhiScroll" Margin="1,8,-3.2,1" Width="Auto" />
+    </Grid>
+</Window>

@@ -1,0 +1,275 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.ModelDataShow.InstationaryDataShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Show Instationary Data" Height="700" Width="927.2" d:DataContext="{d:DesignData }">
+    <Grid Background="AliceBlue" Loaded="InstationaryLoaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="99*" />
+            <ColumnDefinition Width="105*" />
+            <ColumnDefinition Width="105*" />
+            <ColumnDefinition Width="105*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="113" />
+            <RowDefinition Height="330" />
+            <RowDefinition Height="300" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="Parameter" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"
+              Margin="5,5,0,0" Width="212" Height="100"
+              Background="AliceBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock FontSize="12" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="0" Margin="0,0,-91,0">
+                Eigensolutions and Integration Parameters
+            </TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,3,0">Number of Eigensolutions =</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,3,0">Time Intervall Delta T =</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,3,0">Maximum Time Tmax =</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,3,0">Integration Parameters =</TextBlock>
+
+            <TextBox Name="Eigen" Grid.Column="1" Grid.Row="1" Text="{Binding Eigenstate.NumberOfStates}"
+                     Margin="1.4,0,0.2,0"/>
+            <TextBox Name="TimeIntDt" Grid.Column="1" Grid.Row="2" Text="{Binding Timeintegration.Dt}"
+                     Margin="1.4,0,0.2,0" />
+            <TextBox Name="TimeIntTmax" Grid.Column="1" Grid.Row="3" Text="{Binding Timeintegration.Tmax}"
+                     Margin="1.4,0,0.2,0" />
+            <TextBox Name="TimeIntParameter1" Grid.Column="1" Grid.Row="4" Text="{Binding Timeintegration.Parameter1}"
+                     Margin="1.4,0,0.2,0" />
+        </Grid>
+
+        <Label x:Name="InitialTemperatures" Content="Initial Temperatures" FontWeight="Bold" HorizontalAlignment="Left"
+               Margin="5,2.2,0,0"
+               VerticalAlignment="Top" Width="135" Height="30" Grid.Row="1" Grid.Column="0" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="stationary Solution" Margin="6,23.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" />
+        <TextBox Grid.Column="0" Grid.Row="1" Height="19" Text="all" Background="#FFF0EEEE"
+                 Margin="6,45.2,167,0" VerticalAlignment="Top" />
+        <CheckBox Name="All" Grid.Column="0" Grid.Row="1" Margin="64,48.2,141,0" Height="14" VerticalAlignment="Top"
+                  Click="ToggleStationary" />
+
+        <Grid Margin="5,4.2,5,7.8" Grid.Row="1" Grid.Column="0">
+            <DataGrid
+                Name="InitialTemperatureGrid" HorizontalAlignment="Left" Width="200" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" Grid.ColumnSpan="2" Margin="0,76,0,1.4"
+                MouseDoubleClick="NewInitialTemperature" CellEditEnding="Model_Changed"
+                UnloadingRow="InitialTemperatureRowRemove" SelectionChanged="InitialTemperatureRowSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="Initial Temperature" Binding="{Binding Values[0]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Content="time dependent Boundary Temperatures" FontWeight="Bold" Margin="0,3.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="240" Height="30" Grid.Row="1" Grid.Column="1" />
+        <Label Grid.Row="1" Grid.Column="1" Content="from File" Margin="6,24.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" />
+        <Grid Margin="2,20,3.6,5.4" Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55" />
+                <ColumnDefinition Width="55" />
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0" VerticalAlignment="Top"
+                      Name="BoundaryFileGrid" Height="50" Margin="5,29,-170,0" AlternatingRowBackground="Aqua"
+                      AutoGenerateColumns="False" MouseDoubleClick="TimeNewBoundaryCondition"
+                      CellEditEnding="Model_Changed"
+                      SelectionChanged="BoundaryFileSelectionChanged" UnloadingRow="BoundaryFileRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding SupportId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="constant" Margin="6,96.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" />
+        <Grid Margin="2,100,3.6,5.4" Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55" />
+                <ColumnDefinition Width="55" />
+                <ColumnDefinition Width="55" />
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0" VerticalAlignment="Top"
+                      Name="BoundaryConstantGrid" Height="50" Margin="5,20,-114,0" AlternatingRowBackground="Aqua"
+                      AutoGenerateColumns="False" Grid.ColumnSpan="2"
+                      MouseDoubleClick="TimeNewBoundaryCondition" CellEditEnding="Model_Changed"
+                      SelectionChanged="BoundaryConstantSelectionChanged" UnloadingRow="BoundaryConstantRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding SupportId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="Temperature" Binding="{Binding KonstanteTemperatur}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="harmonic" Margin="6,169.4,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" />
+        <Grid Margin="2,190,3.6,5.4" Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55" />
+                <ColumnDefinition Width="55" />
+                <ColumnDefinition Width="55" />
+                <ColumnDefinition Width="55" />
+                <ColumnDefinition Width="55" />
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0" VerticalAlignment="Top"
+                      Name="BoundaryHarmonicGrid" Height="124" Margin="5,8,-4,0" AlternatingRowBackground="Aqua"
+                      AutoGenerateColumns="False" Grid.ColumnSpan="4"
+                      MouseDoubleClick="TimeNewBoundaryCondition" CellEditEnding="Model_Changed"
+                      SelectionChanged="BoundaryHarmonicSelectionChanged" UnloadingRow="BoundaryHarmonicRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding SupportId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="Amplitude" Binding="{Binding Amplitude}" />
+                    <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency, StringFormat=N4}" />
+                    <DataGridTextColumn Header="Phase" Binding="{Binding PhaseAngle, StringFormat=N4}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Grid.Column="1" Content="piecewise linear" Margin="6,4,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="30" Grid.Row="2" />
+        <Label Grid.Column="1" Content="pairs of values (t=time,T=Temperature)" Margin="6,22,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Height="25" Grid.Row="2" />
+        <Grid Margin="5,20,5,81.2" Grid.Row="2" Grid.Column="1">
+            <DataGrid
+                Name="BoundaryLinearGrid" Margin="1,31,0,2" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False"
+                MouseDoubleClick="TimeNewBoundaryCondition" CellEditEnding="Model_Changed"
+                SelectionChanged="BoundaryLinearSelectionChanged" UnloadingRow="BoundaryLinearRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding SupportId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[0]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[1]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[2]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[3]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[4]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[5]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[6]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[7]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[8]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[9]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[10]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[11]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Content="time dependent Nodal Temperatures" FontWeight="Bold" Margin="3.4,5.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Height="30" Grid.Row="1" Grid.Column="2" />
+
+        <Label Grid.Row="1" Grid.Column="2" Content="from File" Margin="6.4,25.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" />
+        <Grid Margin="2,20,3.6,5.4" Grid.Row="1" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55" />
+                <ColumnDefinition Width="55" />
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0" VerticalAlignment="Top"
+                      Name="NodeFileGrid" Height="50" Margin="5,29,-170,0" AlternatingRowBackground="Aqua"
+                      AutoGenerateColumns="False" MouseDoubleClick="TimeNewNodeLoad"
+                      CellEditEnding="Model_Changed"
+                      SelectionChanged="NodeFileSelectionChanged" UnloadingRow="NodeFileRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Grid.Row="1" Grid.Column="2" Content="harmonic
+               " Margin="6.4,172.4,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" />
+        <Grid Margin="4.4,175.2,8.2,0" Grid.Row="1" Grid.Column="2" Height="146" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*" />
+                <ColumnDefinition Width="55*" />
+                <ColumnDefinition Width="55*" />
+                <ColumnDefinition Width="55*" />
+                <ColumnDefinition Width="55*" />
+            </Grid.ColumnDefinitions>
+            <DataGrid
+                Name="NodeHarmonicGrid" Margin="1,23,-12.2,-2" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" Grid.ColumnSpan="5"
+                MouseDoubleClick="TimeNewNodeLoad" CellEditEnding="Model_Changed"
+                SelectionChanged="NodeHarmonicSelectionChanged" UnloadingRow="NodeHarmonicRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="Amplitude" Binding="{Binding Amplitude}" />
+                    <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency, StringFormat=N4}" />
+                    <DataGridTextColumn Header="Phase" Binding="{Binding PhaseAngle, StringFormat=N4}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Grid.Column="2" Content="piecewise linear" Margin="5.4,4.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" Grid.Row="2" />
+        <Label Grid.Column="2" Content="pairs of values (t=time,T=Temperature)" Margin="5.4,22.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Height="30" Grid.Row="2" />
+        <Grid Margin="3.4,52.8,1.2,77.2" Grid.Row="2" Grid.Column="2">
+
+            <DataGrid
+                Name="NodeLinearGrid" AlternatingRowBackground="Aqua"
+                AutoGenerateColumns="False" Height="165" VerticalAlignment="Top"
+                MouseDoubleClick="TimeNewNodeLoad" CellEditEnding="Model_Changed"
+                SelectionChanged="NodeLinearSelectionChanged" UnloadingRow="NodeLinearRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                    <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[0]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[1]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[2]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[3]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[4]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[5]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[6]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[7]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[8]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[9]}" />
+                    <DataGridTextColumn Header="t" Binding="{Binding Interval[10]}" />
+                    <DataGridTextColumn Header="T" Binding="{Binding Interval[11]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Content="time dependent Element Temperatures" FontWeight="Bold" Margin="3.8,4.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="240" Height="30" Grid.Row="1" Grid.Column="3" />
+        <Label Grid.Column="2" Content="constant Nodal Temperatures" Margin="233.4,26.2,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="199" Height="30" Grid.Row="1"
+               Grid.ColumnSpan="2" />
+        <Grid Margin="5.8,24.2,-1.2,3.2" Grid.Row="1" Grid.Column="3">
+
+            <DataGrid
+                Name="ElementLoadGrid" Margin="0,27,0,0" AlternatingRowBackground="Aqua"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Height="271" Width="226" AutoGenerateColumns="False"
+                MouseDoubleClick="TimeNewElementLoad" CellEditEnding="Model_Changed"
+                SelectionChanged="ElementLoadSelectionChanged" UnloadingRow="ElementLoadRowRemove">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
+                    <DataGridTextColumn Header="Element" Binding="{Binding ElementId}" />
+                    <DataGridTextColumn Header="P0" Binding="{Binding P[0]}" />
+                    <DataGridTextColumn Header="P1" Binding="{Binding P[1]}" />
+                    <DataGridTextColumn Header="P2" Binding="{Binding P[2]}" />
+                    <DataGridTextColumn Header="P3" Binding="{Binding P[3]}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
