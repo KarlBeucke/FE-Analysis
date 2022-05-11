@@ -1,5 +1,5 @@
 FE Analysis Source code for
-Finite Element Analysis in Civil Engineering for Structural, Heat Transfer and Elasticity Analysis
+Finite Element Analysis in Civil Engineering for Structural, Heat Transfer and Elasticity Analysis.
 Educational tool for students in Civil Engineering with a library for Linear Algebra (Matrix Algebra, Equation Solving, Eigensolver),
 Time Integration Solvers and general Model Functionality for Finite Element Analysis.
 Application examples for Structural Analysis (truss beam, hinged beam), Heat Transfer Analysis and Elasticty Analysis. 
