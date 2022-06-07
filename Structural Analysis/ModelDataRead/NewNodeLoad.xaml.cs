@@ -1,5 +1,6 @@
 ﻿using FEALibrary.Model;
 using System.Windows;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead
 {
@@ -31,9 +32,9 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
             var loadId = LoadId.Text;
             var nodeId = NodeId.Text;
             var p = new double[3];
-            p[0] = double.Parse(Px.Text);
-            p[1] = double.Parse(Py.Text);
-            p[2] = double.Parse(M.Text);
+            p[0] = double.Parse(Px.Text, InvariantCulture);
+            p[1] = double.Parse(Py.Text, InvariantCulture);
+            p[2] = double.Parse(M.Text, InvariantCulture);
             var knotenLast = new Structural_Analysis.Model_Data.NodeLoad(nodeId, p[0], p[1], p[2])
             {
                 LoadId = loadId

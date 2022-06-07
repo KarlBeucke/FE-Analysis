@@ -1,5 +1,6 @@
 ﻿using FEALibrary.Model;
 using System.Windows;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead
 {
@@ -18,8 +19,8 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
         {
             var crossSectionId = CrossSectionId.Text;
             double fläche = 0, ixx = 0;
-            if (Area.Text != "") fläche = double.Parse(Area.Text);
-            if (Ixx.Text != "") ixx = double.Parse(Ixx.Text);
+            if (Area.Text != string.Empty) fläche = double.Parse(Area.Text, InvariantCulture);
+            if (Ixx.Text != string.Empty) ixx = double.Parse(Ixx.Text, InvariantCulture);
             {
                 var querschnitt = new CrossSection(fläche, ixx) { CrossSectionId = crossSectionId };
                 model.CrossSection.Add(crossSectionId, querschnitt);

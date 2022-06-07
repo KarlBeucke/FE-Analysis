@@ -1,6 +1,7 @@
 ﻿using FE_Analysis.Heat_Transfer.Model_Data;
 using FEALibrary.Model;
 using System.Windows;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead
 {
@@ -12,9 +13,9 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
         {
             this.model = model;
             InitializeComponent();
-            NodeLoadId.Text = "";
-            NodeId.Text = "";
-            Temperature.Text = "";
+            NodeLoadId.Text = string.Empty;
+            NodeId.Text = string.Empty;
+            Temperature.Text = string.Empty;
             Show();
         }
 
@@ -23,7 +24,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             var nodeLoadId = NodeLoadId.Text;
             var nodeId = NodeId.Text;
             var temperature = new double[1];
-            if (Temperature.Text != "") temperature[0] = double.Parse(Temperature.Text);
+            if (Temperature.Text != "") temperature[0] = double.Parse(Temperature.Text, InvariantCulture);
 
             var nodeLoad = new NodeLoad(nodeLoadId, nodeId, temperature);
 

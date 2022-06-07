@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using FEALibrary.Model;
 using System.Windows;
-using FE_Analysis.Structural_Analysis.ModelDataShow;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead
 {

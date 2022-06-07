@@ -2,6 +2,7 @@
 using FEALibrary.Model;
 using FEALibrary.Model.abstractClasses;
 using System.Windows;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead
 {
@@ -21,10 +22,10 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
         {
             var materialId = MaterialId.Text;
             double eModulus = 0, mass = 0, poisson = 0;
-            if (EModulus.Text != "") eModulus = double.Parse(EModulus.Text);
-            if (Mass.Text != "") mass = double.Parse(Mass.Text);
-            if (Poisson.Text != "") poisson = double.Parse(Poisson.Text);
-            if (SpringX.Text == "" && SpringY.Text == "" && SpringPhi.Text == "")
+            if (EModulus.Text != string.Empty) eModulus = double.Parse(EModulus.Text, InvariantCulture);
+            if (Mass.Text != string.Empty) mass = double.Parse(Mass.Text, InvariantCulture);
+            if (Poisson.Text != string.Empty) poisson = double.Parse(Poisson.Text, InvariantCulture);
+            if (SpringX.Text == string.Empty && SpringY.Text == string.Empty && SpringPhi.Text == string.Empty)
             {
                 material = new Material(eModulus, poisson, mass)
                 {
@@ -34,11 +35,11 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
             else
             {
                 double springX = 0;
-                if (SpringX.Text != "") springX = double.Parse(SpringX.Text);
+                if (SpringX.Text != string.Empty) springX = double.Parse(SpringX.Text, InvariantCulture);
                 double springY = 0;
-                if (SpringY.Text != "") springY = double.Parse(SpringY.Text);
+                if (SpringY.Text != string.Empty) springY = double.Parse(SpringY.Text, InvariantCulture);
                 double springPhi = 0;
-                if (SpringPhi.Text != "") springPhi = double.Parse(SpringPhi.Text);
+                if (SpringPhi.Text != string.Empty) springPhi = double.Parse(SpringPhi.Text, InvariantCulture);
                 material = new Material("Spring Support", springX, springY, springPhi)
                 {
                     MaterialId = materialId

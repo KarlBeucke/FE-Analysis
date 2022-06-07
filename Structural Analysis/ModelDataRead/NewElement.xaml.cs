@@ -12,11 +12,11 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
         {
             InitializeComponent();
             this.model = model;
-            ElementId.Text = "";
-            StartNodeId.Text = "";
-            EndNodeId.Text = "";
-            MaterialId.Text = "";
-            CrossSectionId.Text = "";
+            ElementId.Text = string.Empty;
+            StartNodeId.Text = string.Empty;
+            EndNodeId.Text = string.Empty;
+            MaterialId.Text = string.Empty;
+            CrossSectionId.Text = string.Empty;
             Show();
         }
 

@@ -1,4 +1,5 @@
-﻿using FE_Analysis.Heat_Transfer.Model_Data;
+﻿using System.Globalization;
+using FE_Analysis.Heat_Transfer.Model_Data;
 using FEALibrary.Model;
 using System.Windows;
 
@@ -23,7 +24,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             var randbedingungId = RandbedingungId.Text;
             var knotenId = KnotenId.Text;
             double temperatur = 0;
-            if (Temperature.Text != "") temperatur = double.Parse(Temperature.Text);
+            if (Temperature.Text != string.Empty) temperatur = double.Parse(Temperature.Text, CultureInfo.InvariantCulture);
 
             var randbedingung = new BoundaryCondition(randbedingungId, knotenId, temperatur);
 

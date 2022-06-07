@@ -2,6 +2,7 @@
 using FEALibrary.Model;
 using FEALibrary.Model.abstractClasses;
 using System.Windows;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead
 {
@@ -41,10 +42,10 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
         {
             var lastId = LoadId.Text;
             var elementId = ElementId.Text;
-            var pxa = double.Parse(Pxa.Text);
-            var pya = double.Parse(Pya.Text);
-            var pxb = double.Parse(Pxb.Text);
-            var pyb = double.Parse(Pyb.Text);
+            var pxa = double.Parse(Pxa.Text, InvariantCulture);
+            var pya = double.Parse(Pya.Text, InvariantCulture);
+            var pxb = double.Parse(Pxb.Text, InvariantCulture);
+            var pyb = double.Parse(Pyb.Text, InvariantCulture);
             var inElement = InElement.Text == "true";
             lineLoad =
                 new LineLoad(elementId, pxa, pya, pxb, pyb, inElement)

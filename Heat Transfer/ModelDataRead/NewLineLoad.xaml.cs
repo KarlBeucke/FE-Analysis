@@ -1,6 +1,7 @@
 ﻿using FE_Analysis.Heat_Transfer.Model_Data;
 using FEALibrary.Model;
 using System.Windows;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead
 {
@@ -25,9 +26,9 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             var linienlastId = LineLoadId.Text;
             var temperatur = new double[2];
             var startId = StartNodeId.Text;
-            if (Start.Text != "") temperatur[0] = double.Parse(Start.Text);
+            if (Start.Text != string.Empty) temperatur[0] = double.Parse(Start.Text, InvariantCulture);
             var endId = EndNodeId.Text;
-            if (End.Text != "") temperatur[1] = double.Parse(End.Text);
+            if (End.Text != string.Empty) temperatur[1] = double.Parse(End.Text, InvariantCulture);
 
             var knotenlast = new LineLoad(linienlastId, startId, endId, temperatur);
 

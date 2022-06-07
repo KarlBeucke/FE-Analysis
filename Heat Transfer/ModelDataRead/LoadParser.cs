@@ -1,6 +1,7 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
 using FE_Analysis.Heat_Transfer.Model_Data;
 using FEALibrary.Model;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead
 {
@@ -26,11 +27,11 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             ParseElementLoads4(lines);
         }
 
-        private void ParseNodeLoads(string[] lines)
+        private void ParseNodeLoads(IReadOnlyList<string> lines)
         {
             var delimiters = new[] { '\t' };
 
-            for (var i = 0; i < lines.Length; i++)
+            for (var i = 0; i < lines.Count; i++)
             {
                 if (lines[i] != "NodeLoads") continue;
                 FeParser.InputFound += "\nNodeLoads";
@@ -43,7 +44,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                             {
                                 loadId = substrings[0];
                                 nodeId = substrings[1];
-                                p[0] = double.Parse(substrings[2], CultureInfo.InvariantCulture);
+                                p[0] = double.Parse(substrings[2], InvariantCulture);
                                 nodeLoad = new NodeLoad(loadId, nodeId, p);
                                 model.Loads.Add(loadId, nodeLoad);
                                 i++;
@@ -76,8 +77,8 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                                 loadId = substrings[0];
                                 startNodeId = substrings[1];
                                 endNodeId = substrings[2];
-                                p[0] = double.Parse(substrings[3], CultureInfo.InvariantCulture);
-                                p[1] = double.Parse(substrings[4], CultureInfo.InvariantCulture);
+                                p[0] = double.Parse(substrings[3], InvariantCulture);
+                                p[1] = double.Parse(substrings[4], InvariantCulture);
                                 lineLoad = new LineLoad(loadId, startNodeId, endNodeId, p);
                                 model.LineLoads.Add(loadId, lineLoad);
                                 i++;
@@ -109,9 +110,9 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                             {
                                 loadId = substrings[0];
                                 elementId = substrings[1];
-                                p[0] = double.Parse(substrings[2], CultureInfo.InvariantCulture);
-                                p[1] = double.Parse(substrings[3], CultureInfo.InvariantCulture);
-                                p[2] = double.Parse(substrings[4], CultureInfo.InvariantCulture);
+                                p[0] = double.Parse(substrings[2], InvariantCulture);
+                                p[1] = double.Parse(substrings[3], InvariantCulture);
+                                p[2] = double.Parse(substrings[4], InvariantCulture);
                                 elementLoad3 = new ElementLoad3(loadId, elementId, p);
                                 model.ElementLoads.Add(loadId, elementLoad3);
                                 i++;
@@ -143,10 +144,10 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                             {
                                 loadId = substrings[0];
                                 elementId = substrings[1];
-                                p[0] = double.Parse(substrings[2], CultureInfo.InvariantCulture);
-                                p[1] = double.Parse(substrings[3], CultureInfo.InvariantCulture);
-                                p[2] = double.Parse(substrings[4], CultureInfo.InvariantCulture);
-                                p[3] = double.Parse(substrings[5], CultureInfo.InvariantCulture);
+                                p[0] = double.Parse(substrings[2], InvariantCulture);
+                                p[1] = double.Parse(substrings[3], InvariantCulture);
+                                p[2] = double.Parse(substrings[4], InvariantCulture);
+                                p[3] = double.Parse(substrings[5], InvariantCulture);
                                 elementLoad4 = new ElementLoad4(loadId, elementId, p);
                                 model.ElementLoads.Add(loadId, elementLoad4);
                                 i++;

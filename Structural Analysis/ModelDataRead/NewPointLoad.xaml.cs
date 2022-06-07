@@ -2,6 +2,7 @@
 using FEALibrary.Model;
 using FEALibrary.Model.abstractClasses;
 using System.Windows;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead
 {
@@ -32,9 +33,9 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
         {
             var loadId = LoadId.Text;
             var elementId = ElementId.Text;
-            var px = double.Parse(Px.Text);
-            var py = double.Parse(Py.Text);
-            var offset = double.Parse(Offset.Text);
+            var px = double.Parse(Px.Text, InvariantCulture);
+            var py = double.Parse(Py.Text, InvariantCulture);
+            var offset = double.Parse(Offset.Text, InvariantCulture);
             pointLoad =
                 new PointLoad(elementId, px, py, offset)
                 {

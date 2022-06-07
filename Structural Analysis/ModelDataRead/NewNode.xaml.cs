@@ -1,5 +1,6 @@
 ﻿using FEALibrary.Model;
 using System.Windows;
+using static System.Globalization.CultureInfo;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead
 {
@@ -7,20 +8,15 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
     {
         private readonly FeModel model;
 
-        public NewNode()
-        {
-            InitializeComponent();
-        }
-
         public NewNode(FeModel model, int ndof)
         {
             InitializeComponent();
             this.model = model;
-            NodeId.Text = "";
+            NodeId.Text = string.Empty;
             NumberDof.Text = ndof.ToString("0");
-            X.Text = "";
-            Y.Text = "";
-            Z.Text = "";
+            X.Text = string.Empty;
+            Y.Text = string.Empty;
+            Z.Text = string.Empty;
             Show();
         }
 
@@ -35,8 +31,8 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
             var knotenId = NodeId.Text;
             var numberNodalDof = int.Parse(NumberDof.Text);
             var crds = new double[dimension];
-            if (X.Text.Length > 0) crds[0] = double.Parse(X.Text);
-            if (Y.Text.Length > 0) crds[1] = double.Parse(Y.Text);
+            if (X.Text.Length > 0) crds[0] = double.Parse(X.Text, InvariantCulture);
+            if (Y.Text.Length > 0) crds[1] = double.Parse(Y.Text, InvariantCulture);
             if (NodeId.Text.Length > 0)
             {
                 var knoten = new Node(knotenId, crds, numberNodalDof, dimension);
