@@ -12,11 +12,11 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
         {
             this.model = model;
             InitializeComponent();
-            MaterialId.Text = "";
-            ConductivityX.Text = "";
-            ConductivityY.Text = "";
-            ConductivityZ.Text = "";
-            DensityConductivity.Text = "";
+            MaterialId.Text = string.Empty;
+            ConductivityX.Text = string.Empty;
+            ConductivityY.Text = string.Empty;
+            ConductivityZ.Text = string.Empty;
+            DensityConductivity.Text = string.Empty;
             Show();
         }
 

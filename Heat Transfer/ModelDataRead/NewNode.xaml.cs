@@ -11,11 +11,11 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
         {
             this.model = model;
             InitializeComponent();
-            NodeId.Text = "";
+            NodeId.Text = string.Empty;
             NumberDOF.Text = "1";
-            X.Text = "";
-            Y.Text = "";
-            Z.Text = "";
+            X.Text = string.Empty;
+            Y.Text = string.Empty;
+            Z.Text = string.Empty;
             Show();
         }
 

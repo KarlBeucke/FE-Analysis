@@ -19,11 +19,11 @@ namespace FE_Analysis.Elasticity.ModelDataRead
             Language = XmlLanguage.GetLanguage("us-US");
             InitializeComponent();
             this.model = model;
-            NodeId.Text = "";
+            NodeId.Text = string.Empty;
             NumberDof.Text = ndof.ToString("0");
-            X.Text = "";
-            Y.Text = "";
-            Z.Text = "";
+            X.Text = string.Empty;
+            Y.Text = string.Empty;
+            Z.Text = string.Empty;
             Show();
         }
 

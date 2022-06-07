@@ -14,8 +14,8 @@ namespace FE_Analysis.Elasticity.ModelDataRead
             Language = XmlLanguage.GetLanguage("us-US");
             this.model = model;
             InitializeComponent();
-            CrossSectionId.Text = "";
-            Thickness.Text = "";
+            CrossSectionId.Text = string.Empty;
+            Thickness.Text = string.Empty;
             Show();
         }
 

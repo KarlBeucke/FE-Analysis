@@ -15,11 +15,11 @@ namespace FE_Analysis.Elasticity.ModelDataRead
             Language = GetLanguage("us-US");
             InitializeComponent();
             this.model = model;
-            InitialNodeId.Text = "";
-            NumberNodes.Text = "";
-            PreX.Text = "";
-            PreY.Text = "";
-            PreZ.Text = "";
+            InitialNodeId.Text = string.Empty;
+            NumberNodes.Text = string.Empty;
+            PreX.Text = string.Empty;
+            PreY.Text = string.Empty;
+            PreZ.Text = string.Empty;
             Show();
         }
 

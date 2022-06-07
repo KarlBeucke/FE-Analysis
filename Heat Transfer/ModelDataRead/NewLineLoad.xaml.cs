@@ -12,11 +12,11 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
         {
             this.model = model;
             InitializeComponent();
-            LineLoadId.Text = "";
-            StartNodeId.Text = "";
-            Start.Text = "";
-            EndNodeId.Text = "";
-            End.Text = "";
+            LineLoadId.Text = string.Empty;
+            StartNodeId.Text = string.Empty;
+            Start.Text = string.Empty;
+            EndNodeId.Text = string.Empty;
+            End.Text = string.Empty;
             Show();
         }
 

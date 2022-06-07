@@ -12,16 +12,16 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
         {
             this.model = model;
             InitializeComponent();
-            ElementLoadId.Text = "";
-            ElementId.Text = "";
-            Node1.Text = "";
-            Node2.Text = "";
-            Node3.Text = "";
-            Node4.Text = "";
-            Node5.Text = "";
-            Node6.Text = "";
-            Node7.Text = "";
-            Node8.Text = "";
+            ElementLoadId.Text = string.Empty;
+            ElementId.Text = string.Empty;
+            Node1.Text = string.Empty;
+            Node2.Text = string.Empty;
+            Node3.Text = string.Empty;
+            Node4.Text = string.Empty;
+            Node5.Text = string.Empty;
+            Node6.Text = string.Empty;
+            Node7.Text = string.Empty;
+            Node8.Text = string.Empty;
             Show();
         }
 

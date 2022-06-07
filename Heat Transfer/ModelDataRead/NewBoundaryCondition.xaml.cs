@@ -12,9 +12,9 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
         {
             this.model = model;
             InitializeComponent();
-            RandbedingungId.Text = "";
-            KnotenId.Text = "";
-            Temperature.Text = "";
+            RandbedingungId.Text = string.Empty;
+            KnotenId.Text = string.Empty;
+            Temperature.Text = string.Empty;
             Show();
         }
 

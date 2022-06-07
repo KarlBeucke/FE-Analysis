@@ -14,10 +14,10 @@ namespace FE_Analysis.Elasticity.ModelDataRead
             Language = XmlLanguage.GetLanguage("us-US");
             this.model = model;
             InitializeComponent();
-            MaterialId.Text = "";
-            YoungsModulus.Text = "";
-            Poisson.Text = "";
-            ShearModulus.Text = "";
+            MaterialId.Text = string.Empty;
+            YoungsModulus.Text = string.Empty;
+            Poisson.Text = string.Empty;
+            ShearModulus.Text = string.Empty;
             Show();
         }
 
@@ -25,9 +25,9 @@ namespace FE_Analysis.Elasticity.ModelDataRead
         {
             var materialId = MaterialId.Text;
             double elastizität = 0, poisson = 0, schub = 0;
-            if (YoungsModulus.Text != "") elastizität = double.Parse(YoungsModulus.Text);
-            if (Poisson.Text != "") poisson = double.Parse(Poisson.Text);
-            if (ShearModulus.Text != "") schub = double.Parse(ShearModulus.Text);
+            if (YoungsModulus.Text != string.Empty) elastizität = double.Parse(YoungsModulus.Text);
+            if (Poisson.Text != string.Empty) poisson = double.Parse(Poisson.Text);
+            if (ShearModulus.Text != string.Empty) schub = double.Parse(ShearModulus.Text);
             var material = new Material(elastizität, poisson, schub)
             {
                 MaterialId = materialId

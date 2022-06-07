@@ -25,9 +25,9 @@ namespace FE_Analysis.Elasticity.ModelDataRead
             this.model = model;
             LoadId.Text = last;
             NodeId.Text = knoten;
-            Px.Text = px.ToString("0.00", InvariantCulture);
-            Py.Text = py.ToString("0.00", InvariantCulture);
-            Pz.Text = pz.ToString("0.00", InvariantCulture);
+            Px.Text = px.ToString("0.00");
+            Py.Text = py.ToString("0.00");
+            Pz.Text = pz.ToString("0.00");
             Show();
         }
 
