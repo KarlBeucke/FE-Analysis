@@ -799,7 +799,7 @@ namespace FE_Analysis
             }
 
             // Boundary Conditions
-            var fix = "";
+            var fix = string.Empty;
             rows.Add("\nSupport");
             foreach (var item in model.BoundaryConditions)
             {
@@ -1179,7 +1179,7 @@ namespace FE_Analysis
                           + "\t" + item.Value.Intensity[2] + "\t" + item.Value.Intensity[3]);
 
             // Randbedingungen
-            var fest = "";
+            var fest = string.Empty;
             found.Add("\nBoundaryConditions");
             foreach (var item in model.BoundaryConditions)
             {

@@ -363,7 +363,7 @@ namespace FE_Analysis.Structural_Analysis.Results
 
             foreach (var item in hitTextBlock)
             {
-                if (item == null | item.Text == "") { continue; }
+                if (item == null | item.Text == string.Empty) { continue; }
 
                 sb.Clear();
                 MyPopup.IsOpen = true;

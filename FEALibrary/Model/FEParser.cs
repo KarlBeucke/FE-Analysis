@@ -22,7 +22,7 @@ namespace FEALibrary.Model
         {
             for (var i = 0; i < lines.Length; i++)
             {
-                InputFound = "";
+                InputFound = string.Empty;
                 if (lines[i] != "Model Name") continue;
                 ModelId = lines[i + 1];
                 InputFound = "Model Name = " + ModelId;

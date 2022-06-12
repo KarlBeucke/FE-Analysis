@@ -127,7 +127,7 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                             var id2 = k.ToString().PadLeft(2, '0');
                             var supportName = supportInitial + face + id1 + id2;
                             if (model.BoundaryConditions.TryGetValue(supportName, out _))
-                                throw new ParseException("Support Condition \"" + supportName + "\" already exists.");
+                                throw new ParseException($"Support Condition \"{supportName}\" already exists.");
                             string nodeName;
                             const string faceNode = "00";
                             switch (face.Substring(0, 1))
@@ -142,8 +142,8 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                                     nodeName = nodeInitial + id1 + id2 + faceNode;
                                     break;
                                 default:
-                                    throw new ParseException("wrong FaceId = " + face.Substring(0, 1) +
-                                                             ", mut be:\n" + " X, Y or Z");
+                                    throw new ParseException(
+                                        $"wrong FaceId = {face.Substring(0, 1)}, mut be:\n X, Y or Z");
                             }
 
                             support = new Support(nodeName, face, conditions, prescribed, model);
@@ -192,7 +192,7 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                     var nodeInitial = substrings[2];
                     //int nNodes = short.Parse(substrings[3]);
                     var nNodes = offset.Length;
-                    face = face.Substring(0, 1) + "0" + (nNodes - 1);
+                    face = $"{face.Substring(0, 1)}0{(nNodes - 1)}";
                     var type = substrings[3];
                     for (var count = 0; count < type.Length; count++)
                     {
@@ -221,9 +221,9 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                             var id2 = k.ToString().PadLeft(2, '0');
                             var supportName = supportInitial + face + id1 + id2;
                             if (model.BoundaryConditions.TryGetValue(supportName, out _))
-                                throw new ParseException("Randbedingung \"" + supportName + "\" bereits vorhanden.");
+                                throw new ParseException($"Randbedingung \"{supportName}\" bereits vorhanden.");
                             string nodeName;
-                            var faceNode = "0" + (offset.Length - 1);
+                            var faceNode = $"0{(offset.Length - 1)}";
                             switch (face.Substring(0, 1))
                             {
                                 case "X":
@@ -236,8 +236,8 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                                     nodeName = nodeInitial + id1 + id2 + faceNode;
                                     break;
                                 default:
-                                    throw new ParseException("wrong Face Id = " + face.Substring(0, 1) +
-                                                             ", must be:\n" + " X, Y or Z");
+                                    throw new ParseException(
+                                        $"wrong Face Id = {face.Substring(0, 1)}, must be:\n X, Y or Z");
                             }
 
                             for (var count = 0; count < type.Length; count++)

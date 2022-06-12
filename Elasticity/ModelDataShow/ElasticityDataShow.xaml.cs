@@ -61,20 +61,20 @@ namespace FE_Analysis.Elasticity.ModelDataShow
                     case 1:
                         {
                             if (item.Value.Restrained[0]) prescribed[0] = item.Value.Prescribed[0].ToString("F4");
-                            if (model.SpatialDimension == 2) prescribed[2] = "";
+                            if (model.SpatialDimension == 2) prescribed[2] = string.Empty;
                             break;
                         }
                     case 2:
                         {
                             if (item.Value.Restrained[1]) prescribed[1] = item.Value.Prescribed[1].ToString("F4");
-                            if (model.SpatialDimension == 2) prescribed[2] = "";
+                            if (model.SpatialDimension == 2) prescribed[2] = string.Empty;
                             break;
                         }
                     case 3:
                         {
                             if (item.Value.Restrained[0]) prescribed[0] = item.Value.Prescribed[0].ToString("F4");
                             if (item.Value.Restrained[1]) prescribed[1] = item.Value.Prescribed[1].ToString("F4");
-                            if (model.SpatialDimension == 2) prescribed[2] = "";
+                            if (model.SpatialDimension == 2) prescribed[2] = string.Empty;
                             break;
                         }
                     case 4:
@@ -231,9 +231,7 @@ namespace FE_Analysis.Elasticity.ModelDataShow
         // Loads
         private void NewNodeLoad(object sender, MouseButtonEventArgs e)
         {
-            const string loadId = "", nodeId = "";
-            const double px = 0, py = 0, m = 0;
-            _ = new NewNodeLoad(model, loadId, nodeId, px, py, m);
+            _ = new NewNodeLoad(model, string.Empty, string.Empty, 0, 0, 0);
             MainWindow.analysed = false;
             Close();
         }

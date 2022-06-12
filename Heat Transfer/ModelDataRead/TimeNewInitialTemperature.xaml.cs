@@ -13,8 +13,8 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             Language = XmlLanguage.GetLanguage("us-US");
             InitializeComponent();
             this.model = model;
-            NodeId.Text = "";
-            InitialTemperature.Text = "";
+            NodeId.Text = string.Empty;
+            InitialTemperature.Text = string.Empty;
             StationarySolution.IsChecked = model.Timeintegration.FromStationary;
             Show();
         }
@@ -31,7 +31,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
 
             var knotenId = NodeId.Text;
             var anfang = new double[1];
-            if (InitialTemperature.Text != "") anfang[0] = double.Parse(InitialTemperature.Text);
+            if (InitialTemperature.Text != string.Empty) anfang[0] = double.Parse(InitialTemperature.Text);
             model.Timeintegration.InitialConditions.Add(new NodalValues(knotenId, anfang));
             model.Timeintegration.FromStationary = false;
             Close();

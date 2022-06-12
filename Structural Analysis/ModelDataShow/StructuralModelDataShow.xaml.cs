@@ -215,9 +215,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
 
         private void NewNodeLoad(object sender, MouseButtonEventArgs e)
         {
-            const string loadId = "", nodeId = "";
-            const double px = 0, py = 0, m = 0;
-            _ = new NewNodeLoad(model, loadId, nodeId, px, py, m);
+            _ = new NewNodeLoad(model, string.Empty, string.Empty, 0, 0, 0);
             MainWindow.analysed = false;
             Close();
         }
@@ -252,9 +250,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
 
         private void NewPointLoad(object sender, MouseButtonEventArgs e)
         {
-            const string loadId = "", elementId = "";
-            const double px = 0, py = 0, offset = 0;
-            _ = new NewPointLoad(model, loadId, elementId, px, py, offset);
+            _ = new NewPointLoad(model, string.Empty, string.Empty, 0, 0, 0);
             MainWindow.analysed = false;
             Close();
         }
@@ -289,9 +285,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
 
         private void NewLineLoad(object sender, MouseButtonEventArgs e)
         {
-            const string loadId = "", elementId = "", inElement = "false";
-            const double pxa = 0, pya = 0, pxb = 0, pyb = 0;
-            _ = new NewLineLoad(model, loadId, elementId, pxa, pya, pxb, pyb, inElement);
+            _ = new NewLineLoad(model, string.Empty, string.Empty, 0, 0, 0, 0, "false");
             MainWindow.analysed = false;
             Close();
         }

@@ -66,7 +66,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             // ************************* Modal Damping Ratios ***********************
             if (model.Eigenstate.DampingRatios.Count <= 0) return;
             var dampingRatios = model.Eigenstate.DampingRatios.Cast<ModalValues>().ToList();
-            dampingRatios[0].Text = dampingRatios.Count == 1 ? "alle Eigenmodes" : "";
+            dampingRatios[0].Text = dampingRatios.Count == 1 ? "alle Eigenmodes" : string.Empty;
             DampingGrid.ItemsSource = dampingRatios;
         }
 

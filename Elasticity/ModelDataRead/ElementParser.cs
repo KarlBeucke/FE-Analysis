@@ -126,7 +126,7 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                                 var eNode = new string[nodesPerElement];
                                 var elementName = initial + idX + idY + idZ;
                                 if (model.Elements.TryGetValue(elementName, out element))
-                                    throw new ParseException("Element \"" + elementName + "\" already exists.");
+                                    throw new ParseException($"Element \"{elementName}\" already exists.");
                                 eNode[0] = eNodeName + idX + idY + idZ;
                                 eNode[1] = eNodeName + idXp + idY + idZ;
                                 eNode[2] = eNodeName + idXp + idYp + idZ;

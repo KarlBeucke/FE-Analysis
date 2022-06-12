@@ -14,12 +14,12 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             Language = XmlLanguage.GetLanguage("us-US");
             this.model = model;
             InitializeComponent();
-            LoadId.Text = "";
-            ElementId.Text = "";
-            P0.Text = "";
-            P1.Text = "";
-            P2.Text = "";
-            P3.Text = "";
+            LoadId.Text = string.Empty;
+            ElementId.Text = string.Empty;
+            P0.Text = string.Empty;
+            P1.Text = string.Empty;
+            P2.Text = string.Empty;
+            P3.Text = string.Empty;
             Show();
         }
 

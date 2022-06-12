@@ -13,14 +13,14 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
         {
             InitializeComponent();
             this.model = model;
-            LoadId.Text = "";
-            NodeId.Text = "";
+            LoadId.Text = string.Empty;
+            NodeId.Text = string.Empty;
             File.IsChecked = false;
-            Constant.Text = "";
-            Amplitude.Text = "";
-            Frequency.Text = "";
-            Angle.Text = "";
-            Linear.Text = "";
+            Constant.Text = string.Empty;
+            Amplitude.Text = string.Empty;
+            Frequency.Text = string.Empty;
+            Angle.Text = string.Empty;
+            Linear.Text = string.Empty;
             Show();
         }
 
@@ -32,20 +32,20 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
 
             if (File.IsChecked == true)
             {
-                Constant.Text = "";
-                Amplitude.Text = "";
-                Frequency.Text = "";
-                Angle.Text = "";
-                Linear.Text = "";
+                Constant.Text = string.Empty;
+                Amplitude.Text = string.Empty;
+                Frequency.Text = string.Empty;
+                Angle.Text = string.Empty;
+                Linear.Text = string.Empty;
                 zeitabhängigeKnotentemperatur =
                     new TimeDependentNodeLoad(knotenId, true) { LoadId = loadId, VariationType = 0 };
             }
             else if (Constant.Text.Length != 0)
             {
-                Amplitude.Text = "";
-                Frequency.Text = "";
-                Angle.Text = "";
-                Linear.Text = "";
+                Amplitude.Text = string.Empty;
+                Frequency.Text = string.Empty;
+                Angle.Text = string.Empty;
+                Linear.Text = string.Empty;
                 File.IsChecked = false;
                 var konstanteTemperatur = double.Parse(Constant.Text);
                 zeitabhängigeKnotentemperatur =
@@ -53,8 +53,8 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             }
             else if ((Amplitude.Text.Length & Frequency.Text.Length & Angle.Text.Length) != 0)
             {
-                Constant.Text = "";
-                Linear.Text = "";
+                Constant.Text = string.Empty;
+                Linear.Text = string.Empty;
                 File.IsChecked = false;
                 var amplitude = double.Parse(Amplitude.Text);
                 var frequency = 2 * Math.PI * double.Parse(Frequency.Text);
@@ -65,10 +65,10 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             }
             else if (Linear.Text.Length != 0)
             {
-                Constant.Text = "";
-                Amplitude.Text = "";
-                Frequency.Text = "";
-                Angle.Text = "";
+                Constant.Text = string.Empty;
+                Amplitude.Text = string.Empty;
+                Frequency.Text = string.Empty;
+                Angle.Text = string.Empty;
                 File.IsChecked = false;
                 var delimiters = new[] { '\t' };
                 var teilStrings = Linear.Text.Split(delimiters);

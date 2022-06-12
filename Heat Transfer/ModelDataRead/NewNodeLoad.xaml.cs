@@ -24,7 +24,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             var nodeLoadId = NodeLoadId.Text;
             var nodeId = NodeId.Text;
             var temperature = new double[1];
-            if (Temperature.Text != "") temperature[0] = double.Parse(Temperature.Text, InvariantCulture);
+            if (Temperature.Text != string.Empty) temperature[0] = double.Parse(Temperature.Text, InvariantCulture);
 
             var nodeLoad = new NodeLoad(nodeLoadId, nodeId, temperature);
 
