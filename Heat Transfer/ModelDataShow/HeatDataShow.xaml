@@ -4,28 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Display Heat Model Data" Height="450" Width="800">
+        Title="Display Heat Model Data" Height="580" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="150*" />
+            <ColumnDefinition Width="300*" />
+            <ColumnDefinition Width="150*" />
+            <ColumnDefinition Width="200*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150" />
-            <RowDefinition Height="150" />
-            <RowDefinition Height="150" />
+            <RowDefinition Height="150*" />
+            <RowDefinition Height="150*" />
+            <RowDefinition Height="150*" />
         </Grid.RowDefinitions>
         <Label x:Name="NodeDefinitions" Content="NodeDefinitions" HorizontalAlignment="Left"
                VerticalAlignment="Top"
                Margin="5,0,0,0" Width="140" Grid.Row="0" Grid.Column="0" />
         <DataGrid
-            Name="NodesGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140"
-            Margin="5,20,0,0" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Height="395"
+            Name="NodesGrid"
+            Margin="5,20,9,4" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
             AlternatingRowBackground="Aqua" Loaded="Nodes_Loaded" AutoGenerateColumns="False"
             CellEditEnding="Model_Changed"
-            MouseDoubleClick="NewNode" UnloadingRow="NodeRowRemove" SelectionChanged="NodeRowSelected">
+            MouseDoubleClick="NewNode" UnloadingRow="NodeRowRemove" SelectionChanged="NodeRowSelected" VerticalContentAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nodes" Binding="{Binding Id}" />
                 <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" />
@@ -38,8 +38,8 @@
                VerticalAlignment="Top"
                Margin="5,0,0,0" Width="250" Grid.Row="0" Grid.Column="1" />
         <DataGrid
-            Name="ElementGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="5,20,0,0" Height="395" Width="290" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+            Name="ElementGrid"
+            Margin="4,26,6,1" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
             AlternatingRowBackground="Aqua" AutoGenerateColumns="False" Loaded="Elements_Loaded"
             CellEditEnding="Model_Changed"
             MouseDoubleClick="NewElement" UnloadingRow="ElementRowRemove" SelectionChanged="ElementRowSelected"
@@ -62,8 +62,8 @@
                VerticalAlignment="Top"
                Margin="5,0,0,0" Width="140" Grid.Row="0" Grid.Column="2" />
         <DataGrid
-            Name="MaterialGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="5,20,0,0" Height="125" Width="140" Grid.Column="2" Grid.Row="0"
+            Name="MaterialGrid"
+            Margin="4,28,2,8" Grid.Column="2" Grid.Row="0"
             AlternatingRowBackground="Aqua"
             Loaded="Material_Loaded" AutoGenerateColumns="False" CellEditEnding="Model_Changed"
             MouseDoubleClick="NewMaterial" UnloadingRow="MaterialRowRemove"
@@ -82,8 +82,8 @@
                VerticalAlignment="Top"
                Margin="5,0,0,0" Width="140" Grid.Row="1" Grid.Column="2" />
         <DataGrid
-            Name="BoundaryConditionGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="5,20,0,0" Height="245" Width="140" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
+            Name="BoundaryConditionGrid"
+            Margin="4,29,8,2" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
             AlternatingRowBackground="Aqua" Loaded="BoundaryConditions_Loaded" AutoGenerateColumns="False"
             CellEditEnding="Model_Changed" MouseDoubleClick="NewBoundaryCondition"
             UnloadingRow="BoundaryConditionRowRemove" SelectionChanged="BoundaryConditionRowSelected">
@@ -97,8 +97,8 @@
         <Label x:Name="Influences" Content="Influences" HorizontalAlignment="Left" VerticalAlignment="Top"
                Margin="5,0,0,0" Width="180" Grid.Row="0" Grid.Column="3" />
         <DataGrid
-            Name="NodalInfluenceGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="5,20,0,0" Height="125" Width="185" Grid.Column="3" Grid.Row="0"
+            Name="NodalInfluenceGrid"
+            Margin="4,25,2,4" Grid.Column="3" Grid.Row="0"
             AlternatingRowBackground="Aqua" Loaded="NodalInfluences_Loaded" AutoGenerateColumns="False"
             CellEditEnding="Model_Changed" MouseDoubleClick="NewNodeLoad"
             UnloadingRow="NodeLoadRowRemove" SelectionChanged="NodeLoadRowSelected">
@@ -109,8 +109,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid
-            Name="LineInfluencesGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="5,0,0,0" Height="145" Width="185" Grid.Column="3" Grid.Row="1"
+            Name="LineInfluencesGrid"
+            Margin="4,8,6,9" Grid.Column="3" Grid.Row="1"
             AlternatingRowBackground="Aqua" Loaded="LineLoads_Loaded" AutoGenerateColumns="False"
             MouseDoubleClick="NewLineLoad" UnloadingRow="LineLoadRowRemove"
             SelectionChanged="LineLoadRowSelected">
@@ -123,8 +123,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid
-            Name="ElementInfluencesGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="5,0,0,0" Height="115" Width="185" Grid.Column="3" Grid.Row="2"
+            Name="ElementInfluencesGrid" VerticalContentAlignment="Stretch"
+            Margin="4,6,5,5" Grid.Column="3" Grid.Row="2"
             AlternatingRowBackground="Aqua"
             Loaded="ElementLoads_Loaded" AutoGenerateColumns="False" CellEditEnding="Model_Changed"
             MouseDoubleClick="NewElementLoad" UnloadingRow="ElementLoadRowRemove"
