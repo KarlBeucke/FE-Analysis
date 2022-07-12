@@ -152,8 +152,8 @@ namespace FE_Analysis.Elasticity.ModelDataRead
 
             for (var i = 0; i < lines.Count; i++)
             {
-                if (lines[i] != "CrossSections") continue;
-                FeParser.InputFound += "\nCrossSections";
+                if (lines[i] != "CrossSection") continue;
+                FeParser.InputFound += "\nCrossSection";
                 do
                 {
                     substrings = lines[i + 1].Split(delimiters);

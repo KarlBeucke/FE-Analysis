@@ -61,11 +61,11 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead
                                 break;
                             case 5:
                                 {
-                                    var feder = substrings[1];
+                                    var spring = substrings[1];
                                     kx = double.Parse(substrings[2], InvariantCulture);
                                     ky = double.Parse(substrings[3], InvariantCulture);
                                     kphi = double.Parse(substrings[4], InvariantCulture);
-                                    material = new Material(feder, kx, ky, kphi)
+                                    material = new Material(spring, kx, ky, kphi)
                                     {
                                         MaterialId = materialId
                                     };
