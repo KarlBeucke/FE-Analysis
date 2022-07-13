@@ -311,12 +311,12 @@ namespace FEALibrary.Model
                                         }
                                     }
                                 }
-                                i += 2;
                                 break;
                             default:
                                 throw new ParseException(i + 3 + ": Variable Node Mesh");
                         }
-                        i += 2;
+                        i+=2;
+                        if (lines[i] == string.Empty) break;
                     }
                     break;
                 }

@@ -39,15 +39,15 @@ namespace FE_Analysis
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             };
 
-            if (Directory.Exists(fileDialog.InitialDirectory + "\\FE Analysis\\input"))
+            if (Directory.Exists(fileDialog.InitialDirectory + "\\FE-Analysis-App\\input"))
             {
-                fileDialog.InitialDirectory += "\\FE Analysis\\input\\HeatTransfer";
+                fileDialog.InitialDirectory += "\\FE-Analysis-App\\input\\HeatTransfer";
                 fileDialog.ShowDialog();
             }
             else
             {
                 _ = MessageBox.Show("Directory for input file " + fileDialog.InitialDirectory +
-                                    " \\FE Analysis\\input not found", "Heat Transfer Analysis");
+                                    " \\FE-Analysis-App\\input not found", "Heat Transfer Analysis");
                 fileDialog.ShowDialog();
             }
 
@@ -594,15 +594,15 @@ namespace FE_Analysis
                 //InitialDirectory = Directory.GetCurrentDirectory()
             };
 
-            if (Directory.Exists(fileDialog.InitialDirectory + "\\FE Analysis\\input"))
+            if (Directory.Exists(fileDialog.InitialDirectory + "\\FE-Analysis-App\\input"))
             {
-                fileDialog.InitialDirectory += "\\FE Analysis\\input\\StructuralAnalysis";
+                fileDialog.InitialDirectory += "\\FE-Analysis-App\\input\\StructuralAnalysis";
                 fileDialog.ShowDialog();
             }
             else
             {
                 _ = MessageBox.Show("Directory for Input Files " + fileDialog.InitialDirectory +
-                                    " \\FE Analysis\\input\\Structural_Analysis not found", "Structural Analysis");
+                                    " \\FE-Analysis-App\\input\\StructuralAnalysis not found", "Structural Analysis");
                 fileDialog.ShowDialog();
             }
 
@@ -1000,7 +1000,7 @@ namespace FE_Analysis
 
         //********************************************************************
         // Elasticity Analysis
-        private void ElasticityDataRead(object sender, EventArgs e)
+        private void ElasticityDataRead(object sender, RoutedEventArgs e)
         {
             var sb = new StringBuilder();
             fileDialog = new OpenFileDialog
@@ -1009,15 +1009,15 @@ namespace FE_Analysis
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             };
 
-            if (Directory.Exists(fileDialog.InitialDirectory + "\\FE Analysis\\input"))
+            if (Directory.Exists(fileDialog.InitialDirectory + "\\FE-Analysis-App\\input"))
             {
-                fileDialog.InitialDirectory += "\\FE Programm\\input\\Elasticity Analysis";
+                fileDialog.InitialDirectory += "\\FE-Analysis-App\\input\\Elasticity";
                 fileDialog.ShowDialog();
             }
             else
             {
                 _ = MessageBox.Show("Directory for input file " + fileDialog.InitialDirectory +
-                                    " \\FE Analysis\\input\\Elasticity Analysis not found",
+                                    " \\FE-Analysis-App\\input\\Elasticity not found",
                     "Elasticity Analysis");
                 fileDialog.ShowDialog();
             }
@@ -1239,6 +1239,7 @@ namespace FE_Analysis
                     }
             }
         }
+
         private void ElasticityDataAnalyze(object sender, EventArgs e)
         {
             if (model == null)
