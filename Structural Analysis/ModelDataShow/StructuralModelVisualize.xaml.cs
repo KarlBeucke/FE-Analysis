@@ -15,7 +15,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
 {
     public partial class StructuralModelVisualize
     {
-        private readonly Presentation presentation;
+        public readonly Presentation presentation;
 
         //all "Shapes" found are collected in a List
         private readonly List<Shape> hitList = new List<Shape>();
@@ -120,7 +120,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
                             if (path.Name == null) continue;
                             if (model.Elements.TryGetValue(path.Name, out var element))
                             {
-                                sb.Append("\nElement\t= " + element.ElementId);
+                                sb.Append("Element\t= " + element.ElementId);
                                 if (element is SpringElement)
                                 {
                                     if (model.Elements.TryGetValue(element.ElementId, out var feder))
@@ -140,7 +140,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
                                     sb.Append("\nNode 1\t= " + element.NodeIds[0]);
                                     sb.Append("\nNode 2\t= " + element.NodeIds[1]);
                                     if (model.Material.TryGetValue(element.ElementMaterialId, out var material))
-                                        sb.Append("\nE-Modul\t= " + material.MaterialValues[0].ToString("g3", InvariantCulture));
+                                        sb.Append("\nE-Mod.\t= " + material.MaterialValues[0].ToString("g3", InvariantCulture));
                                     if (model.CrossSection.TryGetValue(element.ElementCrossSectionId, out var crossSection))
                                     {
                                         sb.Append("\nArea\t= " + crossSection.CrossSectionValues[0]);
@@ -170,8 +170,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
                                 for (var i = 0; i < elementLoad.Intensity.Length; i++)
                                     sb.Append("\nLoad Value " + i + "\t= " + elementLoad.Intensity[i]);
                             }
-
-                            sb.Append("\n");
                         }
                         break;
                 }

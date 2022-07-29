@@ -17,7 +17,7 @@ namespace FE_Analysis.Structural_Analysis.Results
 {
     public partial class StaticResultsVisualize
     {
-        private readonly Presentation presentation;
+        public readonly Presentation presentation;
         private readonly List<Shape> hitList = new List<Shape>();
         private readonly List<TextBlock> hitTextBlock = new List<TextBlock>();
         private readonly FeModel model;

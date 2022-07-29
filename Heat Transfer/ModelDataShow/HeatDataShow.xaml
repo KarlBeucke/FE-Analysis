@@ -23,9 +23,10 @@
         <DataGrid
             Name="NodesGrid"
             Margin="5,20,9,4" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
-            AlternatingRowBackground="Aqua" Loaded="Nodes_Loaded" AutoGenerateColumns="False"
-            CellEditEnding="Model_Changed"
-            MouseDoubleClick="NewNode" UnloadingRow="NodeRowRemove" SelectionChanged="NodeRowSelected" VerticalContentAlignment="Top">
+            AlternatingRowBackground="Aqua" VerticalContentAlignment="Top" AutoGenerateColumns="False"
+            Loaded="Nodes_Loaded" MouseDoubleClick="NewNode" UnloadingRow="NodeRowRemove" 
+            SelectionChanged="NodeRowSelected" LostFocus="NoNodeSelected"
+            CellEditEnding="Model_Changed">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nodes" Binding="{Binding Id}" />
                 <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" />
@@ -41,8 +42,8 @@
             Name="ElementGrid"
             Margin="4,26,6,1" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
             AlternatingRowBackground="Aqua" AutoGenerateColumns="False" Loaded="Elements_Loaded"
-            CellEditEnding="Model_Changed"
             MouseDoubleClick="NewElement" UnloadingRow="ElementRowRemove" SelectionChanged="ElementRowSelected"
+            LostFocus="NoElementSelected"  CellEditEnding="Model_Changed"
             d:DataContext="{d:DesignData }">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Element" Binding="{Binding ElementId}" />

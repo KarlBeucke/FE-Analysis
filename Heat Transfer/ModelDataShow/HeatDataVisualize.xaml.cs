@@ -13,7 +13,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
 {
     public partial class HeatDataVisualize
     {
-        private readonly Presentation presentation;
+        public readonly Presentation presentation;
         private readonly List<Shape> hitList = new List<Shape>();
         private readonly List<TextBlock> hitTextBlock = new List<TextBlock>();
         private readonly FeModel model;
@@ -29,7 +29,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             Show();
 
             presentation = new Presentation(model, VisualModel);
-            presentation.ElementsDraw();
+            presentation.AllElementsDraw();
 
             // mit Knoten und Element Ids
             presentation.NodeIds();

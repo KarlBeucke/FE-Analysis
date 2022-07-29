@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataShow
 {
@@ -14,12 +16,15 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
     {
         private readonly FeModel model;
         private string removeKey;
+        private Shape lastElement;
+        private Shape lastNode;
 
         public StructuralModelDataShow(FeModel feModel)
         {
             Language = XmlLanguage.GetLanguage("us-US");
             model = feModel;
             InitializeComponent();
+            lastElement = null;
         }
 
         private void Nodes_Loaded(object sender, RoutedEventArgs e)
@@ -56,6 +61,16 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var cellInfo = NodesGrid.SelectedCells[0];
             var node = (Node)cellInfo.Item;
             removeKey = node.Id;
+            if (lastNode != null)
+            {
+                MainWindow.structuralModel.VisualModel.Children.Remove(lastNode);
+            }
+            lastNode = MainWindow.structuralModel.presentation.NodeIndicate(node, Brushes.Green, 1);
+        }
+        //LostFocus
+        private void NoNodeSelected(object sender, RoutedEventArgs e)
+        {
+            MainWindow.structuralModel.VisualModel.Children.Remove(lastNode);
         }
 
         private void ElementsGrid_Loaded(object sender, RoutedEventArgs e)
@@ -64,14 +79,12 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             ElementGrid = sender as DataGrid;
             if (ElementGrid != null) ElementGrid.ItemsSource = elemente;
         }
-
         private void NewElement(object sender, MouseButtonEventArgs e)
         {
             _ = new NewElement(model);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void ElementRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -83,7 +96,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var structure = new StructuralModelDataShow(model);
             structure.Show();
         }
-
         //SelectionChanged
         private void ElementRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -91,6 +103,15 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var cellInfo = ElementGrid.SelectedCells[0];
             var element = (Abstract2D)cellInfo.Item;
             removeKey = element.ElementId;
+            if (lastElement != null)
+            {
+                MainWindow.structuralModel.VisualModel.Children.Remove(lastElement);
+            }
+            lastElement = MainWindow.structuralModel.presentation.ElementDraw(element, Brushes.Green, 5);
+        }
+        private void NoElementSelected(object sender, RoutedEventArgs e)
+        {
+            MainWindow.structuralModel.VisualModel.Children.Remove(lastElement);
         }
 
         private void Material_Loaded(object sender, RoutedEventArgs e)
@@ -99,13 +120,11 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             MaterialGrid = sender as DataGrid;
             if (MaterialGrid != null) MaterialGrid.ItemsSource = material;
         }
-
         private void NewMaterial(object sender, MouseButtonEventArgs e)
         {
             _ = new NewMaterial(model);
             Close();
         }
-
         //UnloadingRow
         private void MaterialRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -117,7 +136,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var structure = new StructuralModelDataShow(model);
             structure.Show();
         }
-
         //SelectionChanged
         private void MaterialRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -126,20 +144,18 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var material = (Model_Data.Material)cellInfo.Item;
             removeKey = material.MaterialId;
         }
-
+        
         private void CrossSection_Loaded(object sender, RoutedEventArgs e)
         {
             var crossSection = model.CrossSection.Select(item => item.Value).ToList();
             CrossSectionGrid = sender as DataGrid;
             if (CrossSectionGrid != null) CrossSectionGrid.ItemsSource = crossSection;
         }
-
         private void NewCrossSection(object sender, MouseButtonEventArgs e)
         {
             _ = new NewCrossSection(model);
             Close();
         }
-
         //UnloadingRow
         private void CrossSectionRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -151,7 +167,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var structure = new StructuralModelDataShow(model);
             structure.Show();
         }
-
         //SelectionChanged
         private void CrossSectionRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -176,7 +191,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             SupportGrid = sender as DataGrid;
             if (SupportGrid != null) SupportGrid.ItemsSource = support;
         }
-
         private void NewSupport(object sender, MouseButtonEventArgs e)
         {
             const double vorX = 0, vorY = 0, vorRot = 0;
@@ -184,7 +198,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void SupportRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -196,7 +209,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var structure = new StructuralModelDataShow(model);
             structure.Show();
         }
-
         //SelectionChanged
         private void SupportRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -212,14 +224,12 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             NodeLoadsGrid = sender as DataGrid;
             if (NodeLoadsGrid != null) NodeLoadsGrid.ItemsSource = loads;
         }
-
         private void NewNodeLoad(object sender, MouseButtonEventArgs e)
         {
             _ = new NewNodeLoad(model, string.Empty, string.Empty, 0, 0, 0);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void NodeLoadRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -231,7 +241,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var structure = new StructuralModelDataShow(model);
             structure.Show();
         }
-
         //SelectionChanged
         private void NodeLoadRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -247,14 +256,12 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             PointLoadsGrid = sender as DataGrid;
             if (PointLoadsGrid != null) PointLoadsGrid.ItemsSource = loads;
         }
-
         private void NewPointLoad(object sender, MouseButtonEventArgs e)
         {
             _ = new NewPointLoad(model, string.Empty, string.Empty, 0, 0, 0);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void PointLoadRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -266,7 +273,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var structure = new StructuralModelDataShow(model);
             structure.Show();
         }
-
         //SelectionChanged
         private void PointLoadRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -282,14 +288,12 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             LineLoadsGrid = sender as DataGrid;
             if (LineLoadsGrid != null) LineLoadsGrid.ItemsSource = lasten;
         }
-
         private void NewLineLoad(object sender, MouseButtonEventArgs e)
         {
             _ = new NewLineLoad(model, string.Empty, string.Empty, 0, 0, 0, 0, "false");
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void LineLoadRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -301,7 +305,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var structure = new StructuralModelDataShow(model);
             structure.Show();
         }
-
         //SelectionChanged
         private void LineLoadsRowSelected(object sender, RoutedEventArgs e)
         {
@@ -310,7 +313,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var lineLoad = (Model_Data.LineLoad)cellInfo.Item;
             removeKey = lineLoad.LoadId;
         }
-
+        
         private void Model_Changed(object sender, DataGridCellEditEndingEventArgs e)
         {
             MainWindow.analysed = false;

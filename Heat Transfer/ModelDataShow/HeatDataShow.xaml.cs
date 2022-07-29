@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataShow
 {
@@ -14,6 +16,8 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
     {
         private readonly FeModel model;
         private string removeKey;
+        private Shape lastElement;
+        private Shape lastNode;
 
         public HeatDataShow(FeModel model)
         {
@@ -29,14 +33,12 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             NodesGrid = sender as DataGrid;
             if (NodesGrid != null) NodesGrid.ItemsSource = node;
         }
-
         private void NewNode(object sender, MouseButtonEventArgs e)
         {
             _ = new NewNode(model);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void NodeRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -48,14 +50,22 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             var heat = new HeatDataShow(model);
             heat.Show();
         }
-
         //SelectionChanged
         private void NodeRowSelected(object sender, SelectionChangedEventArgs e)
         {
             if (NodesGrid.SelectedCells.Count <= 0) return;
             var cellInfo = NodesGrid.SelectedCells[0];
-            var knoten = (Node)cellInfo.Item;
-            removeKey = knoten.Id;
+            var node = (Node)cellInfo.Item;
+            removeKey = node.Id;
+            if (lastNode != null)
+            {
+                MainWindow.heatModel.VisualModel.Children.Remove(lastNode);
+            }
+            lastNode = MainWindow.heatModel.presentation.NodeIndicate(node, Brushes.Green, 1);
+        }
+        private void NoNodeSelected(object sender, RoutedEventArgs e)
+        {
+            MainWindow.heatModel.VisualModel.Children.Remove(lastNode);
         }
 
         private void Elements_Loaded(object sender, RoutedEventArgs e)
@@ -66,14 +76,12 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             ElementGrid.Items.Clear();
             ElementGrid.ItemsSource = elemente;
         }
-
         private void NewElement(object sender, MouseButtonEventArgs e)
         {
             _ = new NewElement(model);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void ElementRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -85,7 +93,6 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             var heat = new HeatDataShow(model);
             heat.Show();
         }
-
         //SelectionChanged
         private void ElementRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -93,6 +100,16 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             var cellInfo = ElementGrid.SelectedCells[0];
             var element = (AbstractElement)cellInfo.Item;
             removeKey = element.ElementId;
+            if (lastElement != null)
+            {
+                MainWindow.heatModel.VisualModel.Children.Remove(lastElement);
+            }
+            lastElement = MainWindow.heatModel.presentation.ElementFillZeichnen((Abstract2D)element,
+                Brushes.Black, Colors.Green, .2, 2);
+        }
+        private void NoElementSelected(object sender, RoutedEventArgs e)
+        {
+            MainWindow.heatModel.VisualModel.Children.Remove(lastElement);
         }
 
         private void Material_Loaded(object sender, RoutedEventArgs e)
@@ -103,13 +120,11 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             MaterialGrid.Items.Clear();
             MaterialGrid.ItemsSource = material;
         }
-
         private void NewMaterial(object sender, MouseButtonEventArgs e)
         {
             _ = new NewMaterial(model);
             Close();
         }
-
         //UnloadingRow
         private void MaterialRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -121,7 +136,6 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             var heat = new HeatDataShow(model);
             heat.Show();
         }
-
         //SelectionChanged
         private void MaterialRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -137,14 +151,12 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             BoundaryConditionGrid = sender as DataGrid;
             if (BoundaryConditionGrid != null) BoundaryConditionGrid.ItemsSource = rand;
         }
-
         private void NewBoundaryCondition(object sender, MouseButtonEventArgs e)
         {
             _ = new NewBoundaryCondition(model);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void BoundaryConditionRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -156,7 +168,6 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             var heat = new HeatDataShow(model);
             heat.Show();
         }
-
         //SelectionChanged
         private void BoundaryConditionRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -172,14 +183,12 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             NodalInfluenceGrid = sender as DataGrid;
             if (NodalInfluenceGrid != null) NodalInfluenceGrid.ItemsSource = lasten;
         }
-
         private void NewNodeLoad(object sender, MouseButtonEventArgs e)
         {
             _ = new NewNodeLoad(model);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void NodeLoadRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -191,7 +200,6 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             var heat = new HeatDataShow(model);
             heat.Show();
         }
-
         //SelectionChanged
         private void NodeLoadRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -207,14 +215,12 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             LineInfluencesGrid = sender as DataGrid;
             if (LineInfluencesGrid != null) LineInfluencesGrid.ItemsSource = lasten;
         }
-
         private void NewLineLoad(object sender, MouseButtonEventArgs e)
         {
             _ = new NewLineLoad(model);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void LineLoadRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -226,7 +232,6 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             var heat = new HeatDataShow(model);
             heat.Show();
         }
-
         //SelectionChanged
         private void LineLoadRowSelected(object sender, SelectionChangedEventArgs e)
         {
@@ -242,14 +247,12 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             ElementInfluencesGrid = sender as DataGrid;
             if (ElementInfluencesGrid != null) ElementInfluencesGrid.ItemsSource = loads;
         }
-
         private void NewElementLoad(object sender, MouseButtonEventArgs e)
         {
             _ = new NewElementLoad(model);
             MainWindow.analysed = false;
             Close();
         }
-
         //UnloadingRow
         private void ElementLoadRowRemove(object sender, DataGridRowEventArgs e)
         {
@@ -261,7 +264,6 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             var heat = new HeatDataShow(model);
             heat.Show();
         }
-
         //SelectionChanged
         private void ElementLoadRowSelected(object sender, SelectionChangedEventArgs e)
         {

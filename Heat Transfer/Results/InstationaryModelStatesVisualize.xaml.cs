@@ -19,7 +19,7 @@ namespace FE_Analysis.Heat_Transfer.Results
 
             presentation = new Presentation(model, VisualResults);
             presentation.EvaluateResolution();
-            presentation.ElementsDraw();
+            presentation.AllElementsDraw();
 
             // selection of time step
             var dt = model.Timeintegration.Dt;

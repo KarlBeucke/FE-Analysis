@@ -95,6 +95,25 @@ namespace FE_Analysis.Heat_Transfer
                 NodeIDs.Add(id);
             }
         }
+        public Shape NodeIndicate(Node feNode, System.Windows.Media.Brush color, double weight)
+        {
+            var point = TransformNode(feNode, resolution, maxY);
+
+            var nodeIndicate = new GeometryGroup();
+            nodeIndicate.Children.Add(
+                new EllipseGeometry(new Point(point.X, point.Y), 20, 20)
+            );
+            Shape nodePath = new Path()
+            {
+                Stroke = color,
+                StrokeThickness = weight,
+                Data = nodeIndicate
+            };
+            SetLeft(nodePath, BorderLeft);
+            SetTop(nodePath, BorderTop);
+            visualResults.Children.Add(nodePath);
+            return nodePath;
+        }
 
         public void ElementIds()
         {
@@ -116,44 +135,60 @@ namespace FE_Analysis.Heat_Transfer
             }
         }
 
-        public void ElementsDraw()
+        public void AllElementsDraw()
         {
-            foreach (var path in from item in model.Elements
-                                 select item.Value
-                     into element
-                                 let pathGeometry = CurrentElementDraw(element)
-                                 select new Path
-                                 {
-                                     Name = element.ElementId,
-                                     Stroke = Black,
-                                     StrokeThickness = 1,
-                                     Data = pathGeometry
-                                 })
+            foreach (var item in model.Elements)
             {
-                // setz oben/links Position zum Zeichnen auf dem Canvas
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
-                visualResults.Children.Add(path);
+                ElementDraw(item.Value, Black, 2);
             }
         }
+        private void ElementDraw(AbstractElement element, System.Windows.Media.Brush color, double weight)
+        {
+            var pathGeometry = ElementOutlines(element);
+            Shape elementPath = new Path()
+            {
+                Name = element.ElementId,
+                Stroke = color,
+                StrokeThickness = weight,
+                Data = pathGeometry
+            };
+            SetLeft(elementPath, BorderLeft);
+            SetTop(elementPath, BorderTop);
+            visualResults.Children.Add(elementPath);
+        }
+        public Shape ElementFillZeichnen(AbstractElement element, System.Windows.Media.Brush outlineColor, 
+            System.Windows.Media.Color fillColor, double transparent, double weight)
+        {
+            var pathGeometry = ElementOutlines(element);
+            var fill = new SolidColorBrush(fillColor) { Opacity = .2 };
 
-        private PathGeometry CurrentElementDraw(AbstractElement element)
+            Shape elementPath = new Path()
+            {
+                Name = element.ElementId,
+                Stroke = outlineColor,
+                StrokeThickness = weight,
+                Fill = fill,
+                Data = pathGeometry
+            };
+            SetLeft(elementPath, BorderLeft);
+            SetTop(elementPath, BorderTop);
+            visualResults.Children.Add(elementPath);
+            return elementPath;
+        }
+        private PathGeometry ElementOutlines(AbstractElement element)
         {
             var pathFigure = new PathFigure();
             var pathGeometry = new PathGeometry();
 
             if (model.Nodes.TryGetValue(element.NodeIds[0], out node)) { }
-
             var startPoint = TransformNode(node, resolution, maxY);
             pathFigure.StartPoint = startPoint;
             for (var i = 1; i < element.NodesPerElement; i++)
             {
                 if (model.Nodes.TryGetValue(element.NodeIds[i], out node)) { }
-
                 var nextPoint = TransformNode(node, resolution, maxY);
                 pathFigure.Segments.Add(new LineSegment(nextPoint, true));
             }
-
             pathFigure.IsClosed = true;
             pathGeometry.Figures.Add(pathFigure);
             return pathGeometry;
@@ -186,26 +221,10 @@ namespace FE_Analysis.Heat_Transfer
         {
             foreach (var item in model.ElementLoads)
             {
-                if (model.Elements.TryGetValue(item.Value.ElementId, out var element))
-                {
-                }
 
-                var pathGeometry = CurrentElementDraw((Abstract2D)element);
-
-                var mySolidColorBrush = new SolidColorBrush(Colors.Red) { Opacity = .2 };
-                var lastElement = new Path
-                {
-                    Stroke = Black,
-                    StrokeThickness = 1,
-                    Fill = mySolidColorBrush,
-                    Data = pathGeometry
-                };
-                LoadElements.Add(lastElement);
-                // setz oben/links Position zum Zeichnen auf dem Canvas
-                SetLeft(lastElement, BorderLeft);
-                SetTop(lastElement, BorderTop);
-                // zeichne Shape
-                visualResults.Children.Add(lastElement);
+                if (model.Elements.TryGetValue(item.Value.ElementId, out var element)) { }
+                var elementLoad = ElementFillZeichnen((Abstract2D)element, Black, Colors.Red, .2, 1);
+                LoadElements.Add(elementLoad);
             }
         }
 
@@ -302,7 +321,7 @@ namespace FE_Analysis.Heat_Transfer
             foreach (var item in model.Elements)
             {
                 currentElement = item.Value;
-                var pathGeometry = CurrentElementDraw((Abstract2D)currentElement);
+                var pathGeometry = ElementOutlines((Abstract2D)currentElement);
                 double elementTemperature = 0;
                 for (var i = 0; i < currentElement.NodesPerElement; i++)
                 {

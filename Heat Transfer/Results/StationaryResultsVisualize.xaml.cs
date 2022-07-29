@@ -32,7 +32,7 @@ namespace FE_Analysis.Heat_Transfer.Results
         {
             presentation = new Presentation(model, VisualResults);
             presentation.EvaluateResolution();
-            presentation.ElementsDraw();
+            presentation.AllElementsDraw();
             presentation.NodalTemperaturesDraw();
             nodalTemperaturesOn = true;
         }

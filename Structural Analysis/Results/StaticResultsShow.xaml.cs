@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace FE_Analysis.Structural_Analysis.Results
 {
     public partial class StaticResultsShow
     {
         private readonly FeModel model;
+        private Node lastNode;
 
         public StaticResultsShow(FeModel feModel)
         {
@@ -21,6 +23,20 @@ namespace FE_Analysis.Structural_Analysis.Results
         private void NodeDeformations_Loaded(object sender, RoutedEventArgs e)
         {
             NodeDeformationsGrid.ItemsSource = model.Nodes;
+        }
+        //SelectionChanged
+        private void KnotenZeileSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (NodeDeformationsGrid.SelectedCells.Count <= 0) return;
+            var cellInfo = NodeDeformationsGrid.SelectedCells[0];
+            var cell = (KeyValuePair<string, Node>)cellInfo.Item;
+            var node = cell.Value;
+            if (lastNode != null)
+            {
+                MainWindow.staticResults.presentation.NodeIndicate(lastNode, Brushes.White, 2);
+            }
+            MainWindow.staticResults.presentation.NodeIndicate(node, Brushes.Red, 1);
+            lastNode = node;
         }
 
         private void ElementEndForces_Loaded(object sender, RoutedEventArgs e)

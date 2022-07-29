@@ -44,7 +44,7 @@ namespace FE_Analysis.Heat_Transfer.Results
             presentation.EvaluateResolution();
             maxY = presentation.maxY;
             resolution = presentation.resolution;
-            presentation.ElementsDraw();
+            presentation.AllElementsDraw();
         }
 
         // Combobox event

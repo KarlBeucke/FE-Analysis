@@ -26,7 +26,7 @@
                 Name="NodesGrid" Margin="0,20,0,0" Grid.Column="0" AlternatingRowBackground="Aqua"
                 Loaded="Nodes_Loaded" AutoGenerateColumns="False" CellEditEnding="Model_Changed"
                 MouseDoubleClick="NewNode" UnloadingRow="NodeRowRemove"
-                SelectionChanged="NodeRowSelected">
+                SelectionChanged="NodeRowSelected" LostFocus="NoNodeSelected">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Node" Binding="{Binding Id}" />
                     <DataGridTextColumn Header="X" Binding="{Binding Coordinates[0]}" />
@@ -43,7 +43,7 @@
                 AlternatingRowBackground="Aqua"
                 Loaded="ElementsGrid_Loaded" AutoGenerateColumns="False" CellEditEnding="Model_Changed"
                 MouseDoubleClick="NewElement" UnloadingRow="ElementRowRemove"
-                SelectionChanged="ElementRowSelected">
+                SelectionChanged="ElementRowSelected" LostFocus="NoElementSelected">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding ElementId, StringFormat=N2}" />
                     <DataGridTextColumn Header="k1" Binding="{Binding NodeIds[0], StringFormat=N2}" />

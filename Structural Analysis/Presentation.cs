@@ -16,24 +16,32 @@ namespace FE_Analysis.Structural_Analysis
 {
     public class Presentation
     {
-        private const int BorderTop = 60, BorderLeft = 60;
-
-        private const int MaxAxialForceScreen = 30;
-        private const int MaxShearForceScreen = 30;
-        private const int MaxMomentScreen = 50;
         private readonly FeModel model;
-        private readonly Canvas visualResults;
+        private Node node;
         public double resolution;
         private double resolutionH, resolutionV, loadResolution;
-        private Node node;
-        public TextBlock maxMomentText;
         public double maxY;
         private double minX, maxX, minY;
         private double placementV, placementH;
-        private double screenH;
-        private double screenV;
+        private double screenH, screenV;
         public int scalingRotation = 1;
         public int scalingDisplacement = 1;
+        private const int BorderTop = 60, BorderLeft = 60;
+        private const int MaxAxialForceScreen = 30;
+        private const int MaxShearForceScreen = 30;
+        private const int MaxMomentScreen = 50;
+        private readonly Canvas visualResults;
+        public TextBlock maxMomentText;
+
+        public List<object> ElementIDs { get; }
+        public List<object> NodeIDs { get; }
+        public List<object> MaxTexts { get; }
+        public List<object> Deformations { get; }
+        public List<object> LoadVectors { get; }
+        public List<object> SupportRepresentation { get; }
+        public List<object> AxialForceList { get; }
+        public List<object> ShearForceList { get; }
+        public List<object> BendingMomentList { get; }
 
         public Presentation(FeModel feModel, Canvas visual)
         {
@@ -50,17 +58,6 @@ namespace FE_Analysis.Structural_Analysis
             MaxTexts = new List<object>();
             EvaluateResolution();
         }
-
-        public List<object> ElementIDs { get; }
-        public List<object> NodeIDs { get; }
-        public List<object> MaxTexts { get; }
-        public List<object> Deformations { get; }
-        public List<object> LoadVectors { get; }
-        public List<object> SupportRepresentation { get; }
-        public List<object> AxialForceList { get; }
-        public List<object> ShearForceList { get; }
-        public List<object> BendingMomentList { get; }
-
         public void EvaluateResolution()
         {
             screenH = visualResults.ActualWidth;
@@ -115,55 +112,7 @@ namespace FE_Analysis.Structural_Analysis
 
             foreach (var item in model.Elements)
             {
-                var element = item.Value;
-                PathGeometry pathGeometry;
-
-                switch (element)
-                {
-                    // spring element
-                    case SpringElement _:
-                        {
-                            pathGeometry = SpringElementDraw(element);
-                            break;
-                        }
-
-                    case Truss _:
-                        {
-                            // hinges will be added as half-circles at truss nodes
-                            pathGeometry = TrussElementDraw(element);
-                            break;
-                        }
-                    case Beam _:
-                        {
-                            pathGeometry = BeamDraw(element);
-                            break;
-                        }
-
-                    case BeamHinged _:
-                        {
-                            // add hinge to start resp. end node of beam
-                            pathGeometry = BeamHingedDraw(element);
-                            break;
-                        }
-
-                    // elements with multiple nodes
-                    default:
-                        {
-                            pathGeometry = MultiNodeElementDraw(element);
-                            break;
-                        }
-                }
-
-                Shape elementPath = new Path
-                {
-                    Name = element.ElementId,
-                    Stroke = Black,
-                    StrokeThickness = 2,
-                    Data = pathGeometry
-                };
-                SetLeft(elementPath, BorderLeft);
-                SetTop(elementPath, BorderTop);
-                visualResults.Children.Add(elementPath);
+                ElementDraw(item.Value, Black, 2);
             }
 
             // nodal hinges will be added as EllipseGeometry to GeometryGroup structure
@@ -187,6 +136,79 @@ namespace FE_Analysis.Structural_Analysis
             SetLeft(structurePath, BorderLeft);
             SetTop(structurePath, BorderTop);
             visualResults.Children.Add(structurePath);
+        }
+
+        public Shape NodeIndicate(Node feNode, Brush color, double weight)
+        {
+            var point = TransformNode(feNode, resolution, maxY);
+
+            var nodeIndicate = new GeometryGroup();
+            nodeIndicate.Children.Add(
+                new EllipseGeometry(new Point(point.X, point.Y), 20, 20)
+            );
+            Shape nodePath = new Path()
+            {
+                Stroke = color,
+                StrokeThickness = weight,
+                Data = nodeIndicate
+            };
+            SetLeft(nodePath, BorderLeft);
+            SetTop(nodePath, BorderTop);
+            visualResults.Children.Add(nodePath);
+            return nodePath;
+        }
+
+        public Shape ElementDraw(AbstractElement element, Brush color, double weight)
+        {
+            PathGeometry pathGeometry;
+
+            switch (element)
+            {
+                // spring element
+                case SpringElement _:
+                {
+                    pathGeometry = SpringElementDraw(element);
+                    break;
+                }
+
+                case Truss _:
+                {
+                    // hinges will be added as half-circles at truss nodes
+                    pathGeometry = TrussElementDraw(element);
+                    break;
+                }
+                case Beam _:
+                {
+                    pathGeometry = BeamDraw(element);
+                    break;
+                }
+
+                case BeamHinged _:
+                {
+                    // add hinge to start resp. end node of beam
+                    pathGeometry = BeamHingedDraw(element);
+                    break;
+                }
+
+                // elements with multiple nodes
+                default:
+                {
+                    pathGeometry = MultiNodeElementDraw(element);
+                    break;
+                }
+            }
+
+            Shape elementPath = new Path
+            {
+                Name = element.ElementId,
+                Stroke = color,
+                StrokeThickness = weight,
+                Data = pathGeometry
+            };
+            SetLeft(elementPath, BorderLeft);
+            SetTop(elementPath, BorderTop);
+            visualResults.Children.Add(elementPath);
+            return elementPath;
         }
 
         public void DeformedGeometry()

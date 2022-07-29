@@ -19,6 +19,12 @@ namespace FE_Analysis
         private Analysis modelAnalysis;
         private OpenFileDialog fileDialog;
         private string path;
+        public static Structural_Analysis.ModelDataShow.StructuralModelVisualize structuralModel;
+        public static Structural_Analysis.Results.StaticResultsVisualize staticResults;
+        public static Heat_Transfer.ModelDataShow.HeatDataVisualize heatModel;
+        public static Heat_Transfer.Results.StationaryResultsShow stationaryResults;
+
+
         private string[] lines;
         private bool heatData, structuresData, timeintegrationData;
         public static bool analysed, timeintegrationAnalysed;
@@ -382,7 +388,7 @@ namespace FE_Analysis
         }
         private void HeatDataVisualize(object sender, RoutedEventArgs e)
         {
-            var heatModel = new Heat_Transfer.ModelDataShow.HeatDataVisualize(model);
+            heatModel = new Heat_Transfer.ModelDataShow.HeatDataVisualize(model);
             heatModel.Show();
         }
         private void HeatDataAnalyse(object sender, EventArgs e)
@@ -825,7 +831,7 @@ namespace FE_Analysis
         }
         private void StructuralModelDataVisualize(object sender, RoutedEventArgs e)
         {
-            var structuralModel = new Structural_Analysis.ModelDataShow.StructuralModelVisualize(model);
+            structuralModel = new Structural_Analysis.ModelDataShow.StructuralModelVisualize(model);
             structuralModel.Show();
         }
         private void StructuralModelStaticAnalysis(object sender, EventArgs e)
@@ -869,7 +875,8 @@ namespace FE_Analysis
                 analysed = true;
             }
 
-            _ = new Structural_Analysis.Results.StaticResultsVisualize(model);
+            staticResults = new Structural_Analysis.Results.StaticResultsVisualize(model);
+            staticResults.Show();
         }
         private void StructuralModelEigensolutionAnalysis(object sender, RoutedEventArgs e)
         {
