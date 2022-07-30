@@ -1,6 +1,6 @@
-﻿using System.Globalization;
-using FE_Analysis.Heat_Transfer.Model_Data;
+﻿using FE_Analysis.Heat_Transfer.Model_Data;
 using FEALibrary.Model;
+using System.Globalization;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead
 {

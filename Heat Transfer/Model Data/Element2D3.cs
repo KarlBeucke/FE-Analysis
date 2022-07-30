@@ -37,7 +37,7 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
             ElementMaterialId = eMaterialId;
             SpecificHeatMatrix = new double[3];
         }
-        
+
         // ....Compute element Matrix.....................................
         public override double[,] ComputeMatrix()
         {

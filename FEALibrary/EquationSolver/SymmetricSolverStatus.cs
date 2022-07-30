@@ -168,11 +168,11 @@ namespace FEALibrary.EquationSolver
             }
 
             for (column = 0; column < dimension; column++)
-            for (row = 0; row < column; row++)
-            {
-                if (!status[row]) continue;
-                dual[row] += GetValue(column, row) * primal[column];
-            }
+                for (row = 0; row < column; row++)
+                {
+                    if (!status[row]) continue;
+                    dual[row] += GetValue(column, row) * primal[column];
+                }
         }
     }
 }

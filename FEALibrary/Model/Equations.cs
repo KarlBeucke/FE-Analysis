@@ -50,9 +50,9 @@ namespace FEALibrary.Model
         public void SetProfile(int[] index)
         {
             foreach (var entry in index)
-            foreach (var value in index)
-                if (Profile[entry] > value)
-                    Profile[entry] = value;
+                foreach (var value in index)
+                    if (Profile[entry] > value)
+                        Profile[entry] = value;
         }
 
         // ... Set the status vector for one node .................................
@@ -96,9 +96,9 @@ namespace FEALibrary.Model
         public void AddMatrix(int[] index, double[,] elementMatrix)
         {
             for (var k = 0; k < index.Length; k++)
-            for (var m = 0; m < index.Length; m++)
-                if (index[m] <= index[k])
-                    AddValue(index[k], index[m], elementMatrix[k, m]);
+                for (var m = 0; m < index.Length; m++)
+                    if (index[m] <= index[k])
+                        AddValue(index[k], index[m], elementMatrix[k, m]);
         }
 
         // ... addDiagonalSubmatrix() ...............................................

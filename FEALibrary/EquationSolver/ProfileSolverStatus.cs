@@ -200,11 +200,11 @@ namespace FEALibrary.EquationSolver
             }
 
             for (column = 0; column < dimension; column++)
-            for (row = profile[column]; row < column; row++)
-            {
-                if (!status[row]) continue;
-                dual[row] += matrix[column][row - profile[column]] * primal[column];
-            }
+                for (row = profile[column]; row < column; row++)
+                {
+                    if (!status[row]) continue;
+                    dual[row] += matrix[column][row - profile[column]] * primal[column];
+                }
         }
     }
 }

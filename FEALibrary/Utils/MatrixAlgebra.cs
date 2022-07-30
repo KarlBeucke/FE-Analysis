@@ -62,16 +62,16 @@
             var zeilen = matrix.GetLength(0);
             var spalten = matrix.GetLength(1);
             for (var i = 0; i < zeilen; i++)
-            for (var j = 0; j < spalten; j++)
-                matrix[i, j] = 0;
+                for (var j = 0; j < spalten; j++)
+                    matrix[i, j] = 0;
         }
-        
+
         // vector = vector * scalar
         public static void Mult(double[] vector, double scalar)
         {
             for (var i = 0; i < vector.Length; i++) vector[i] = vector[i] * scalar;
         }
-        
+
         // result = vec1 + vec2
         public static void Add(double[] result, double[] vec1, double[] vec2)
         {
@@ -79,7 +79,7 @@
                 throw new AlgebraicException("Add: invalid vector dimensions");
             for (var i = 0; i < vec1.Length; i++) result[i] = vec1[i] + vec2[i];
         }
-        
+
         // vec1 = vec1 - vec2
         public static void Subtract(double[] vec1, double[] vec2)
         {
@@ -95,8 +95,8 @@
                 throw new AlgebraicException("Mult: invalid matrix and vector dimensions \n\t["
                                              + matrix[0].Length + "]x[" + vector.Length + "]");
             for (var i = 0; i < matrix.Length; i++)
-            for (var j = 0; j < matrix[i].Length; j++)
-                result[i] += matrix[i][j] * vector[j];
+                for (var j = 0; j < matrix[i].Length; j++)
+                    result[i] += matrix[i][j] * vector[j];
         }
 
         public static void Mult(double[] result, double[,] matrix, double[] vector)
@@ -105,8 +105,8 @@
                 throw new AlgebraicException("Mult: invalid matrix and vector dimensions \n\t["
                                              + matrix.GetLength(1) + "]x[" + vector.Length + "]");
             for (var i = 0; i < matrix.GetLength(0); i++)
-            for (var j = 0; j < matrix.GetLength(1); j++)
-                result[i] += matrix[i, j] * vector[j];
+                for (var j = 0; j < matrix.GetLength(1); j++)
+                    result[i] += matrix[i, j] * vector[j];
         }
 
         // result = matrix * vector (generate and return new result vector)
@@ -117,8 +117,8 @@
                                              + matrix[0].Length + "]x[" + vector.Length + "]");
             var result = new double[matrix.Length];
             for (var i = 0; i < matrix.Length; i++)
-            for (var j = 0; j < matrix[i].Length; j++)
-                result[i] += matrix[i][j] * vector[j];
+                for (var j = 0; j < matrix[i].Length; j++)
+                    result[i] += matrix[i][j] * vector[j];
             return result;
         }
 
@@ -129,8 +129,8 @@
                                              + matrix.GetLength(1) + "]x[" + vector.Length + "]");
             var result = new double[matrix.GetLength(0)];
             for (var i = 0; i < matrix.GetLength(0); i++)
-            for (var j = 0; j < matrix.GetLength(1); j++)
-                result[i] += matrix[i, j] * vector[j];
+                for (var j = 0; j < matrix.GetLength(1); j++)
+                    result[i] += matrix[i, j] * vector[j];
             return result;
         }
 
@@ -156,8 +156,8 @@
         {
             var result = new double[vector.Length][];
             for (var row = 0; row < vector.Length; row++)
-            for (var col = 0; col < vector.Length; col++)
-                result[row][col] = scalar * vector[row] * vector[col];
+                for (var col = 0; col < vector.Length; col++)
+                    result[row][col] = scalar * vector[row] * vector[col];
 
             return result;
         }
@@ -166,8 +166,8 @@
         {
             var result = new double[vector.Length, vector.Length];
             for (var row = 0; row < vector.Length; row++)
-            for (var col = 0; col < vector.Length; col++)
-                result[row, col] = scalar * vector[row] * vector[col];
+                for (var col = 0; col < vector.Length; col++)
+                    result[row, col] = scalar * vector[row] * vector[col];
 
             return result;
         }
@@ -396,9 +396,9 @@
                                              mat1[0].Length + "]x[" + mat2.Length + "," + mat2[0].Length + "]");
             var result = new double[mat1.Length][];
             for (var i = 0; i < mat1.Length; i++)
-            for (var j = 0; j < mat2[0].Length; j++)
-            for (var k = 0; k < mat1[0].Length; k++)
-                result[i][j] += mat1[i][k] * mat2[k][j];
+                for (var j = 0; j < mat2[0].Length; j++)
+                    for (var k = 0; k < mat1[0].Length; k++)
+                        result[i][j] += mat1[i][k] * mat2[k][j];
             return result;
         }
 
@@ -406,15 +406,15 @@
         public static void Subtract(double[][] result, double[][] mat1, double[][] mat2)
         {
             for (var i = 0; i < mat1.Length; i++)
-            for (var j = 0; j < mat2.Length; j++)
-                result[i][j] = mat1[i][j] - mat2[i][j];
+                for (var j = 0; j < mat2.Length; j++)
+                    result[i][j] = mat1[i][j] - mat2[i][j];
         }
 
         public static void Subtract(double[,] result, double[,] mat1, double[,] mat2)
         {
             for (var i = 0; i < mat1.GetLength(0); i++)
-            for (var j = 0; j < mat2.GetLength(0); j++)
-                result[i, j] = mat1[i, j] - mat2[i, j];
+                for (var j = 0; j < mat2.GetLength(0); j++)
+                    result[i, j] = mat1[i, j] - mat2[i, j];
         }
 
         // result = mat1 * mat2
@@ -425,13 +425,13 @@
                                              + mat1.Length + "," + mat1[0].Length + "]x[" + mat2.Length + "," +
                                              mat2[0].Length + "]");
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2[0].Length; col++)
-            {
-                double sum = 0;
-                for (var k = 0; k < mat1[0].Length; k++)
-                    sum += mat1[row][k] * mat2[k][col];
-                result[row][col] = sum;
-            }
+                for (var col = 0; col < mat2[0].Length; col++)
+                {
+                    double sum = 0;
+                    for (var k = 0; k < mat1[0].Length; k++)
+                        sum += mat1[row][k] * mat2[k][col];
+                    result[row][col] = sum;
+                }
         }
 
         public static void Mult(double[,] result, double[,] mat1, double[,] mat2)
@@ -441,13 +441,13 @@
                                              + mat1.Length + "," + mat1.GetLength(1) + "]x[" + mat2.Length + "," +
                                              mat2.GetLength(1) + "]");
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2.GetLength(1); col++)
-            {
-                double sum = 0;
-                for (var k = 0; k < mat1.GetLength(1); k++)
-                    sum += mat1[row, k] * mat2[k, col];
-                result[row, col] = sum;
-            }
+                for (var col = 0; col < mat2.GetLength(1); col++)
+                {
+                    double sum = 0;
+                    for (var k = 0; k < mat1.GetLength(1); k++)
+                        sum += mat1[row, k] * mat2[k, col];
+                    result[row, col] = sum;
+                }
         }
 
         // result = mat1 * mat2
@@ -459,12 +459,12 @@
                                              mat2[0].Length + "]");
             var result = new double[mat1.Length][];
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2[0].Length; col++)
-            {
-                double sum = 0;
-                for (var k = 0; k < mat1[0].Length; k++) sum += mat1[row][k] * mat2[k][col];
-                result[row][col] = sum;
-            }
+                for (var col = 0; col < mat2[0].Length; col++)
+                {
+                    double sum = 0;
+                    for (var k = 0; k < mat1[0].Length; k++) sum += mat1[row][k] * mat2[k][col];
+                    result[row][col] = sum;
+                }
 
             return result;
         }
@@ -477,13 +477,13 @@
                                              "," + mat2.GetLength(1) + "]");
             var result = new double[mat1.GetLength(0), mat2.GetLength(1)];
             for (var row = 0; row < mat1.GetLength(0); row++)
-            for (var col = 0; col < mat2.GetLength(1); col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1.GetLength(1); k++)
-                    sum += mat1[row, k] * mat2[k, col];
-                result[row, col] = sum;
-            }
+                for (var col = 0; col < mat2.GetLength(1); col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1.GetLength(1); k++)
+                        sum += mat1[row, k] * mat2[k, col];
+                    result[row, col] = sum;
+                }
 
             return result;
         }
@@ -497,13 +497,13 @@
                                              mat2[0].Length + "]");
             var result = new double[mat1.Length][];
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2[0].Length; col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1[0].Length; k++)
-                    sum += mat1[row][k] * mat2[k][col];
-                result[row][col] = factor * sum;
-            }
+                for (var col = 0; col < mat2[0].Length; col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1[0].Length; k++)
+                        sum += mat1[row][k] * mat2[k][col];
+                    result[row][col] = factor * sum;
+                }
 
             return result;
         }
@@ -516,13 +516,13 @@
                                              mat2.GetLength(1) + "]");
             var result = new double[mat1.Length, mat2.GetLength(1)];
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2.GetLength(1); col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1.GetLength(1); k++)
-                    sum += mat1[row, k] * mat2[k, col];
-                result[row, col] = factor * sum;
-            }
+                for (var col = 0; col < mat2.GetLength(1); col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1.GetLength(1); k++)
+                        sum += mat1[row, k] * mat2[k, col];
+                    result[row, col] = factor * sum;
+                }
 
             return result;
         }
@@ -583,13 +583,13 @@
             var result = new double[mat1.GetLength(0), mat2.GetLength(0)];
 
             for (var row = 0; row < mat1.GetLength(0); row++)
-            for (var col = 0; col < mat2.GetLength(0); col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1.GetLength(1); k++)
-                    sum += mat1[row, k] * mat2[col, k];
-                result[row, col] = scalar * sum;
-            }
+                for (var col = 0; col < mat2.GetLength(0); col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1.GetLength(1); k++)
+                        sum += mat1[row, k] * mat2[col, k];
+                    result[row, col] = scalar * sum;
+                }
 
             return result;
         }
@@ -602,13 +602,13 @@
                                              + mat1.Length + "," + mat1[0].Length + "]x[" + mat2[0].Length + "," +
                                              mat2.Length + "]");
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2.Length; col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1[0].Length; k++)
-                    sum += mat1[row][k] * mat2[col][k];
-                result[row][col] += scalar * sum;
-            }
+                for (var col = 0; col < mat2.Length; col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1[0].Length; k++)
+                        sum += mat1[row][k] * mat2[col][k];
+                    result[row][col] += scalar * sum;
+                }
         }
 
         // result = result + scalar * mat1 * mat2(transposed)
@@ -619,13 +619,13 @@
                                              + mat1.GetLength(0) + "," + mat1.GetLength(1) + "]x[" + mat2.GetLength(1) +
                                              "," + mat2.GetLength(0) + "]");
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2.Length; col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1.GetLength(1); k++)
-                    sum += mat1[row, k] * mat2[col, k];
-                result[row][col] += scalar * sum;
-            }
+                for (var col = 0; col < mat2.Length; col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1.GetLength(1); k++)
+                        sum += mat1[row, k] * mat2[col, k];
+                    result[row][col] += scalar * sum;
+                }
         }
 
         // result = result + scalar * mat1 * mat2(transposed)
@@ -636,13 +636,13 @@
                                              + mat1.GetLength(0) + "," + mat1.GetLength(1) + "]x[" + mat2.GetLength(1) +
                                              "," + mat2.GetLength(0) + "]");
             for (var row = 0; row < mat1.GetLength(0); row++)
-            for (var col = 0; col < mat2.GetLength(0); col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1.GetLength(1); k++)
-                    sum += mat1[row, k] * mat2[col, k];
-                result[row, col] += scalar * sum;
-            }
+                for (var col = 0; col < mat2.GetLength(0); col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1.GetLength(1); k++)
+                        sum += mat1[row, k] * mat2[col, k];
+                    result[row, col] += scalar * sum;
+                }
         }
 
         // result = result + mat1 * mat2
@@ -654,13 +654,13 @@
                                              + result[0].Length + "] = [" + mat1.Length + "," + mat1[0].Length + "]x[" +
                                              mat2.Length + "," + mat2[0].Length + "]");
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2[0].Length; col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1[0].Length; k++)
-                    sum += mat1[row][k] * mat2[k][col];
-                result[row][col] += sum;
-            }
+                for (var col = 0; col < mat2[0].Length; col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1[0].Length; k++)
+                        sum += mat1[row][k] * mat2[k][col];
+                    result[row][col] += sum;
+                }
         }
 
         public static void MultAddMatrix(double[,] result, double[][] mat1, double[][] mat2)
@@ -671,13 +671,13 @@
                                              + result.GetLength(1) + "] = [" + mat1.Length + "," + mat1[0].Length +
                                              "]x[" + mat2.Length + "," + mat2[0].Length + "]");
             for (var row = 0; row < mat1.Length; row++)
-            for (var col = 0; col < mat2[0].Length; col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1[0].Length; k++)
-                    sum += mat1[row][k] * mat2[k][col];
-                result[row, col] += sum;
-            }
+                for (var col = 0; col < mat2[0].Length; col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1[0].Length; k++)
+                        sum += mat1[row][k] * mat2[k][col];
+                    result[row, col] += sum;
+                }
         }
 
         public static void MultAddMatrix(double[,] result, double[,] mat1, double[,] mat2)
@@ -690,13 +690,13 @@
                                              "]");
 
             for (var row = 0; row < mat1.GetLength(0); row++)
-            for (var col = 0; col < mat2.GetLength(1); col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1.GetLength(1); k++)
-                    sum += mat1[row, k] * mat2[k, col];
-                result[row, col] += sum;
-            }
+                for (var col = 0; col < mat2.GetLength(1); col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1.GetLength(1); k++)
+                        sum += mat1[row, k] * mat2[k, col];
+                    result[row, col] += sum;
+                }
         }
 
         // result = scalar * mat1(transposed) * mat2
@@ -708,13 +708,13 @@
                                              "," + mat2.GetLength(1) + "]");
             var result = new double[mat1.GetLength(1), mat2.GetLength(1)];
             for (var row = 0; row < mat1.GetLength(1); row++)
-            for (var col = 0; col < mat2.GetLength(1); col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1.GetLength(0); k++)
-                    sum += mat1[k, row] * mat2[k, col];
-                result[row, col] = sum;
-            }
+                for (var col = 0; col < mat2.GetLength(1); col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1.GetLength(0); k++)
+                        sum += mat1[k, row] * mat2[k, col];
+                    result[row, col] = sum;
+                }
 
             return result;
         }
@@ -728,13 +728,13 @@
                                              "," + mat2.GetLength(1) + "]");
             var result = new double[mat1.GetLength(1), mat2.GetLength(1)];
             for (var row = 0; row < mat1.GetLength(1); row++)
-            for (var col = 0; col < mat2.GetLength(1); col++)
-            {
-                var sum = 0.0;
-                for (var k = 0; k < mat1.GetLength(0); k++)
-                    sum += mat1[k, row] * mat2[k, col];
-                result[row, col] = scalar * sum;
-            }
+                for (var col = 0; col < mat2.GetLength(1); col++)
+                {
+                    var sum = 0.0;
+                    for (var k = 0; k < mat1.GetLength(0); k++)
+                        sum += mat1[k, row] * mat2[k, col];
+                    result[row, col] = scalar * sum;
+                }
 
             return result;
         }
@@ -747,8 +747,8 @@
             try
             {
                 for (var i = 0; i < indices.Length; i++)
-                for (var j = 0; j < indices.Length; j++)
-                    subMatrix[i][j] = matrix[indices[i]][indices[j]];
+                    for (var j = 0; j < indices.Length; j++)
+                        subMatrix[i][j] = matrix[indices[i]][indices[j]];
             }
             catch (AlgebraicException)
             {
@@ -763,8 +763,8 @@
             try
             {
                 for (var i = 0; i < indices.Length; i++)
-                for (var j = 0; j < indices.Length; j++)
-                    subMatrix[i, j] = matrix[indices[i], indices[j]];
+                    for (var j = 0; j < indices.Length; j++)
+                        subMatrix[i, j] = matrix[indices[i], indices[j]];
             }
             catch (AlgebraicException)
             {
@@ -779,8 +779,8 @@
             try
             {
                 for (var i = 0; i < rows.Length; i++)
-                for (var j = 0; j < cols.Length; j++)
-                    subMatrix[i][j] = matrix[rows[i]][cols[j]];
+                    for (var j = 0; j < cols.Length; j++)
+                        subMatrix[i][j] = matrix[rows[i]][cols[j]];
             }
             catch (AlgebraicException)
             {
@@ -795,8 +795,8 @@
             try
             {
                 for (var i = 0; i < rows.Length; i++)
-                for (var j = 0; j < cols.Length; j++)
-                    subMatrix[i, j] = matrix[rows[i], cols[j]];
+                    for (var j = 0; j < cols.Length; j++)
+                        subMatrix[i, j] = matrix[rows[i], cols[j]];
             }
             catch (AlgebraicException)
             {

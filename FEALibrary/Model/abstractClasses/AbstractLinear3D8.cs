@@ -1,6 +1,6 @@
-﻿using System;
+﻿using FEALibrary.Utils;
+using System;
 using System.Windows.Media.Media3D;
-using FEALibrary.Utils;
 
 namespace FEALibrary.Model.abstractClasses
 {
@@ -38,8 +38,8 @@ namespace FEALibrary.Model.abstractClasses
             sz[7, 1] = (1 - z0) * (1 + z2);
             sz[7, 2] = (1 - z0) * (1 + z1);
             for (var i = 0; i < 8; i++)
-            for (var k = 0; k < 3; k++)
-                sz[i, k] = 0.125 * sz[i, k];
+                for (var k = 0; k < 3; k++)
+                    sz[i, k] = 0.125 * sz[i, k];
             var n = new double[8];
             for (var i = 0; i < 3; i++)
             {
@@ -54,8 +54,8 @@ namespace FEALibrary.Model.abstractClasses
 
             var coor = new double[3, 8];
             for (var i = 0; i < 3; i++)
-            for (var k = 0; k < 8; k++)
-                coor[i, k] = Nodes[k].Coordinates[i];
+                for (var k = 0; k < 8; k++)
+                    coor[i, k] = Nodes[k].Coordinates[i];
             Determinant = xz[0, 0] * (xz[1, 1] * xz[2, 2] - xz[1, 2] * xz[2, 1])
                           - xz[0, 1] * (xz[1, 0] * xz[2, 2] - xz[1, 2] * xz[2, 0])
                           + xz[0, 2] * (xz[1, 0] * xz[2, 1] - xz[1, 1] * xz[2, 0]);

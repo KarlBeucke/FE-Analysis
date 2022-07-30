@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using FE_Analysis.Structural_Analysis.Model_Data;
+﻿using FE_Analysis.Structural_Analysis.Model_Data;
 using FEALibrary.Model;
 using FEALibrary.Model.abstractClasses;
+using System.Globalization;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead
 {

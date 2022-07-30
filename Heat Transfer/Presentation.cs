@@ -156,7 +156,7 @@ namespace FE_Analysis.Heat_Transfer
             SetTop(elementPath, BorderTop);
             visualResults.Children.Add(elementPath);
         }
-        public Shape ElementFillZeichnen(AbstractElement element, System.Windows.Media.Brush outlineColor, 
+        public Shape ElementFillZeichnen(AbstractElement element, System.Windows.Media.Brush outlineColor,
             System.Windows.Media.Color fillColor, double transparent, double weight)
         {
             var pathGeometry = ElementOutlines(element);

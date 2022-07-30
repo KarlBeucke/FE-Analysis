@@ -1,5 +1,5 @@
-﻿using System.Globalization;
-using FEALibrary.Model;
+﻿using FEALibrary.Model;
+using System.Globalization;
 using System.Windows;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead

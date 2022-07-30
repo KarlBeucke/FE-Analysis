@@ -1,13 +1,13 @@
-﻿using System;
+﻿using FEALibrary.DynamicSolver;
+using FEALibrary.EquationSolver;
+using FEALibrary.Model.abstractClasses;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using FEALibrary.DynamicSolver;
-using FEALibrary.EquationSolver;
-using FEALibrary.Model.abstractClasses;
-using Microsoft.Win32;
 
 namespace FEALibrary.Model
 {
@@ -432,30 +432,30 @@ namespace FEALibrary.Model
                     switch (item.Value.VariationType)
                     {
                         case 0:
-                        {
-                            // read from file
-                            const string inputDirectory =
-                                "\\FE Analysis\\input\\Heat_Transfer\\instationary\\ExcitationFiles";
-                            const int col = 1;
-                            FromFile(inputDirectory, col, force);
-                            break;
-                        }
+                            {
+                                // read from file
+                                const string inputDirectory =
+                                    "\\FE Analysis\\input\\Heat_Transfer\\instationary\\ExcitationFiles";
+                                const int col = 1;
+                                FromFile(inputDirectory, col, force);
+                                break;
+                            }
                         case 1:
-                        {
-                            // piecewise linear
-                            var interval = item.Value.Interval;
-                            PiecewiseLinear(dt, interval, force);
-                            break;
-                        }
+                            {
+                                // piecewise linear
+                                var interval = item.Value.Interval;
+                                PiecewiseLinear(dt, interval, force);
+                                break;
+                            }
                         case 2:
-                        {
-                            // periodic
-                            var amplitude = item.Value.Amplitude;
-                            var frequency = item.Value.Frequency;
-                            var phaseAngle = item.Value.PhaseAngle;
-                            Periodic(dt, amplitude, frequency, phaseAngle, force);
-                            break;
-                        }
+                            {
+                                // periodic
+                                var amplitude = item.Value.Amplitude;
+                                var frequency = item.Value.Frequency;
+                                var phaseAngle = item.Value.PhaseAngle;
+                                Periodic(dt, amplitude, frequency, phaseAngle, force);
+                                break;
+                            }
                     }
 
                     for (var k = 0; k < nSteps; k++)
@@ -495,36 +495,36 @@ namespace FEALibrary.Model
                     switch (item.Value.VariationType)
                     {
                         case 0:
-                        {
-                            // read from file
-                            const string inputDirectory =
-                                "\\FE Analysis\\input\\Heat_Transfer\\instationary\\ExcitationFiles";
-                            const int col = 1;
-                            FromFile(inputDirectory, col, preTemperature);
-                            break;
-                        }
+                            {
+                                // read from file
+                                const string inputDirectory =
+                                    "\\FE Analysis\\input\\Heat_Transfer\\instationary\\ExcitationFiles";
+                                const int col = 1;
+                                FromFile(inputDirectory, col, preTemperature);
+                                break;
+                            }
                         case 1:
-                        {
-                            // constant
-                            for (var k = 0; k < nSteps; k++) preTemperature[k] = item.Value.ConstantTemperature;
-                            break;
-                        }
+                            {
+                                // constant
+                                for (var k = 0; k < nSteps; k++) preTemperature[k] = item.Value.ConstantTemperature;
+                                break;
+                            }
                         case 2:
-                        {
-                            // periodic
-                            var amplitude = item.Value.Amplitude;
-                            var frequency = item.Value.Frequency;
-                            var phaseAngle = item.Value.PhaseAngle;
-                            Periodic(dt, amplitude, frequency, phaseAngle, preTemperature);
-                            break;
-                        }
+                            {
+                                // periodic
+                                var amplitude = item.Value.Amplitude;
+                                var frequency = item.Value.Frequency;
+                                var phaseAngle = item.Value.PhaseAngle;
+                                Periodic(dt, amplitude, frequency, phaseAngle, preTemperature);
+                                break;
+                            }
                         case 3:
-                        {
-                            // piecewise linear
-                            var interval = item.Value.Interval;
-                            PiecewiseLinear(dt, interval, preTemperature);
-                            break;
-                        }
+                            {
+                                // piecewise linear
+                                var interval = item.Value.Interval;
+                                PiecewiseLinear(dt, interval, preTemperature);
+                                break;
+                            }
                     }
 
                     StatusNodes(item.Value);

@@ -146,7 +146,7 @@ namespace FEALibrary.Model
                                 for (var k = 0; k < nNodesX; k++)
                                 {
                                     nodeId = nodePrefix + k.ToString().PadLeft(2, '0');
-                                    nodalCrds = new[] { crds[0]};
+                                    nodalCrds = new[] { crds[0] };
                                     var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
                                     FeModel.Nodes.Add(nodeId, node);
                                     crds[0] += xInterval;
@@ -260,7 +260,7 @@ namespace FEALibrary.Model
                                 {
                                     crds[0] = coord0 + offset[n];
                                     nodeId = nodePrefix + n.ToString().PadLeft(2, '0');
-                                    nodalCrds = new[] { crds[0]};
+                                    nodalCrds = new[] { crds[0] };
                                     var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
                                     FeModel.Nodes.Add(nodeId, node);
                                 }
@@ -315,7 +315,7 @@ namespace FEALibrary.Model
                             default:
                                 throw new ParseException(i + 3 + ": Variable Node Mesh");
                         }
-                        i+=2;
+                        i += 2;
                         if (lines[i] == string.Empty) break;
                     }
                     break;

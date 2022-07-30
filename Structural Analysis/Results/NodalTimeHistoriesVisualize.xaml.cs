@@ -240,7 +240,7 @@ namespace FE_Analysis.Structural_Analysis.Results
 
         private void BtnAccY_Click(object sender, RoutedEventArgs e)
         {
-            deltaXTimeHistory = false; deltaYTimeHistory = false; accXTimeHistory = false; 
+            deltaXTimeHistory = false; deltaYTimeHistory = false; accXTimeHistory = false;
             maxAcceleration = node.NodalDerivatives[1].Max();
             minAcceleration = node.NodalDerivatives[1].Min();
             if (maxAcceleration > Math.Abs(minAcceleration))

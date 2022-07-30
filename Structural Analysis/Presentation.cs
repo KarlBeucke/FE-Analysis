@@ -118,12 +118,12 @@ namespace FE_Analysis.Structural_Analysis
             // nodal hinges will be added as EllipseGeometry to GeometryGroup structure
             var structure = new GeometryGroup();
             foreach (var gelenk in from item in model.Nodes
-                     select item.Value
+                                   select item.Value
                      into node
-                     where node.NumberOfNodalDof == 2
-                     select TransformNode(node, resolution, maxY)
+                                   where node.NumberOfNodalDof == 2
+                                   select TransformNode(node, resolution, maxY)
                      into gelenkPunkt
-                     select new EllipseGeometry(gelenkPunkt, 5, 5))
+                                   select new EllipseGeometry(gelenkPunkt, 5, 5))
                 structure.Children.Add(gelenk);
 
             // Knotengelenke werden gezeichnet
@@ -166,36 +166,36 @@ namespace FE_Analysis.Structural_Analysis
             {
                 // spring element
                 case SpringElement _:
-                {
-                    pathGeometry = SpringElementDraw(element);
-                    break;
-                }
+                    {
+                        pathGeometry = SpringElementDraw(element);
+                        break;
+                    }
 
                 case Truss _:
-                {
-                    // hinges will be added as half-circles at truss nodes
-                    pathGeometry = TrussElementDraw(element);
-                    break;
-                }
+                    {
+                        // hinges will be added as half-circles at truss nodes
+                        pathGeometry = TrussElementDraw(element);
+                        break;
+                    }
                 case Beam _:
-                {
-                    pathGeometry = BeamDraw(element);
-                    break;
-                }
+                    {
+                        pathGeometry = BeamDraw(element);
+                        break;
+                    }
 
                 case BeamHinged _:
-                {
-                    // add hinge to start resp. end node of beam
-                    pathGeometry = BeamHingedDraw(element);
-                    break;
-                }
+                    {
+                        // add hinge to start resp. end node of beam
+                        pathGeometry = BeamHingedDraw(element);
+                        break;
+                    }
 
                 // elements with multiple nodes
                 default:
-                {
-                    pathGeometry = MultiNodeElementDraw(element);
-                    break;
-                }
+                    {
+                        pathGeometry = MultiNodeElementDraw(element);
+                        break;
+                    }
             }
 
             Shape elementPath = new Path
@@ -1806,7 +1806,7 @@ namespace FE_Analysis.Structural_Analysis
             var start = (int)Math.Round(tmin / dt);
             var nSteps = (int)Math.Round((tmax - tmin) / dt) + 1;
 
-            for (var i = 0; i < nSteps-start; i++)
+            for (var i = 0; i < nSteps - start; i++)
             {
                 var point = new Point(dt * i * resolutionH, -ordinates[i + start] * resolutionV);
                 supportPoints.Add(point);

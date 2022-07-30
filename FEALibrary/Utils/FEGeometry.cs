@@ -1,8 +1,8 @@
-﻿using System;
+﻿using FEALibrary.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using FEALibrary.Model;
 
 namespace FEALibrary.Utils
 {
@@ -11,21 +11,21 @@ namespace FEALibrary.Utils
         public static List<Node> innerNodes = new List<Node>();
 
         public static List<Node> ConvexHull(List<Node> node, bool eng, double formFaktor)
-            // ***** The convex hull or convex envelope or convex closure of a shape is the smallest convex set that contains it. 
-            // ***** For a bounded subset of the plane, the convex hull may be visualized as the shape enclosed by a rubber band stretched around the subset. 
-            //
-            // The current impementation assumes the first element to be in the upper left corner with a 
-            // sucessive sequence of Nodes in clockwise direction.
-            // Input: A list containing node definitions of a Finite Element Model, 
-            //        the FormFactor for neighbouring elements, i.e. the maximum length to find neighbours, e.g. 1.2
-            //        _eng = true  > Koordinatensystem links-unten, y nach oben,  Ingenieurkoordinaten
-            //        _eng = false > Koordinatensystem links-oben,  y nach unten, Bildschirmkoordinaten
-            //
-            // Output: A list of successive FE nodes as basis for the hull geometry
-            //         node geometries can be added to a PointCollection
-            //         as base for a Polygon which is closed by definition
-            //        "Geometry.innerNodes" available as a list of nodes
-            // ***** 
+        // ***** The convex hull or convex envelope or convex closure of a shape is the smallest convex set that contains it. 
+        // ***** For a bounded subset of the plane, the convex hull may be visualized as the shape enclosed by a rubber band stretched around the subset. 
+        //
+        // The current impementation assumes the first element to be in the upper left corner with a 
+        // sucessive sequence of Nodes in clockwise direction.
+        // Input: A list containing node definitions of a Finite Element Model, 
+        //        the FormFactor for neighbouring elements, i.e. the maximum length to find neighbours, e.g. 1.2
+        //        _eng = true  > Koordinatensystem links-unten, y nach oben,  Ingenieurkoordinaten
+        //        _eng = false > Koordinatensystem links-oben,  y nach unten, Bildschirmkoordinaten
+        //
+        // Output: A list of successive FE nodes as basis for the hull geometry
+        //         node geometries can be added to a PointCollection
+        //         as base for a Polygon which is closed by definition
+        //        "Geometry.innerNodes" available as a list of nodes
+        // ***** 
         {
             var factor = 1;
             if (eng) factor = -1;

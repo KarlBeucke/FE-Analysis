@@ -1,6 +1,6 @@
-﻿using System;
-using FEALibrary.EquationSolver;
+﻿using FEALibrary.EquationSolver;
 using FEALibrary.Utils;
+using System;
 
 namespace FEALibrary.DynamicSolver
 {

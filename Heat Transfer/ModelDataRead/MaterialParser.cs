@@ -1,6 +1,6 @@
-﻿using System.Globalization;
-using FE_Analysis.Heat_Transfer.Model_Data;
+﻿using FE_Analysis.Heat_Transfer.Model_Data;
 using FEALibrary.Model;
+using System.Globalization;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead
 {
@@ -29,7 +29,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                     switch (substrings.Length)
                     {
                         case 2:
-                           conductivity[0] = double.Parse(substrings[1], CultureInfo.InvariantCulture);
+                            conductivity[0] = double.Parse(substrings[1], CultureInfo.InvariantCulture);
                             material = new Material(materialId, conductivity);
                             break;
                         case 3:

@@ -45,8 +45,8 @@ namespace FEALibrary.Model.abstractClasses
             SystemIndicesOfElement = new int[NodesPerElement * ElementDof];
             var counter = 0;
             for (var i = 0; i < NodesPerElement; i++)
-            for (var j = 0; j < ElementDof; j++)
-                SystemIndicesOfElement[counter++] = Nodes[i].SystemIndices[j];
+                for (var j = 0; j < ElementDof; j++)
+                    SystemIndicesOfElement[counter++] = Nodes[i].SystemIndices[j];
         }
 
         protected static Point CenterOfGravity(AbstractElement element)

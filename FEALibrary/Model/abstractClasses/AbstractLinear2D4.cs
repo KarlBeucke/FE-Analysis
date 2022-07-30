@@ -1,6 +1,6 @@
-﻿using System;
+﻿using FEALibrary.Utils;
+using System;
 using System.Windows;
-using FEALibrary.Utils;
 
 namespace FEALibrary.Model.abstractClasses
 {

@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using FE_Analysis.Elasticity.ModelData;
+﻿using FE_Analysis.Elasticity.ModelData;
 using FEALibrary.Model;
 using static System.Globalization.CultureInfo;
 

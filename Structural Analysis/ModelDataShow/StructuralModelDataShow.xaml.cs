@@ -144,7 +144,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var material = (Model_Data.Material)cellInfo.Item;
             removeKey = material.MaterialId;
         }
-        
+
         private void CrossSection_Loaded(object sender, RoutedEventArgs e)
         {
             var crossSection = model.CrossSection.Select(item => item.Value).ToList();
@@ -313,7 +313,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             var lineLoad = (Model_Data.LineLoad)cellInfo.Item;
             removeKey = lineLoad.LoadId;
         }
-        
+
         private void Model_Changed(object sender, DataGridCellEditEndingEventArgs e)
         {
             MainWindow.analysed = false;

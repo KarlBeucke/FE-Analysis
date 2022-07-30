@@ -73,8 +73,8 @@ namespace FEALibrary.EquationSolver
 
             // forward solution
             for (s = 0; s < dimension; s++)
-            for (k = 0; k < s; k++)
-                vector[s] -= matrix[s][k] * vector[k];
+                for (k = 0; k < s; k++)
+                    vector[s] -= matrix[s][k] * vector[k];
 
             // backward solution
             for (s = dimension - 1; s >= 0; s--)
