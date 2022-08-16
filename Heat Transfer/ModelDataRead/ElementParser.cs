@@ -42,7 +42,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                         case 4:
                             {
                                 elementId = substrings[0];
-                                nodeIds = new string[8];
+                                nodeIds = new string[nodesPerElement];
                                 for (var k = 0; k < nodesPerElement; k++) nodeIds[k] = substrings[k + 1];
 
                                 materialId = substrings[3];
@@ -77,7 +77,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                         case 5:
                             {
                                 elementId = substrings[0];
-                                nodeIds = new string[8];
+                                nodeIds = new string[nodesPerElement];
                                 for (var k = 0; k < nodesPerElement; k++) nodeIds[k] = substrings[k + 1];
 
                                 materialId = substrings[4];
@@ -113,7 +113,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                         case 6:
                             {
                                 elementId = substrings[0];
-                                nodeIds = new string[8];
+                                nodeIds = new string[nodesPerElement];
                                 for (var k = 0; k < nodesPerElement; k++) nodeIds[k] = substrings[k + 1];
 
                                 materialId = substrings[5];
@@ -149,7 +149,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                         case 10:
                             {
                                 elementId = substrings[0];
-                                nodeIds = new string[8];
+                                nodeIds = new string[nodesPerElement];
                                 for (var k = 0; k < nodesPerElement; k++) nodeIds[k] = substrings[k + 1];
 
                                 materialId = substrings[9];

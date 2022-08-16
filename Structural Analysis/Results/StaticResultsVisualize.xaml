@@ -66,6 +66,8 @@
                 </Button>
                 <TextBox Name="Rotation" Text="1" Grid.Column="7" HorizontalAlignment="Left" Width="20"
                          Margin="86.2,20,0,17" LostFocus="BtnRotation_Click" />
+                <TextBox Name="MaximumForces" Grid.Column="0" Grid.ColumnSpan="8"
+                         Margin="0,65,19,-41" BorderThickness="0"/>
             </Grid>
             <Canvas x:Name="VisualResults" Height="660" Width="1200" ScrollViewer.CanContentScroll="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"

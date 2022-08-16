@@ -9,7 +9,7 @@ namespace FE_Analysis.DataInput
         public ModelDataEdit()
         {
             InitializeComponent();
-            var openFileDialog = new OpenFileDialog { Filter = "Input Files (*.inp)|*.*" };
+            var openFileDialog = new OpenFileDialog { Filter = "Input Files (*.inp)|*.inp" };
             if (openFileDialog.ShowDialog() == true)
                 txtEditor.Text = File.ReadAllText(openFileDialog.FileName);
         }
@@ -22,14 +22,14 @@ namespace FE_Analysis.DataInput
 
         private void BtnOpenFileClick(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog { Filter = "Input Files (*.inp)|*.*" };
+            var openFileDialog = new OpenFileDialog { Filter = "Input Files (*.inp)|*.inp" };
             if (openFileDialog.ShowDialog() == true)
                 txtEditor.Text = File.ReadAllText(openFileDialog.FileName);
         }
 
         private void BtnSaveFile_Click(object sender, RoutedEventArgs e)
         {
-            var saveFileDialog = new SaveFileDialog { Filter = "Input Files (*.inp)|*.*" };
+            var saveFileDialog = new SaveFileDialog { Filter = "Input Files (*.inp)|*.inp" };
             if (saveFileDialog.ShowDialog() == true)
                 File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
         }

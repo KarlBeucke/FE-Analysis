@@ -59,8 +59,9 @@
                 </Button>
                 <TextBox Name="Deformation" Text="1" Grid.Column="7" HorizontalAlignment="Right" Width="40"
                          Margin="0,26,-80,11" LostFocus="BtnScalingDeformations_Click"/>
-                <TextBox Name="CurrentTimeStep" Grid.Column="0" HorizontalAlignment="Right"
-                         Margin="0,82,35.8,-41" Width="209" BorderThickness="0" />
+                <TextBox Name="CurrentTimeStep" HorizontalAlignment="Left"
+                         Margin="10,100,0,-60" Width="534" Grid.ColumnSpan="4" Grid.Column="0" 
+                         VerticalAlignment="Top" BorderThickness="0,0,0,0" />
             </Grid>
             <Canvas x:Name="VisualResults" Height="660" Width="1200" ScrollViewer.CanContentScroll="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto" />

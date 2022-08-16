@@ -33,33 +33,31 @@ namespace FE_Analysis.Heat_Transfer
         private const int BorderTop = 60;
         private const int BorderLeft = 60;
 
-        //private double vectorScaling, vectorLength, vectorAngle;
-
         public Presentation(FeModel feModel, Canvas visual)
         {
             model = feModel;
             visualResults = visual;
-            NodeIDs = new List<object>();
-            ElementIDs = new List<object>();
-            LoadNodes = new List<object>();
-            LoadElements = new List<object>();
+            NodeIDs = new List<TextBlock>();
+            ElementIDs = new List<TextBlock>();
+            LoadNodes = new List<TextBlock>();
+            LoadElements = new List<Shape>();
             NodalTemperatures = new List<TextBlock>();
             NodalGradients = new List<TextBlock>();
             TemperatureElements = new List<Shape>();
-            HeatVectors = new List<object>();
-            BoundaryNode = new List<object>();
+            HeatVectors = new List<Shape>();
+            BoundaryNode = new List<TextBlock>();
             EvaluateResolution();
         }
 
-        public List<object> ElementIDs { get; }
-        public List<object> NodeIDs { get; }
-        public List<object> LoadNodes { get; }
-        public List<object> LoadElements { get; }
+        public List<TextBlock> ElementIDs { get; }
+        public List<TextBlock> NodeIDs { get; }
+        public List<TextBlock> LoadNodes { get; }
+        public List<Shape> LoadElements { get; }
         public List<TextBlock> NodalTemperatures { get; }
         public List<TextBlock> NodalGradients { get; }
         public List<Shape> TemperatureElements { get; }
-        public List<object> HeatVectors { get; }
-        public List<object> BoundaryNode { get; }
+        public List<Shape> HeatVectors { get; }
+        public List<TextBlock> BoundaryNode { get; }
 
         public void EvaluateResolution()
         {
@@ -95,7 +93,7 @@ namespace FE_Analysis.Heat_Transfer
                 NodeIDs.Add(id);
             }
         }
-        public Shape NodeIndicate(Node feNode, System.Windows.Media.Brush color, double weight)
+        public Shape NodeIndicate(Node feNode, Brush color, double weight)
         {
             var point = TransformNode(feNode, resolution, maxY);
 
@@ -142,7 +140,7 @@ namespace FE_Analysis.Heat_Transfer
                 ElementDraw(item.Value, Black, 2);
             }
         }
-        private void ElementDraw(AbstractElement element, System.Windows.Media.Brush color, double weight)
+        private void ElementDraw(AbstractElement element, Brush color, double weight)
         {
             var pathGeometry = ElementOutlines(element);
             Shape elementPath = new Path()
@@ -156,8 +154,8 @@ namespace FE_Analysis.Heat_Transfer
             SetTop(elementPath, BorderTop);
             visualResults.Children.Add(elementPath);
         }
-        public Shape ElementFillZeichnen(AbstractElement element, System.Windows.Media.Brush outlineColor,
-            System.Windows.Media.Color fillColor, double transparent, double weight)
+        public Shape ElementFillDraw(AbstractElement element, Brush outlineColor,
+            Color fillColor, double transparent, double weight)
         {
             var pathGeometry = ElementOutlines(element);
             var fill = new SolidColorBrush(fillColor) { Opacity = .2 };
@@ -223,24 +221,22 @@ namespace FE_Analysis.Heat_Transfer
             {
 
                 if (model.Elements.TryGetValue(item.Value.ElementId, out var element)) { }
-                var elementLoad = ElementFillZeichnen((Abstract2D)element, Black, Colors.Red, .2, 1);
+                var elementLoad = ElementFillDraw((Abstract2D)element, Black, Colors.Red, .2, 1);
                 LoadElements.Add(elementLoad);
             }
         }
 
         public void BoundaryConditionDraw()
         {
-            // zeichne den Wert einer jeden Randbedingung als Text an Randknoten
+            // shows the value of each boundary condition as text at boundary node
             foreach (var item in model.BoundaryConditions)
             {
                 var knotenId = item.Value.NodeId;
-                if (model.Nodes.TryGetValue(knotenId, out node))
-                {
-                }
+                if (model.Nodes.TryGetValue(knotenId, out node)) { }
 
                 var displayNode = TransformNode(node, resolution, maxY);
 
-                var boundaryValue = item.Value.Prescribed[0];
+                var boundaryValue = item.Value.Node.Reactions[0];
                 var boundaryCondition = new TextBlock
                 {
                     Name = "Support",
@@ -283,33 +279,13 @@ namespace FE_Analysis.Heat_Transfer
             }
         }
 
-        public void NodalTemperaturesDraw(int index)
-        {
-            foreach (var item in model.Nodes)
-            {
-                node = item.Value;
-                var temperatur = node.NodalVariables[0][index].ToString("N2");
-                temp = node.NodalDof[0];
-                if (temp > maxTemp) maxTemp = temp;
-                if (temp < minTemp) minTemp = temp;
-                var displayNode = TransformNode(node, resolution, maxY);
-
-                var id = new TextBlock
-                {
-                    FontSize = 12,
-                    Background = LightGray,
-                    FontWeight = FontWeights.Bold,
-                    Text = temperatur
-                };
-                NodalTemperatures.Add(id);
-                SetTop(id, displayNode.Y + BorderTop);
-                SetLeft(id, displayNode.X + BorderLeft);
-                visualResults.Children.Add(id);
-            }
-        }
-
         public void ElementTemperaturesDraw()
         {
+            foreach (var path in TemperatureElements)
+            {
+                visualResults.Children.Remove(path);
+            }
+            TemperatureElements.Clear();
             foreach (var item in model.Nodes)
             {
                 node = item.Value;
@@ -341,6 +317,7 @@ namespace FE_Analysis.Heat_Transfer
                 {
                     Stroke = Blue,
                     StrokeThickness = 1,
+                    Opacity = 0.5,
                     Fill = myBrush,
                     Data = pathGeometry
                 };
@@ -380,6 +357,11 @@ namespace FE_Analysis.Heat_Transfer
 
         public void HeatFlowVectorsDraw()
         {
+            foreach (var path in HeatVectors)
+            {
+                visualResults.Children.Remove(path);
+            }
+            HeatVectors.Clear();
             double maxVektor = 0;
             foreach (var abstract2D in model.Elements.Select(item => (Abstract2D)item.Value))
             {
@@ -447,17 +429,17 @@ namespace FE_Analysis.Heat_Transfer
 
         public void TimeHistoryDraw(double dt, double tmin, double tmax, double mY, double[] ordinates)
         {
-            if (double.IsPositiveInfinity(mY)) mY = screenV;
-            var nSteps = (int)(tmax / dt) + 1;
+            if (ordinates[0] > double.MaxValue) ordinates[0] = mY;
             var timeHistory = new Polyline
             {
                 Stroke = Red,
                 StrokeThickness = 2
             };
             var supportPoints = new PointCollection();
-            for (var i = 0; i < nSteps; i++)
+            var start = (int)Math.Round(tmin / dt);
+            for (var i = 0; i < ordinates.Length - start; i++)
             {
-                var point = new Point(dt * i * resolutionH, -ordinates[i] * resolutionV);
+                var point = new Point(dt * i * resolutionH, -ordinates[i+start] * resolutionV);
                 supportPoints.Add(point);
             }
 

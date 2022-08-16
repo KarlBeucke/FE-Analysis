@@ -5,13 +5,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace FE_Analysis.Structural_Analysis.Results
 {
     public partial class StaticResultsShow
     {
         private readonly FeModel model;
-        private Node lastNode;
+        private Shape lastElement;
+        private Shape lastNode;
 
         public StaticResultsShow(FeModel feModel)
         {
@@ -25,7 +27,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             NodeDeformationsGrid.ItemsSource = model.Nodes;
         }
         //SelectionChanged
-        private void KnotenZeileSelected(object sender, SelectionChangedEventArgs e)
+        private void NodeRowSelected(object sender, SelectionChangedEventArgs e)
         {
             if (NodeDeformationsGrid.SelectedCells.Count <= 0) return;
             var cellInfo = NodeDeformationsGrid.SelectedCells[0];
@@ -33,10 +35,13 @@ namespace FE_Analysis.Structural_Analysis.Results
             var node = cell.Value;
             if (lastNode != null)
             {
-                MainWindow.staticResults.presentation.NodeIndicate(lastNode, Brushes.White, 2);
+                MainWindow.staticResults.VisualResults.Children.Remove(lastNode);
             }
-            MainWindow.staticResults.presentation.NodeIndicate(node, Brushes.Red, 1);
-            lastNode = node;
+            lastNode = MainWindow.staticResults.presentation.NodeIndicate(node, Brushes.Green, 1);
+        }
+        private void NoNodeSelected(object sender, RoutedEventArgs e)
+        {
+            MainWindow.staticResults.VisualResults.Children.Remove(lastNode);
         }
 
         private void ElementEndForces_Loaded(object sender, RoutedEventArgs e)
@@ -50,6 +55,23 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
 
             ElementEndForcesGrid.ItemsSource = elementForces;
+        }
+        // SelectionChanged
+        private void ElementRowSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (ElementEndForcesGrid.SelectedCells.Count <= 0) return;
+            var cellInfo = ElementEndForcesGrid.SelectedCells[0];
+            var beamEndForces = (BeamEndForces)cellInfo.Item;
+            if (!model.Elements.TryGetValue(beamEndForces.ElementId, out var element)) return;
+            if (lastElement != null)
+            {
+                MainWindow.staticResults.VisualResults.Children.Remove(lastElement);
+            }
+            lastElement = MainWindow.staticResults.presentation.ElementDraw(element, Brushes.Green, 5);
+        }
+        private void NoElementSelected(object sender, RoutedEventArgs e)
+        {
+            MainWindow.staticResults.VisualResults.Children.Remove(lastElement);
         }
 
         private void SupportReactions_Loaded(object sender, RoutedEventArgs e)
@@ -73,7 +95,6 @@ namespace FE_Analysis.Structural_Analysis.Results
             {
                 Reactions = reactions;
             }
-
             public double[] Reactions { get; }
         }
     }

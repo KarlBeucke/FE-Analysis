@@ -1,6 +1,7 @@
 ﻿using FEALibrary.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Markup;
 
@@ -47,9 +48,27 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             var nodeId = (string)NodeSelection.SelectedItem;
             if (model.Nodes.TryGetValue(nodeId, out node)) { }
+            if (node != null)
+            {
+                var maxDeltaX = node.NodalVariables[0].Max();
+                var maxDeltaXTime = Dt * Array.IndexOf(node.NodalVariables[0], maxDeltaX);
+                var maxDeltaY = node.NodalVariables[1].Max();
+                var maxDeltaYTime = Dt * Array.IndexOf(node.NodalVariables[1], maxDeltaY);
+                var maxAccX = node.NodalDerivatives[0].Max();
+                var maxAccXTime = Dt * Array.IndexOf(node.NodalDerivatives[0], maxAccX);
+                var maxAccY = node.NodalDerivatives[1].Max();
+                var maxAccYTime = Dt * Array.IndexOf(node.NodalDerivatives[1], maxAccY);
+
+                var maxText = "max. DeltaX = " + maxDeltaX.ToString("G4") + ", t =" + maxDeltaXTime.ToString("N2")
+                              + ", max. DeltaY = " + maxDeltaY.ToString("G4") + ", t =" + maxDeltaYTime.ToString("N2")
+                              + "\nmax. AccX = " + maxAccX.ToString("G4") + ", t =" + maxAccXTime.ToString("N2")
+                              + ", max. AccY = " + maxAccY.ToString("G4") + ", t =" + maxAccYTime.ToString("N2");
+                MaxText.Text = maxText;
+            }
+            NodeDeformationsShow();
         }
 
-        private void NodeDeformationsShow(object sender, RoutedEventArgs e)
+        private void NodeDeformationsShow()
         {
             if (node == null) return;
 
@@ -92,9 +111,11 @@ namespace FE_Analysis.Structural_Analysis.Results
                 return;
             }
             Index = TimeStepSelection.SelectedIndex;
+
+            TimeStepGridShow();
         }
 
-        private void TimeStepGridShow(object sender, RoutedEventArgs e)
+        private void TimeStepGridShow()
         {
             if (Index == 0) return;
             var timeStep = new List<NodeDeformations>();

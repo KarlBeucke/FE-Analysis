@@ -13,33 +13,8 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
         private Material material;
 
         // ....Constructor................................................
-        public Element2D4(string[] eNodes, string materialId, FeModel feModel)
-        {
-            // The null-coalescing operator ?? returns the value of its left-hand operand
-            // if it isn't null; otherwise, it evaluates the right-hand operand and returns
-            // its result. The ?? operator doesn't evaluate its right-hand operand if the
-            // left-hand operand evaluates to non-null.
-            Model = feModel ?? throw new ArgumentNullException(nameof(feModel));
-            ElementDof = 1;
-            NodesPerElement = 4;
-            NodeIds = eNodes ?? throw new ArgumentNullException(nameof(eNodes));
-            Nodes = new Node[NodesPerElement];
-            for (var i = 0; i < NodesPerElement; i++)
-            {
-                if (Model.Nodes.TryGetValue(NodeIds[i], out var node))
-                {
-                }
-
-                Nodes[i] = node ?? throw new ArgumentNullException(nameof(node));
-            }
-
-            ElementMaterialId = materialId ?? throw new ArgumentNullException(nameof(materialId));
-            SpecificHeatMatrix = new double[4];
-        }
-
         public Element2D4(string id, string[] eNodes, string materialId, FeModel feModel)
         {
-            if (eNodes == null) throw new ArgumentNullException(nameof(eNodes));
             Model = feModel ?? throw new ArgumentNullException(nameof(feModel));
             ElementId = id ?? throw new ArgumentNullException(nameof(id));
             ElementDof = 1;
@@ -52,14 +27,11 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
                 {
                 }
 
-                if (node != null) Nodes[i] = node ?? throw new ArgumentNullException(nameof(node));
+                if (node != null) Nodes[i] = node;
             }
 
             ElementMaterialId = materialId ?? throw new ArgumentNullException(nameof(materialId));
-            SpecificHeatMatrix = new double[4];
         }
-
-        public double[] SpecificHeatMatrix { get; }
 
         public FeModel Model { get; set; }
 

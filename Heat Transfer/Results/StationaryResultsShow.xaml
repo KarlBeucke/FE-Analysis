@@ -16,8 +16,8 @@
             <Label x:Name="NodalTemperatures" Content="Nodal Temperatures" HorizontalAlignment="Left" Margin="10,0,0,0"
                    VerticalAlignment="Top" Width="150" />
             <DataGrid Name="NodesGrid" HorizontalAlignment="Left" Height="325" Width="170" Margin="10,25,0,0"
-                      VerticalAlignment="Top" AlternatingRowBackground="Aqua"
-                      Loaded="Nodes_Loaded" AutoGenerateColumns="False">
+                      VerticalAlignment="Top" AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                      Loaded="Nodes_Loaded" SelectionChanged="NodeRowSelected" LostFocus="NoNodeSelected" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Node" Binding="{Binding Path=Key}" />
                     <DataGridTextColumn Header="Temperature" Binding="{Binding Path=Value.NodalDof[0], StringFormat=N2}" />
@@ -29,8 +29,8 @@
             <Label x:Name="TemperatureVectors" Content="Temperature Vectors in center of Elements" HorizontalAlignment="Left"
                    Margin="5,0,0,0" VerticalAlignment="Top" Width="274" />
             <DataGrid Name="TemperatureVectorsGrid" HorizontalAlignment="Left" Height="325" Width="250" Margin="0,25,0,0"
-                      VerticalAlignment="Top" AlternatingRowBackground="Aqua"
-                      Loaded="TemperatureVectors_Loaded" AutoGenerateColumns="False">
+                      VerticalAlignment="Top" AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                      Loaded="TemperatureVectors_Loaded" SelectionChanged="ElementRowSelected" LostFocus="NoElementSelected" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Element" Binding="{Binding Path=Key}" />
                     <DataGridTextColumn Header="X" Binding="{Binding Path=Value.ElementState[0], StringFormat=N2}" />

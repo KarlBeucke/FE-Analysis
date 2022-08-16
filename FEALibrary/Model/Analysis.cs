@@ -435,7 +435,7 @@ namespace FEALibrary.Model
                             {
                                 // read from file
                                 const string inputDirectory =
-                                    "\\FE Analysis\\input\\Heat_Transfer\\instationary\\ExcitationFiles";
+                                    "\\FE-Analysis-App\\input\\Heat_Transfer\\instationary\\ExcitationFiles";
                                 const int col = 1;
                                 FromFile(inputDirectory, col, force);
                                 break;
@@ -696,7 +696,7 @@ namespace FEALibrary.Model
                 {
                     case 0:
                         {
-                            const string inputDirectory = "\\FE Analysis\\input\\StructuralAnalysis\\Dynamics\\ExcitationFiles";
+                            const string inputDirectory = "\\FE-Analysis-App\\input\\StructuralAnalysis\\Dynamics\\ExcitationFiles";
                             const int col = -1; // ALL values in file
                                                 // read ordinate values at time interval dt from file
                             FromFile(inputDirectory, col, force);

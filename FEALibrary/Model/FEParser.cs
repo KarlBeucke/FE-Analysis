@@ -8,13 +8,14 @@ namespace FEALibrary.Model
         private string[] substrings;
         private readonly char[] delimiters = { '\t' };
         private double[] crds;
-        private int numberNodalDof, counter;
+        private int counter;
         private double xInterval, yInterval, zInterval;
         private int nNodesX, nNodesY, nNodesZ;
 
         private string ModelId { get; set; }
         public FeModel FeModel { get; private set; }
         private int SpatialDimension { get; set; }
+        private int NumberNodalDof { get; set; }
         public static string InputFound { get; set; }
 
         // parsing a new model to be read from file
@@ -22,7 +23,6 @@ namespace FEALibrary.Model
         {
             for (var i = 0; i < lines.Length; i++)
             {
-                InputFound = string.Empty;
                 if (lines[i] != "Model Name") continue;
                 ModelId = lines[i + 1];
                 InputFound = "Model Name = " + ModelId;
@@ -34,12 +34,12 @@ namespace FEALibrary.Model
                 if (lines[i] != "Spatial Dimension") continue;
                 substrings = lines[i + 1].Split(delimiters);
                 SpatialDimension = int.Parse(substrings[0]);
-                numberNodalDof = int.Parse(substrings[1]);
-                InputFound += "\nSpatial Dimension = " + SpatialDimension + ", Nodal DOF = " + numberNodalDof;
+                NumberNodalDof = int.Parse(substrings[1]);
+                InputFound += "\nSpatial Dimension = " + SpatialDimension + ", Nodal DOF = " + NumberNodalDof;
                 break;
             }
 
-            FeModel = new FeModel(ModelId, SpatialDimension);
+            FeModel = new FeModel(ModelId, SpatialDimension, NumberNodalDof);
         }
 
         // NodeId, Nodal Coordinates
@@ -61,13 +61,13 @@ namespace FEALibrary.Model
                         switch (substrings.Length)
                         {
                             case 1:
-                                numberNodalDof = int.Parse(substrings[0]);
+                                NumberNodalDof = int.Parse(substrings[0]);
                                 break;
                             case 2:
                                 nodeId = substrings[0];
                                 crds[0] = double.Parse(substrings[1], CultureInfo.InvariantCulture);
                                 nodalCrds = new[] { crds[0] };
-                                node = new Node(nodeId, nodalCrds, numberNodalDof, dimension);
+                                node = new Node(nodeId, nodalCrds, NumberNodalDof, dimension);
                                 FeModel.Nodes.Add(nodeId, node);
                                 break;
                             case 3:
@@ -75,7 +75,7 @@ namespace FEALibrary.Model
                                 crds[0] = double.Parse(substrings[1], CultureInfo.InvariantCulture);
                                 crds[1] = double.Parse(substrings[2], CultureInfo.InvariantCulture);
                                 nodalCrds = new[] { crds[0], crds[1] };
-                                node = new Node(nodeId, nodalCrds, numberNodalDof, dimension);
+                                node = new Node(nodeId, nodalCrds, NumberNodalDof, dimension);
                                 FeModel.Nodes.Add(nodeId, node);
                                 break;
                             case 4:
@@ -84,7 +84,7 @@ namespace FEALibrary.Model
                                 crds[1] = double.Parse(substrings[2], CultureInfo.InvariantCulture);
                                 crds[2] = double.Parse(substrings[3], CultureInfo.InvariantCulture);
                                 nodalCrds = new[] { crds[0], crds[1], crds[2] };
-                                node = new Node(nodeId, nodalCrds, numberNodalDof, dimension);
+                                node = new Node(nodeId, nodalCrds, NumberNodalDof, dimension);
                                 FeModel.Nodes.Add(nodeId, node);
                                 break;
                             default:
@@ -115,7 +115,7 @@ namespace FEALibrary.Model
                                 nodalCrds[k] = double.Parse(substrings[k]);
 
                             nodeId = nodePrefix + counter.ToString().PadLeft(substrings.Length, '0');
-                            var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
+                            var node = new Node(nodeId, nodalCrds, NumberNodalDof, SpatialDimension);
                             FeModel.Nodes.Add(nodeId, node);
                             counter++;
                             i++;
@@ -147,7 +147,7 @@ namespace FEALibrary.Model
                                 {
                                     nodeId = nodePrefix + k.ToString().PadLeft(2, '0');
                                     nodalCrds = new[] { crds[0] };
-                                    var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
+                                    var node = new Node(nodeId, nodalCrds, NumberNodalDof, SpatialDimension);
                                     FeModel.Nodes.Add(nodeId, node);
                                     crds[0] += xInterval;
                                 }
@@ -174,7 +174,7 @@ namespace FEALibrary.Model
                                         var idX = l.ToString().PadLeft(2, '0');
                                         nodeId = nodePrefix + idX + idY;
                                         nodalCrds = new[] { crds[0], crds[1] };
-                                        var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
+                                        var node = new Node(nodeId, nodalCrds, NumberNodalDof, SpatialDimension);
                                         FeModel.Nodes.Add(nodeId, node);
                                         crds[0] += xInterval;
                                     }
@@ -211,7 +211,7 @@ namespace FEALibrary.Model
                                             var idX = m.ToString().PadLeft(2, '0');
                                             nodeId = nodePrefix + idX + idY + idZ;
                                             nodalCrds = new[] { crds[0], crds[1], crds[2] };
-                                            var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
+                                            var node = new Node(nodeId, nodalCrds, NumberNodalDof, SpatialDimension);
                                             FeModel.Nodes.Add(nodeId, node);
                                             crds[0] += xInterval;
                                         }
@@ -261,7 +261,7 @@ namespace FEALibrary.Model
                                     crds[0] = coord0 + offset[n];
                                     nodeId = nodePrefix + n.ToString().PadLeft(2, '0');
                                     nodalCrds = new[] { crds[0] };
-                                    var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
+                                    var node = new Node(nodeId, nodalCrds, NumberNodalDof, SpatialDimension);
                                     FeModel.Nodes.Add(nodeId, node);
                                 }
                                 break;
@@ -279,7 +279,7 @@ namespace FEALibrary.Model
                                         crds[0] = coord0 + offset[m];
                                         nodeId = nodePrefix + idX + idY;
                                         nodalCrds = new[] { crds[0], crds[1] };
-                                        var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
+                                        var node = new Node(nodeId, nodalCrds, NumberNodalDof, SpatialDimension);
                                         FeModel.Nodes.Add(nodeId, node);
                                     }
                                 }
@@ -306,7 +306,7 @@ namespace FEALibrary.Model
                                             crds[0] = coord0 + offset[k];
                                             nodeId = nodePrefix + idX + idY + idZ;
                                             nodalCrds = new[] { crds[0], crds[1], crds[2] };
-                                            var node = new Node(nodeId, nodalCrds, numberNodalDof, SpatialDimension);
+                                            var node = new Node(nodeId, nodalCrds, NumberNodalDof, SpatialDimension);
                                             FeModel.Nodes.Add(nodeId, node);
                                         }
                                     }

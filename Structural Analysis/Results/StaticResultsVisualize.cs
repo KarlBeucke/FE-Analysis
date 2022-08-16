@@ -361,10 +361,8 @@ namespace FE_Analysis.Structural_Analysis.Results
                 MyPopupText.Text = sb.ToString();
             }
 
-            foreach (var item in hitTextBlock)
+            foreach (var item in hitTextBlock.Where(item => !(item == null | item?.Text == string.Empty)))
             {
-                if (item == null | item.Text == string.Empty) { continue; }
-
                 sb.Clear();
                 MyPopup.IsOpen = true;
                 if (model.Nodes.TryGetValue(item.Text, out var node))

@@ -7,10 +7,6 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
         private int[] systemIndices;
 
         // ....Constructor....................................................
-        public NodeLoad()
-        {
-        }
-
         public NodeLoad(string nodeId)
         {
             NodeId = nodeId;

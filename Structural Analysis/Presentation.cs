@@ -68,40 +68,41 @@ namespace FE_Analysis.Structural_Analysis
             foreach (var item in model.Nodes)
             {
                 x.Add(item.Value.Coordinates[0]);
-                maxX = x.Max();
-                minX = x.Min();
                 y.Add(item.Value.Coordinates[1]);
-                maxY = y.Max();
-                minY = y.Min();
             }
+            maxX = x.Max(); minX = x.Min();
+            maxY = y.Max(); minY = y.Min();
 
+            // vertical model
             var delta = Math.Abs(maxX - minX);
             if (delta < 1)
             {
-                resolutionH = screenH - 5 * BorderLeft;
+                resolutionH = screenH - 2 * BorderLeft;
                 placementH = (int)(0.5 * screenH);
             }
             else
             {
-                resolutionH = (screenH - 5 * BorderLeft) / delta;
+                resolutionH = (screenH - 2 * BorderLeft) / delta;
+                placementH = BorderLeft;
             }
 
             //plazierungH = randLinks;
-            if (maxX < double.Epsilon) placementH = screenH / 2;
+            //if (maxX < double.Epsilon) placementH = screenH / 2;
 
+            // horizontal model
             delta = Math.Abs(maxY - minY);
             if (delta < 1)
             {
-                resolution = screenV - 5 * BorderTop;
+                resolution = screenV - 2 * BorderTop;
                 placementV = (int)(0.5 * screenV);
             }
             else
             {
-                resolution = (screenV - 5 * BorderTop) / delta;
+                resolution = (screenV - 2 * BorderTop) / delta;
+                placementV = BorderTop;
             }
 
             if (resolutionH < resolution) resolution = resolutionH;
-            if (maxY < double.Epsilon) placementV = screenV / 2;
         }
 
         public void UndeformedGeometry()
@@ -133,8 +134,8 @@ namespace FE_Analysis.Structural_Analysis
                 StrokeThickness = 1,
                 Data = structure
             };
-            SetLeft(structurePath, BorderLeft);
-            SetTop(structurePath, BorderTop);
+            SetLeft(structurePath, placementH);
+            SetTop(structurePath, placementV);
             visualResults.Children.Add(structurePath);
         }
 
@@ -152,8 +153,8 @@ namespace FE_Analysis.Structural_Analysis
                 StrokeThickness = weight,
                 Data = nodeIndicate
             };
-            SetLeft(nodePath, BorderLeft);
-            SetTop(nodePath, BorderTop);
+            SetLeft(nodePath, placementH);
+            SetTop(nodePath, placementV);
             visualResults.Children.Add(nodePath);
             return nodePath;
         }
@@ -205,8 +206,8 @@ namespace FE_Analysis.Structural_Analysis
                 StrokeThickness = weight,
                 Data = pathGeometry
             };
-            SetLeft(elementPath, BorderLeft);
-            SetTop(elementPath, BorderTop);
+            SetLeft(elementPath, placementH);
+            SetTop(elementPath, placementV);
             visualResults.Children.Add(elementPath);
             return elementPath;
         }
@@ -374,8 +375,8 @@ namespace FE_Analysis.Structural_Analysis
                     Data = pathGeometry
                 };
 
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 visualResults.Children.Add(path);
                 Deformations.Add(path);
             }
@@ -618,8 +619,8 @@ namespace FE_Analysis.Structural_Analysis
                     Text = item.Key,
                     Foreground = Blue
                 };
-                SetTop(id, (-cg.Y + maxY) * resolution + BorderTop);
-                SetLeft(id, cg.X * resolution + BorderLeft);
+                SetTop(id, (-cg.Y + maxY) * resolution + placementV);
+                SetLeft(id, cg.X * resolution + placementH);
                 visualResults.Children.Add(id);
                 ElementIDs.Add(id);
             }
@@ -635,8 +636,8 @@ namespace FE_Analysis.Structural_Analysis
                     Text = item.Key,
                     Foreground = Red
                 };
-                SetTop(id, (-item.Value.Coordinates[1] + maxY) * resolution + BorderTop);
-                SetLeft(id, item.Value.Coordinates[0] * resolution + BorderLeft);
+                SetTop(id, (-item.Value.Coordinates[1] + maxY) * resolution + placementV);
+                SetLeft(id, item.Value.Coordinates[0] * resolution + placementH);
                 visualResults.Children.Add(id);
                 NodeIDs.Add(id);
             }
@@ -683,8 +684,8 @@ namespace FE_Analysis.Structural_Analysis
                 };
                 LoadVectors.Add(path);
 
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 visualResults.Children.Add(path);
             }
 
@@ -700,8 +701,8 @@ namespace FE_Analysis.Structural_Analysis
                 };
                 LoadVectors.Add(path);
 
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 visualResults.Children.Add(path);
             }
 
@@ -723,8 +724,8 @@ namespace FE_Analysis.Structural_Analysis
                 };
                 LoadVectors.Add(path);
 
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 visualResults.Children.Add(path);
             }
         }
@@ -974,8 +975,8 @@ namespace FE_Analysis.Structural_Analysis
                 };
                 SupportRepresentation.Add(path);
 
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 // draw Shape
                 visualResults.Children.Add(path);
             }
@@ -1158,8 +1159,8 @@ namespace FE_Analysis.Structural_Analysis
                     StrokeThickness = 1,
                     Data = pathGeometry
                 };
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 visualResults.Children.Add(path);
                 AxialForceList.Add(path);
             }
@@ -1237,7 +1238,7 @@ namespace FE_Analysis.Structural_Analysis
                         StrokeThickness = 1,
                         Data = pathGeometry
                     };
-                    SetLeft(path, BorderLeft);
+                    SetLeft(path, placementH);
                     SetTop(path, placementV);
                     visualResults.Children.Add(path);
                     AxialForceList.Add(path);
@@ -1292,8 +1293,8 @@ namespace FE_Analysis.Structural_Analysis
                     StrokeThickness = 1,
                     Data = pathGeometry
                 };
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 visualResults.Children.Add(path);
                 ShearForceList.Add(path);
             }
@@ -1354,8 +1355,8 @@ namespace FE_Analysis.Structural_Analysis
                         StrokeThickness = 1,
                         Data = pathGeometry
                     };
-                    SetLeft(path, BorderLeft);
-                    SetTop(path, BorderTop);
+                    SetLeft(path, placementH);
+                    SetTop(path, placementV);
                     visualResults.Children.Add(path);
                     ShearForceList.Add(path);
 
@@ -1383,8 +1384,8 @@ namespace FE_Analysis.Structural_Analysis
                         StrokeThickness = 1,
                         Data = pathGeometry
                     };
-                    SetLeft(path, BorderLeft);
-                    SetTop(path, BorderTop);
+                    SetLeft(path, placementH);
+                    SetTop(path, placementV);
                     visualResults.Children.Add(path);
                     ShearForceList.Add(path);
                 }
@@ -1441,8 +1442,8 @@ namespace FE_Analysis.Structural_Analysis
                         StrokeThickness = 1,
                         Data = pathGeometry
                     };
-                    SetLeft(path, BorderLeft);
-                    SetTop(path, BorderTop);
+                    SetLeft(path, placementH);
+                    SetTop(path, placementV);
                     visualResults.Children.Add(path);
                     ShearForceList.Add(path);
 
@@ -1473,8 +1474,8 @@ namespace FE_Analysis.Structural_Analysis
                         StrokeThickness = 1,
                         Data = pathGeometry
                     };
-                    SetLeft(path, BorderLeft);
-                    SetTop(path, BorderTop);
+                    SetLeft(path, placementH);
+                    SetTop(path, placementV);
                     visualResults.Children.Add(path);
                     ShearForceList.Add(path);
                 }
@@ -1532,8 +1533,8 @@ namespace FE_Analysis.Structural_Analysis
                     StrokeThickness = 1,
                     Data = pathGeometry
                 };
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 visualResults.Children.Add(path);
                 BendingMomentList.Add(path);
             }
@@ -1746,8 +1747,8 @@ namespace FE_Analysis.Structural_Analysis
                     StrokeThickness = 1,
                     Data = pathGeometry
                 };
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, placementH);
+                SetTop(path, placementV);
                 visualResults.Children.Add(path);
                 BendingMomentList.Add(path);
 
@@ -1757,7 +1758,7 @@ namespace FE_Analysis.Structural_Analysis
                     Text = "Bending Moment = " + mmax.ToString("N2"),
                     Foreground = Blue
                 };
-                SetTop(maxMomentText, maxPoint.Y + BorderTop);
+                SetTop(maxMomentText, maxPoint.Y + placementV);
                 SetLeft(maxMomentText, maxPoint.X);
                 visualResults.Children.Add(maxMomentText);
                 MaxTexts.Add(maxMomentText);
@@ -1775,9 +1776,9 @@ namespace FE_Analysis.Structural_Analysis
             {
                 Stroke = Black,
                 X1 = 0,
-                Y1 = max * resolutionV + BorderTop,
-                X2 = (tmax - tmin) * resolutionH + BorderLeft,
-                Y2 = max * resolutionV + BorderTop,
+                Y1 = max * resolutionV + placementV,
+                X2 = (tmax - tmin) * resolutionH + placementH,
+                Y2 = max * resolutionV + placementV,
                 StrokeThickness = 2
             };
             _ = visualResults.Children.Add(xAxis);
@@ -1785,9 +1786,9 @@ namespace FE_Analysis.Structural_Analysis
             {
                 Stroke = Black,
                 X1 = BorderLeft,
-                Y1 = max * resolutionV - min * resolutionV + 2 * BorderTop,
+                Y1 = max * resolutionV - min * resolutionV + 2 * placementV,
                 X2 = BorderLeft,
-                Y2 = BorderTop,
+                Y2 = placementV,
                 StrokeThickness = 2
             };
             visualResults.Children.Add(yAxis);
@@ -1815,7 +1816,7 @@ namespace FE_Analysis.Structural_Analysis
             timeHistory.Points = supportPoints;
 
             SetLeft(timeHistory, BorderLeft);
-            SetTop(timeHistory, mY * resolutionV + BorderTop);
+            SetTop(timeHistory, mY * resolutionV + placementV);
             // draw Shape
             visualResults.Children.Add(timeHistory);
         }

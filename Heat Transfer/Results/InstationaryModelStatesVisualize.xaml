@@ -27,7 +27,13 @@
                         HorizontalAlignment="Left" Click="BtnElementTemperatures_Click" />
             </Grid>
             <Canvas x:Name="VisualResults" Height="690" Width="1000" ScrollViewer.CanContentScroll="True"
-                    ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                    MouseLeftButtonDown="OnMouseLeftButtonDown"
+                    MouseRightButtonDown="OnMouseRightButtonDown">
+                <Popup x:Name="MyPopup" Placement="MousePoint">
+                    <TextBlock x:Name="MyPopupText" Background="LightBlue" Foreground="Blue" Padding="10"/>
+                </Popup>
+            </Canvas>
         </StackPanel>
     </ScrollViewer>
 </Window>

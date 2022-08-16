@@ -4,59 +4,78 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Results of instationary heat transfer analysis" Height="680" Width="790">
-    <Grid Margin="5,10,15,2">
+        Title="Results of instationary heat transfer analysis" Height="680" Width="600">
+    <Grid Margin="5,5,10,0" Unloaded="ModelClose" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="350" />
-            <ColumnDefinition Width="Auto" MinWidth="420" />
+            <ColumnDefinition Width="Auto" MinWidth="250"/>
+            <ColumnDefinition Width="Auto" MinWidth="320"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="68" />
-            <RowDefinition Height="Auto" MinHeight="570.4" />
+            <RowDefinition Height="87" />
+            <RowDefinition Height="135*"/>
+            <RowDefinition Height="143*"/>
         </Grid.RowDefinitions>
 
-        <Label x:Name="NodalTemperatures" Content="Temperature time history at node" HorizontalAlignment="Left" Margin="5,0,0,40"
-               Grid.Column="0" Width="272" />
-        <Label Grid.Row="0" Grid.Column="0" Content="Select Node" HorizontalAlignment="Left" Margin="5,30,0,0"
+        <Label x:Name="NodalTemperatures" Content="Temperature time history at node" 
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,40"
+               Grid.Column="0" Width="280" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Select Node" 
+               HorizontalAlignment="Left" Margin="5,30,0,0"
                VerticalAlignment="Top" Width="200" Height="25" />
-        <ComboBox Name="NodeSelection" HorizontalAlignment="Left" Margin="136,30,0,0" VerticalAlignment="Top"
-                  Width="100"
-                  Grid.Row="0" Grid.Column="0" Height="22"
+        <ComboBox Name="NodeSelection" HorizontalAlignment="Left" Margin="136,30,0,0" 
+                  VerticalAlignment="Top" Width="100" Grid.Row="0" Grid.Column="0" Height="22"
                   DropDownClosed="DropDownNodeSelectionClosed" />
-        <Button Name="BtnNode" Grid.Column="0" Grid.Row="0" Click="NodalTemperatureGrid_Show"
-                Margin="250,33,57.4,15">
-            display
-        </Button>
+        <TextBlock x:Name="MaxText" Grid.Row="0" Grid.Column="0" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Width="264" 
+                   Margin="12,54,0,0" Height="31"/>
 
-        <DataGrid Name="NodalTemperatureGrid" HorizontalAlignment="Left" Height="550" Width="358" Margin="4,6,0,0"
-                  Grid.Column="0" Grid.Row="1"
-                  VerticalAlignment="Top" AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
-                  HeadersVisibility="None">
+        <DataGrid Name="NodalTemperatureGrid" Width="277" 
+                  Margin="4,5,4,8" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                  VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Key}" />
-                <DataGridTextColumn Binding="{Binding Path=Value}" />
+                <DataGridTextColumn Header="step" Binding="{Binding Path=Key}" />
+                <DataGridTextColumn Header="time" Binding="{Binding Path=Value[0], StringFormat=N2}" />
+                <DataGridTextColumn Header="temperature" Binding="{Binding Path=Value[1], StringFormat=N4}" />
+                <DataGridTextColumn Header="gradient" Binding="{Binding Path=Value[2], StringFormat=N4}" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label x:Name="TimeStep" Content="Model State at a specific time step" HorizontalAlignment="Left"
-               Margin="4.8,0,0,39"
-               Grid.Row="0" Grid.Column="1" Width="242" />
-        <Label Content="Select integration time" HorizontalAlignment="Left" Margin="5,30,0,0"
-               VerticalAlignment="Top" Width="180" Height="28"
-               Grid.Row="0" Grid.Column="1" />
-        <ComboBox Name="TimeStepSelection" HorizontalAlignment="Left" Margin="190,30,0,0" VerticalAlignment="Top"
-                  Width="100"
-                  Grid.Row="0" Grid.Column="1" Height="23"
+        <Label Content="Model State at a specific time step" HorizontalAlignment="Left"
+               VerticalAlignment="Top" Margin="5,5,0,0"
+               Width="240" Grid.Row="0" Grid.Column="1"/>
+        <Label Content="Select integration time" HorizontalAlignment="Left"
+               Margin="5,30,0,0" VerticalAlignment="Top" 
+               Width="180" Height="28" Grid.Row="0" Grid.Column="1" />
+        <ComboBox Name="TimeStepSelection" HorizontalAlignment="Left" 
+                  Margin="170,30,0,0" VerticalAlignment="Top"
+                  Width="100" Grid.Row="0" Grid.Column="1" Height="23"
                   DropDownClosed="DropDownTimeStepSelectionClosed" ItemStringFormat="N2" />
-        <Button Name="BtnTime" Grid.Column="1" Grid.Row="0" Click="TimeStepGrid_Show" Margin="308,33,59,15">display</Button>
+        <TextBlock x:Name="IntegrationStep" Grid.Row="0" Grid.Column="1" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Width="264" 
+                   Margin="12,54,0,0" Height="14"/>
 
-        <DataGrid Name="TimeStepGrid" HorizontalAlignment="Left" Height="550" Width="394" Margin="7,6,0,0"
-                  Grid.Column="1" Grid.Row="1"
-                  VerticalAlignment="Top" AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
-                  HeadersVisibility="None">
+        <DataGrid Name="NodalValuesGrid" MinHeight="250" 
+                  Margin="5,5,25,6" Grid.Column="1" Grid.Row="1" AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                  VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" 
+                  SelectedCellsChanged="NodalValuesRowSelected" Loaded="NoNodalValuesSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Key}" />
-                <DataGridTextColumn Binding="{Binding Path=Value}" />
+                <DataGridTextColumn Header="Node" Binding="{Binding Path=Key}" />
+                <DataGridTextColumn Header="temperature" Binding="{Binding Path=Value[0], StringFormat=N4}" />
+                <DataGridTextColumn Header="gradient" Binding="{Binding Path=Value[1], StringFormat=N4}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label Grid.Row="2" Grid.Column="1" Content="Heat Flow vectors in element center" Margin="5,0,0,0" 
+               HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"/>
+        <DataGrid Grid.Row="2" Grid.Column="1" Name="HeatFlowVectorGrid" Margin="5,22,0,0"
+                  HorizontalAlignment="Left" VerticalAlignment="Top" Height="255" Width="289"
+                  AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                  VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Visible"
+                  SelectionChanged="ElementRowSelected" LostFocus="NoElementSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Element"  Binding="{Binding Path=Key}"/>
+                <DataGridTextColumn Header="direction x" Binding="{Binding Path=Value.ElementState[0], StringFormat=N2}"/>
+                <DataGridTextColumn Header="direction y" Binding="{Binding Path=Value.ElementState[1], StringFormat=N2}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

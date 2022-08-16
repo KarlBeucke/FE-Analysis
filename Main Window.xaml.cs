@@ -22,7 +22,7 @@ namespace FE_Analysis
         public static Structural_Analysis.ModelDataShow.StructuralModelVisualize structuralModel;
         public static Structural_Analysis.Results.StaticResultsVisualize staticResults;
         public static Heat_Transfer.ModelDataShow.HeatDataVisualize heatModel;
-        public static Heat_Transfer.Results.StationaryResultsShow stationaryResults;
+        public static Heat_Transfer.Results.StationaryResultsVisualize stationaryResults;
 
 
         private string[] lines;
@@ -99,7 +99,7 @@ namespace FE_Analysis
             analysed = false;
             timeintegrationAnalysed = false;
 
-            sb.Append(FeParser.InputFound + "\n\nHeat Model input data successfully read");
+            sb.Append(FeParser.InputFound + "\nHeat Model input data successfully read");
             _ = MessageBox.Show(sb.ToString(), "Heat Transfer Analysis");
             sb.Clear();
         }
@@ -107,13 +107,13 @@ namespace FE_Analysis
         {
             if (path == null)
             {
-                var heatModel = new DataInput.ModelDataEdit();
-                heatModel.Show();
+                var modelDataEdit = new DataInput.ModelDataEdit();
+                modelDataEdit.Show();
             }
             else
             {
-                var heatModel = new DataInput.ModelDataEdit(path);
-                heatModel.Show();
+                var modelDataEdit = new DataInput.ModelDataEdit(path);
+                modelDataEdit.Show();
             }
         }
         private void HeatDataSave(object sender, RoutedEventArgs e)
@@ -136,8 +136,8 @@ namespace FE_Analysis
                 model.ModelId,
                 "\nSpace dimension"
             };
-            var numberNodalDOF = 1;
-            rows.Add(model.SpatialDimension + "\t" + numberNodalDOF + "\n");
+            var numberNodalDof = 1;
+            rows.Add(model.SpatialDimension + "\t" + numberNodalDof + "\n");
 
             // Nodes
             rows.Add("Node");
@@ -441,8 +441,8 @@ namespace FE_Analysis
                     analysed = true;
                 }
 
-                var heatModel = new Heat_Transfer.Results.StationaryResultsVisualize(model);
-                heatModel.Show();
+                stationaryResults = new Heat_Transfer.Results.StationaryResultsVisualize(model);
+                stationaryResults.Show();
             }
             else
             {
@@ -579,8 +579,8 @@ namespace FE_Analysis
         {
             if (timeintegrationAnalysed)
             {
-                var heatModel = new Heat_Transfer.Results.NodalTimeHistoriesVisualize(model);
-                heatModel.Show();
+                var nodalTimeHistoriesVisualize = new Heat_Transfer.Results.NodalTimeHistoriesVisualize(model);
+                nodalTimeHistoriesVisualize.Show();
             }
             else
             {
@@ -654,7 +654,7 @@ namespace FE_Analysis
             analysed = false;
             timeintegrationAnalysed = false;
 
-            sb.Append(FeParser.InputFound + "\n\nStructural Model data successfully read");
+            sb.Append(FeParser.InputFound + "\nStructural Model data successfully read");
             _ = MessageBox.Show(sb.ToString(), "Structural Analysis");
             sb.Clear();
         }
@@ -681,26 +681,37 @@ namespace FE_Analysis
 
             var rows = new List<string>
             {
-                "ModelName",
+                "Model Name",
                 model.ModelId,
-                "\nSpatialDimension"
+                "\nSpatial Dimension"
             };
-            var nodalDegreesOfFreedom = 3;
-            rows.Add(model.SpatialDimension + "\t" + nodalDegreesOfFreedom);
+            rows.Add(model.SpatialDimension + "\t" + model.NumberNodalDof);
 
-            // Knoten
+            // Nodes
             rows.Add("\nNodes");
-            if (model.SpatialDimension == 2)
-                rows.AddRange(model.Nodes.Select(knoten => knoten.Key
-                                                               + "\t" + knoten.Value.Coordinates[0] + "\t" +
-                                                               knoten.Value.Coordinates[1]));
-            else
-                rows.AddRange(model.Nodes.Select(knoten => knoten.Key
-                                                               + "\t" + knoten.Value.Coordinates[0] + "\t" +
-                                                               knoten.Value.Coordinates[1] + "\t" +
-                                                               knoten.Value.Coordinates[2]));
+            switch (model.SpatialDimension)
+            {
+                case 1:
+                    rows.AddRange(model.Nodes.Select(node => node.Key
+                                                   + "\t" + node.Value.Coordinates[0]));
+                    break;
+                case 2:
+                    rows.AddRange(model.Nodes.Select(node => node.Key
+                                                   + "\t" + node.Value.Coordinates[0] 
+                                                   + "\t" + node.Value.Coordinates[1]));
+                    break;
+                case 3:
+                    rows.AddRange(model.Nodes.Select(node => node.Key
+                                                   + "\t" + node.Value.Coordinates[0] 
+                                                   + "\t" + node.Value.Coordinates[1] 
+                                                   + "\t" + node.Value.Coordinates[2]));
+                    break;
+                default:
+                    _ = MessageBox.Show("wrong spatial dimension, must be 1, 2 or 3", "Structural Analysis");
+                    return;
+            }
 
-            // Elemente
+            // Elements
             var allTrussElements = new List<Truss>();
             var allBeamElements = new List<Beam>();
             var allBeamHingedElements = new List<BeamHinged>();
@@ -1098,8 +1109,8 @@ namespace FE_Analysis
                 model.ModelId,
                 "\nSpatial Dimension"
             };
-            var nodalDOF = 3;
-            found.Add(model.SpatialDimension + "\t" + nodalDOF);
+            var nodalDof = 3;
+            found.Add(model.SpatialDimension + "\t" + nodalDof);
 
             // Node
             found.Add("\nNodes");

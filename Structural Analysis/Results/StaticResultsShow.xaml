@@ -16,8 +16,9 @@
             <Label x:Name="NodeDeformations" Content="Node deformations" HorizontalAlignment="Left" Margin="0,5,0,0"
                    VerticalAlignment="Top" Width="160" />
             <DataGrid
-                Name="NodeDeformationsGrid" Margin="5,30,0,0" Grid.Column="0" AlternatingRowBackground="Aqua"
-                Loaded="NodeDeformations_Loaded" AutoGenerateColumns="False" SelectionChanged="KnotenZeileSelected">
+                Name="NodeDeformationsGrid" Margin="5,30,0,0" Grid.Column="0" 
+                AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                Loaded="NodeDeformations_Loaded" SelectionChanged="NodeRowSelected" LostFocus="NoNodeSelected" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Node" Binding="{Binding Key}" />
                     <DataGridTextColumn Header="ux" Binding="{Binding Value.NodalDof[0], StringFormat=N4}" />
@@ -32,8 +33,9 @@
                    HorizontalAlignment="Left" Margin="0,5,0,0"
                    VerticalAlignment="Top" Width="367" />
             <DataGrid
-                Name="ElementEndForcesGrid" Margin="5,30,0,0" AlternatingRowBackground="Aqua"
-                Loaded="ElementEndForces_Loaded" AutoGenerateColumns="False">
+                Name="ElementEndForcesGrid" Margin="5,30,0,0" 
+                AlternatingRowBackground="Aqua" AutoGenerateColumns="False"
+                Loaded="ElementEndForces_Loaded" SelectionChanged="ElementRowSelected" LostFocus="NoElementSelected" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Element" Binding="{Binding ElementId}" />
                     <DataGridTextColumn Header="Na" Binding="{Binding Na, StringFormat=N2}" />

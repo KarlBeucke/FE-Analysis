@@ -7,6 +7,7 @@ namespace FEALibrary.Model
     {
         public string ModelId { get; set; }
         public int SpatialDimension { get; set; }
+        public int NumberNodalDof { get; set; }
         public bool Solved { get; set; } = false;
         public bool Eigen { get; set; } = false;
         public bool TimeIntegration { get; set; } = false;
@@ -26,10 +27,11 @@ namespace FEALibrary.Model
         public Dictionary<string, AbstractTimeDependentElementLoad> TimeDependentElementLoads { get; set; }
         public Dictionary<string, AbstractTimeDependentBoundaryCondition> TimeDependentBoundaryConditions { get; set; }
 
-        public FeModel(string modelId, int spatialDimension)
+        public FeModel(string modelId, int spatialDimension, int numberNodalDof)
         {
-            SpatialDimension = spatialDimension;
             ModelId = modelId;
+            SpatialDimension = spatialDimension;
+            NumberNodalDof = numberNodalDof;
 
             Nodes = new Dictionary<string, Node>();
             Elements = new Dictionary<string, AbstractElement>();

@@ -17,7 +17,7 @@ namespace FE_Analysis.Heat_Transfer.Results
         private readonly List<object> hitList = new List<object>();
         private readonly List<TextBlock> hitTextBlock = new List<TextBlock>();
         private readonly FeModel model;
-        private Presentation presentation;
+        public Presentation presentation;
         private EllipseGeometry hitArea;
         private bool nodalTemperaturesOn, elementTemperaturesOn, heatFlowOn;
 

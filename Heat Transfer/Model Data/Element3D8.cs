@@ -15,32 +15,9 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
         private AbstractElement element;
 
         // constructor
-        public Element3D8(string[] eNodes, string materialId)
-        {
-            HeatStatus = new double[3];
-            if (Model.SpatialDimension != 3)
-                _ = MessageBox.Show("The model is not 3D", "Heat Transfer Analysis");
-
-            ElementDof = 1;
-            NodesPerElement = 8;
-            NodeIds = eNodes;
-            Nodes = new Node[NodesPerElement];
-            for (var i = 0; i < NodesPerElement; i++)
-            {
-                if (Model.Nodes.TryGetValue(NodeIds[i], out var node))
-                {
-                }
-
-                Nodes[i] = node;
-            }
-
-            ElementMaterialId = materialId;
-        }
-
         public Element3D8(string id, string[] eNodes, string materialId, FeModel feModel)
         {
             Model = feModel;
-            HeatStatus = new double[3];
             if (Model.SpatialDimension != 3)
                 _ = MessageBox.Show("The model is not 3D", "Heat Transfer Analysis");
 
@@ -51,17 +28,13 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
             Nodes = new Node[NodesPerElement];
             for (var i = 0; i < NodesPerElement; i++)
             {
-                if (Model.Nodes.TryGetValue(NodeIds[i], out var node))
-                {
-                }
-
+                if (Model.Nodes.TryGetValue(NodeIds[i], out var node)) { }
                 Nodes[i] = node;
             }
 
             ElementMaterialId = materialId;
         }
 
-        public double[] HeatStatus { get; set; }
         private AbstractMaterial Material { get; set; }
 
         private FeModel Model { get; }

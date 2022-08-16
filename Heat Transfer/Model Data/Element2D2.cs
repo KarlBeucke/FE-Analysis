@@ -15,7 +15,7 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
 
         public Element2D2(string[] eNodes, string eMaterialId, FeModel feModel)
         {
-            if (feModel != null) model = feModel ?? throw new ArgumentNullException(nameof(feModel));
+            if (feModel != null) model = feModel;
             NodeIds = eNodes ?? throw new ArgumentNullException(nameof(eNodes));
             ElementMaterialId = eMaterialId;
             ElementDof = 1;
@@ -41,9 +41,7 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
         // ... compute element matrix ..................................
         public override double[,] ComputeMatrix()
         {
-            if (model.Material.TryGetValue(ElementMaterialId, out var abstractMaterial))
-            {
-            }
+            if (model.Material.TryGetValue(ElementMaterialId, out var abstractMaterial)) { }
 
             material = (Material)abstractMaterial;
             ElementMaterial = material ?? throw new ArgumentNullException(nameof(material));

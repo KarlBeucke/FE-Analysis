@@ -104,7 +104,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             {
                 MainWindow.heatModel.VisualModel.Children.Remove(lastElement);
             }
-            lastElement = MainWindow.heatModel.presentation.ElementFillZeichnen((Abstract2D)element,
+            lastElement = MainWindow.heatModel.presentation.ElementFillDraw((Abstract2D)element,
                 Brushes.Black, Colors.Green, .2, 2);
         }
         private void NoElementSelected(object sender, RoutedEventArgs e)
