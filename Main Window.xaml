@@ -7,9 +7,22 @@
         Title="FE Analysis in Structural Engineering       Version May 2022                                © Prof. Karl Beucke"
         Height="450" Width="800">
     <Grid>
-        <Menu HorizontalAlignment="Left" Height="30" Margin="2,1,0,0" VerticalAlignment="Top" Width="451"
-              FlowDirection="LeftToRight">
-            <MenuItem Header="Structural Analysis" Height="30" Width="150" Background="Beige">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260" />
+            <ColumnDefinition Width="260" />
+            <ColumnDefinition Width="260" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" 
+              Height="30" VerticalAlignment="Center" Width="256"
+              FlowDirection="LeftToRight" Background="GreenYellow">
+            <MenuItem Header="   Structural Analysis" Height="30" Width="142">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/ContinuousBeam.jpg" Margin="-2,-8,-14,-4"></Image>
+                </MenuItem.Icon>
                 <MenuItem Header="Structural Model read" HorizontalAlignment="Left" Height="20" Width="400"
                           Margin="0,0,0,0" Click="StructuralModelDataRead" />
                 <MenuItem Header="Structural Model edit" HorizontalAlignment="Left" Height="20" Width="250"
@@ -50,7 +63,72 @@
                 <MenuItem Header="Nodal Time Histories visualize" HorizontalAlignment="Left" Height="20" Width="300"
                           Margin="0,0,0,0" Click="StructuralModelNodalTimeHistoriesVisualize" />
             </MenuItem>
-            <MenuItem Header="Heat Transfer Analysis" Height="30" Width="150" Background="AliceBlue">
+            <Button Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                    Margin="-10,0,0,0" Background="LawnGreen"
+                    Click="StructuralModelDataRead">
+                <TextBlock FontWeight="Bold" Height="21">new</TextBlock>
+            </Button>
+            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="-15,0,0,0" Background="LawnGreen"
+                    Click="StructuralModelDataVisualize">
+                <TextBlock FontWeight="Bold" Height="21">model</TextBlock>
+            </Button>
+            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="-15,0,0,0" Background="LawnGreen"
+                    Click="StructuralModelStaticResultsVisualize">
+                <TextBlock FontWeight="Bold" Height="21">result</TextBlock>
+            </Button>
+        </Menu>
+        <Menu Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" 
+              Height="30" VerticalAlignment="Center" Width="255"
+              FlowDirection="LeftToRight" Background="LightBlue">
+            <MenuItem Header=" Elasticity Analysis" Height="30" Width="150">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Halfspace.jpg" VerticalAlignment="Center" Margin="-3,-5,-10,-5"></Image>
+                </MenuItem.Icon>
+                <MenuItem Header="Elasticity Data read" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataRead" />
+                <MenuItem Header="Elasticity Data edit" HorizontalAlignment="Left" Height="20" Width="400"
+                          Margin="0,0,0,0" Click="ElasticityDataEdit" />
+                <MenuItem Header="Elasticity Data save" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataSave" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Elasticity Data show" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataShow" />
+                <MenuItem Header="Elasticity Model visualize" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataVisualize" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Elasticity Model analyse" HorizontalAlignment="Left" Height="20" Width="250"
+                          Margin="0,0,0,0" Click="ElasticityDataAnalyze" />
+                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
+                <MenuItem Header="Static Analysis Results show" HorizontalAlignment="Left"
+                          Height="20" Width="250" Margin="0,0,0,0" Click="ElasticityAnalysisResults" />
+                <MenuItem Header="Static Analysis Results visualize" HorizontalAlignment="Left" Height="20"
+                          Width="261" Margin="0,0,-11.4,0" Click="ElasticityResultsVisualize" />
+            </MenuItem>
+            <Button Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                    Margin="-30,0,0,0" Background="CornflowerBlue"
+                    Click="ElasticityDataRead">
+                <TextBlock FontWeight="Bold" Height="21">new</TextBlock>
+            </Button>
+            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="-14,0,0,0" Background="CornflowerBlue"
+                    Click="ElasticityDataVisualize">
+                <TextBlock FontWeight="Bold" Height="21">model</TextBlock>
+            </Button>
+            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="-14,0,0,0" Background="CornflowerBlue"
+                    Click="ElasticityResultsVisualize">
+                <TextBlock FontWeight="Bold" Height="21">result</TextBlock>
+            </Button>
+        </Menu>
+        <Menu Grid.Row="0" Grid.Column="2" 
+              Height="30" VerticalAlignment="Center"
+              FlowDirection="LeftToRight" Background="LemonChiffon" Margin="0,0,-12,0">
+            <MenuItem Header="Heat Transfer Analysis" Height="30" Width="150">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/WallCorner.jpg" Margin="-5,-4,-11,-4"></Image>
+                </MenuItem.Icon>
                 <MenuItem Header="Heat Model Data read" HorizontalAlignment="Left" Height="20" Width="250"
                           Margin="0,0,0,0" Click="HeatDataRead" />
                 <MenuItem Header="Heat Model Data edit" HorizontalAlignment="Left" Height="16" Width="300"
@@ -91,27 +169,21 @@
                 <MenuItem Header="Nodal Time Histories visualize" HorizontalAlignment="Left" Height="20" Width="300"
                           Margin="0,0,10,0" Click="NodalTimeHistoryVisualize" />
             </MenuItem>
-            <MenuItem Header="Elasticity Analysis" Height="30" Width="150" Background="BlanchedAlmond">
-                <MenuItem Header="Elasticity Data read" HorizontalAlignment="Left" Height="20" Width="250"
-                          Margin="0,0,0,0" Click="ElasticityDataRead" />
-                <MenuItem Header="Elasticity Data edit" HorizontalAlignment="Left" Height="20" Width="400"
-                          Margin="0,0,0,0" Click="ElasticityDataEdit" />
-                <MenuItem Header="Elasticity Data save" HorizontalAlignment="Left" Height="20" Width="250"
-                          Margin="0,0,0,0" Click="ElasticityDataSave" />
-                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
-                <MenuItem Header="Elasticity Data show" HorizontalAlignment="Left" Height="20" Width="250"
-                          Margin="0,0,0,0" Click="ElasticityDataShow" />
-                <MenuItem Header="Elasticity Model visualize" HorizontalAlignment="Left" Height="20" Width="250"
-                          Margin="0,0,0,0" Click="ElasticityDataVisualize" />
-                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
-                <MenuItem Header="Elasticity Model analyse" HorizontalAlignment="Left" Height="20" Width="250"
-                          Margin="0,0,0,0" Click="ElasticityDataAnalyze" />
-                <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
-                <MenuItem Header="Static Analysis Results show" HorizontalAlignment="Left"
-                          Height="20" Width="250" Margin="0,0,0,0" Click="ElasticityAnalysisResults" />
-                <MenuItem Header="Static Analysis Results visualize" HorizontalAlignment="Left" Height="20"
-                          Width="261" Margin="0,0,-11.4,0" Click="ElasticityResultsVisualize" />
-            </MenuItem>
+            <Button Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                    Margin="-10,0,0,0" Background="Yellow"
+                    Click="HeatDataRead">
+                <TextBlock FontWeight="Bold" Height="21">new</TextBlock>
+            </Button>
+            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="-14,0,0,0" Background="Yellow"
+                    Click="HeatDataVisualize">
+                <TextBlock FontWeight="Bold" Height="21">model</TextBlock>
+            </Button>
+            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="210,-30,0,0" Background="Yellow"
+                    Click="HeatTransferAnalysisResultsVisualize">
+                <TextBlock FontWeight="Bold" Height="21">result</TextBlock>
+            </Button>
         </Menu>
     </Grid>
 </Window>
