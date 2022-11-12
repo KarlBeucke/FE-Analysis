@@ -11,11 +11,11 @@ namespace FE_Analysis.Elasticity.ModelData
         {
             StartNodeId = _startNodeId;
             EndNodeId = endNodeId;
-            Intensity = new double[4]; // 2 nodes, 2 dimensions
-            Intensity[0] = p1X;
-            Intensity[1] = p2X;
-            Intensity[2] = p1Y;
-            Intensity[3] = p2Y;
+            Loadvalues = new double[4]; // 2 nodes, 2 dimensions
+            Loadvalues[0] = p1X;
+            Loadvalues[1] = p2X;
+            Loadvalues[2] = p1Y;
+            Loadvalues[3] = p2Y;
         }
 
         public int StartNDOF { get; set; }
@@ -31,10 +31,10 @@ namespace FE_Analysis.Elasticity.ModelData
             c1 = nEnd[0] - nStart[0];
             c2 = nEnd[1] - nStart[1];
             l = Math.Sqrt(c1 * c1 + c2 * c2) / 6.0;
-            load[0] = l * (2.0 * Intensity[0] + Intensity[2]);
-            load[2] = l * (2.0 * Intensity[2] + Intensity[0]);
-            load[1] = l * (2.0 * Intensity[1] + Intensity[3]);
-            load[3] = l * (2.0 * Intensity[3] + Intensity[1]);
+            load[0] = l * (2.0 * Loadvalues[0] + Loadvalues[2]);
+            load[2] = l * (2.0 * Loadvalues[2] + Loadvalues[0]);
+            load[1] = l * (2.0 * Loadvalues[1] + Loadvalues[3]);
+            load[3] = l * (2.0 * Loadvalues[3] + Loadvalues[1]);
             return load;
         }
 

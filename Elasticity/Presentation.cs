@@ -259,21 +259,21 @@ namespace FE_Analysis.Elasticity
             foreach (var item in model.Loads)
             {
                 load = item.Value;
-                if (Math.Abs(load.Intensity[0]) > maxLoadValue) maxLoadValue = Math.Abs(load.Intensity[0]);
-                if (Math.Abs(load.Intensity[1]) > maxLoadValue) maxLoadValue = Math.Abs(load.Intensity[1]);
+                if (Math.Abs(load.Loadvalues[0]) > maxLoadValue) maxLoadValue = Math.Abs(load.Loadvalues[0]);
+                if (Math.Abs(load.Loadvalues[1]) > maxLoadValue) maxLoadValue = Math.Abs(load.Loadvalues[1]);
             }
 
             foreach (var item in model.PointLoads)
             {
                 load = item.Value;
-                if (Math.Abs(load.Intensity[0]) > maxLoadValue) maxLoadValue = Math.Abs(load.Intensity[0]);
-                if (Math.Abs(load.Intensity[1]) > maxLoadValue) maxLoadValue = Math.Abs(load.Intensity[1]);
+                if (Math.Abs(load.Loadvalues[0]) > maxLoadValue) maxLoadValue = Math.Abs(load.Loadvalues[0]);
+                if (Math.Abs(load.Loadvalues[1]) > maxLoadValue) maxLoadValue = Math.Abs(load.Loadvalues[1]);
             }
 
             foreach (var lineLoad in model.ElementLoads.Select(item => (AbstractLineLoad)item.Value))
             {
-                if (Math.Abs(lineLoad.Intensity[0]) > maxLoadValue) maxLoadValue = Math.Abs(lineLoad.Intensity[0]);
-                if (Math.Abs(lineLoad.Intensity[1]) > maxLoadValue) maxLoadValue = Math.Abs(lineLoad.Intensity[1]);
+                if (Math.Abs(lineLoad.Loadvalues[0]) > maxLoadValue) maxLoadValue = Math.Abs(lineLoad.Loadvalues[0]);
+                if (Math.Abs(lineLoad.Loadvalues[1]) > maxLoadValue) maxLoadValue = Math.Abs(lineLoad.Loadvalues[1]);
             }
 
             loadResolution = maxLoadScreen / maxLoadValue;
@@ -303,7 +303,7 @@ namespace FE_Analysis.Elasticity
                 var red = FromArgb(60, 255, 0, 0);
                 var blue = FromArgb(60, 0, 0, 255);
                 var myBrush = new SolidColorBrush(red);
-                if (lineLoad.Intensity[1] > 0) myBrush = new SolidColorBrush(blue);
+                if (lineLoad.Loadvalues[1] > 0) myBrush = new SolidColorBrush(blue);
                 path = new Path
                 {
                     Name = lineLoad.LoadId,
@@ -331,8 +331,8 @@ namespace FE_Analysis.Elasticity
             if (loadNode != null)
             {
                 var endPoint = new Point(
-                    loadNode.Coordinates[0] * resolution - nodeLoad.Intensity[0] * loadResolution,
-                    (-loadNode.Coordinates[1] + maxY) * resolution + nodeLoad.Intensity[1] * loadResolution);
+                    loadNode.Coordinates[0] * resolution - nodeLoad.Loadvalues[0] * loadResolution,
+                    (-loadNode.Coordinates[1] + maxY) * resolution + nodeLoad.Loadvalues[1] * loadResolution);
                 pathFigure.StartPoint = endPoint;
 
                 var startPoint = TransformNode(loadNode, resolution, maxY);
@@ -350,7 +350,7 @@ namespace FE_Analysis.Elasticity
                 pathFigure.Segments.Add(new LineSegment(endPoint, false));
                 pathFigure.Segments.Add(new LineSegment(startPoint, true));
 
-                if (nodeLoad.Intensity.Length > 2 && Math.Abs(nodeLoad.Intensity[2]) > Eps)
+                if (nodeLoad.Loadvalues.Length > 2 && Math.Abs(nodeLoad.Loadvalues[2]) > Eps)
                 {
                     startPoint.X += 30;
                     pathFigure.Segments.Add(new LineSegment(startPoint, false));
@@ -404,7 +404,7 @@ namespace FE_Analysis.Elasticity
 
             var loadVector = RotateVectorScreen(vector, -90);
             loadVector.Normalize();
-            var vec = loadVector * lineLoadResolution * lineLoad.Intensity[1];
+            var vec = loadVector * lineLoadResolution * lineLoad.Loadvalues[1];
             var nextPoint = new Point(startPoint.X - vec.X, startPoint.Y - vec.Y);
 
             loadVector *= loadArrowSize;
@@ -420,7 +420,7 @@ namespace FE_Analysis.Elasticity
 
             loadVector = RotateVectorScreen(vector, 90);
             loadVector.Normalize();
-            vec = loadVector * lineLoadResolution * lineLoad.Intensity[1];
+            vec = loadVector * lineLoadResolution * lineLoad.Loadvalues[1];
             nextPoint = new Point(endPoint.X + vec.X, endPoint.Y + vec.Y);
             pathFigure.Segments.Add(new LineSegment(nextPoint, true));
             pathFigure.Segments.Add(new LineSegment(endPoint, true));

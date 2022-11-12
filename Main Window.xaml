@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="FE Analysis in Structural Engineering       Version May 2022                                © Prof. Karl Beucke"
+        Title="FE Analysis in Structural Engineering       Version November 2022
+               © Prof. Karl Beucke"
         Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -17,7 +18,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" 
-              Height="30" VerticalAlignment="Center" Width="256"
+              Height="30" VerticalAlignment="Center" Width="259"
               FlowDirection="LeftToRight" Background="GreenYellow">
             <MenuItem Header="   Structural Analysis" Height="30" Width="142">
                 <MenuItem.Icon>
@@ -73,16 +74,16 @@
                     Click="StructuralModelDataVisualize">
                 <TextBlock FontWeight="Bold" Height="21">model</TextBlock>
             </Button>
-            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    Margin="-15,0,0,0" Background="LawnGreen"
+            <Button Height="30" Width="45" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Margin="-15,0,0,0" Padding="0,0,0,0" Background="LawnGreen"
                     Click="StructuralModelStaticResultsVisualize">
-                <TextBlock FontWeight="Bold" Height="21">result</TextBlock>
+                <TextBlock FontWeight="Bold" Height="21" Width="39">result</TextBlock>
             </Button>
         </Menu>
         <Menu Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" 
-              Height="30" VerticalAlignment="Center" Width="255"
+              Height="30" VerticalAlignment="Center" Width="256"
               FlowDirection="LeftToRight" Background="LightBlue">
-            <MenuItem Header=" Elasticity Analysis" Height="30" Width="150">
+            <MenuItem Header=" Elasticity Analysis" Height="30" Width="155">
                 <MenuItem.Icon>
                     <Image Source="/Resources/Halfspace.jpg" VerticalAlignment="Center" Margin="-3,-5,-10,-5"></Image>
                 </MenuItem.Icon>
@@ -116,7 +117,7 @@
                     Click="ElasticityDataVisualize">
                 <TextBlock FontWeight="Bold" Height="21">model</TextBlock>
             </Button>
-            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
+            <Button Height="30" Width="45" VerticalAlignment="Center" HorizontalAlignment="Left"
                     Margin="-14,0,0,0" Background="CornflowerBlue"
                     Click="ElasticityResultsVisualize">
                 <TextBlock FontWeight="Bold" Height="21">result</TextBlock>
@@ -124,7 +125,7 @@
         </Menu>
         <Menu Grid.Row="0" Grid.Column="2" 
               Height="30" VerticalAlignment="Center"
-              FlowDirection="LeftToRight" Background="LemonChiffon" Margin="0,0,-12,0">
+              FlowDirection="LeftToRight" Background="LemonChiffon" Margin="0,0,-15,0">
             <MenuItem Header="Heat Transfer Analysis" Height="30" Width="150">
                 <MenuItem.Icon>
                     <Image Source="/Resources/WallCorner.jpg" Margin="-5,-4,-11,-4"></Image>
@@ -179,7 +180,7 @@
                     Click="HeatDataVisualize">
                 <TextBlock FontWeight="Bold" Height="21">model</TextBlock>
             </Button>
-            <Button Height="30" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left"
+            <Button Height="30" Width="45" VerticalAlignment="Center" HorizontalAlignment="Left"
                     Margin="210,-30,0,0" Background="Yellow"
                     Click="HeatTransferAnalysisResultsVisualize">
                 <TextBlock FontWeight="Bold" Height="21">result</TextBlock>

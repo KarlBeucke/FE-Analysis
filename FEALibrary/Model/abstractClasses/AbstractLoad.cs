@@ -4,7 +4,7 @@
     {
         public string LoadId { get; set; }
         public string NodeId { get; set; }
-        public double[] Intensity { get; set; }
+        public double[] Loadvalues { get; set; }
         public abstract double[] ComputeLoadVector();
     }
 }

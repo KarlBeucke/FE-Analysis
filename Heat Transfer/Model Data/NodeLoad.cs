@@ -15,7 +15,7 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
         public NodeLoad(string nodeId, double[] stream)
         {
             NodeId = nodeId;
-            Intensity = stream;
+            Loadvalues = stream;
         }
 
         public NodeLoad(string id, string nodeId)
@@ -28,7 +28,7 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
         {
             LoadId = id;
             NodeId = nodeId;
-            Intensity = stream;
+            Loadvalues = stream;
         }
 
         // ....Compute the system indices of a node ..............................
@@ -40,7 +40,7 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
 
         public override double[] ComputeLoadVector()
         {
-            return Intensity;
+            return Loadvalues;
         }
     }
 }

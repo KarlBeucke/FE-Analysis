@@ -243,8 +243,8 @@ namespace FE_Analysis.Structural_Analysis.Results
                         loadBeam = (AbstractBeam)element;
                         var stabEndkräfte = loadBeam.ElementState;
                         // only continuous load with max.ordinate considered for scaling
-                        double max = Math.Abs(last.Intensity[1]);
-                        if (Math.Abs(last.Intensity[3]) > max) max = last.Intensity[3];
+                        double max = Math.Abs(last.Loadvalues[1]);
+                        if (Math.Abs(last.Loadvalues[3]) > max) max = last.Loadvalues[3];
                         localMoment = stabEndkräfte[1] * loadBeam.length / 2 -
                                         max * loadBeam.length / 2 * loadBeam.length / 4;
                         if (Math.Abs(localMoment) > maxMoment) maxMoment = Math.Abs(localMoment);

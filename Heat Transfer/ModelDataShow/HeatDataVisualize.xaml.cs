@@ -135,9 +135,9 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
                 }
 
                 foreach (var last in model.ElementLoads.Where(last => last.Value.ElementId == item.Name))
-                    sb.Append("\nElementload = " + last.Value.Intensity[0].ToString("g2") + ", "
-                              + last.Value.Intensity[1].ToString("g2") + ", "
-                              + last.Value.Intensity[2].ToString("g2") + "\n");
+                    sb.Append("\nElementload = " + last.Value.Loadvalues[0].ToString("g2") + ", "
+                              + last.Value.Loadvalues[1].ToString("g2") + ", "
+                              + last.Value.Loadvalues[2].ToString("g2") + "\n");
 
                 MyPopupText.Text = sb.ToString();
             }
@@ -160,9 +160,9 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
                     }
 
                     foreach (var last in model.ElementLoads.Where(last => last.Value.ElementId == item.Text))
-                        sb.Append("\nElementload = " + last.Value.Intensity[0].ToString("g2") + ", "
-                                  + last.Value.Intensity[1].ToString("g2") + ", "
-                                  + last.Value.Intensity[2].ToString("g2") + "\n");
+                        sb.Append("\nElementload = " + last.Value.Loadvalues[0].ToString("g2") + ", "
+                                  + last.Value.Loadvalues[1].ToString("g2") + ", "
+                                  + last.Value.Loadvalues[2].ToString("g2") + "\n");
 
                     MyPopupText.Text = sb.ToString();
                     break;
@@ -175,7 +175,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
                                   + knoten.Coordinates[0].ToString("g2") + ";"
                                   + knoten.Coordinates[1].ToString("g2") + ")");
                     foreach (var last in model.Loads.Where(last => last.Value.NodeId == item.Text))
-                        sb.Append("\nNodeload = " + last.Value.Intensity[0].ToString("g2") + "\n");
+                        sb.Append("\nNodeload = " + last.Value.Loadvalues[0].ToString("g2") + "\n");
                     foreach (var rand in model.BoundaryConditions.Where(rand => rand.Value.NodeId == item.Text))
                         sb.Append("\npredefined Boundary Temperature = " + rand.Value.Prescribed[0].ToString("g2") + "\n");
 

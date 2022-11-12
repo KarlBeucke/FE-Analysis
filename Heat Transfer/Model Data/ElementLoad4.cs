@@ -12,22 +12,22 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
         public ElementLoad4(string elementId, IReadOnlyList<double> p)
         {
             ElementId = elementId;
-            Intensity = new double[4];
-            Intensity[0] = p[0];
-            Intensity[1] = p[1];
-            Intensity[2] = p[2];
-            Intensity[3] = p[3];
+            Loadvalues = new double[4];
+            Loadvalues[0] = p[0];
+            Loadvalues[1] = p[1];
+            Loadvalues[2] = p[2];
+            Loadvalues[3] = p[3];
         }
 
         public ElementLoad4(string id, string elementId, IReadOnlyList<double> p)
         {
             LoadId = id;
             ElementId = elementId;
-            Intensity = new double[4];
-            Intensity[0] = p[0];
-            Intensity[1] = p[1];
-            Intensity[2] = p[2];
-            Intensity[3] = p[3];
+            Loadvalues = new double[4];
+            Loadvalues[0] = p[0];
+            Loadvalues[1] = p[1];
+            Loadvalues[2] = p[2];
+            Loadvalues[3] = p[3];
         }
 
         // ....Compute the element load vector.................................
@@ -57,7 +57,7 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
             {
                 vector[row] = 0;
                 for (col = 0; col < 4; col++)
-                    vector[row] = vector[row] + ssT[row, col] * Intensity[row];
+                    vector[row] = vector[row] + ssT[row, col] * Loadvalues[row];
             }
 
             return vector;

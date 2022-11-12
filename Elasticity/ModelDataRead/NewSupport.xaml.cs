@@ -69,21 +69,14 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                             throw new ParseException($"support condition \"{supportName}\" already exists.");
                         string nodeName;
                         const string faceNode = "00";
-                        switch (face.Substring(0, 1))
+                        nodeName = face.Substring(0, 1) switch
                         {
-                            case "X":
-                                nodeName = nodeInitial + faceNode + id1 + id2;
-                                break;
-                            case "Y":
-                                nodeName = nodeInitial + id1 + faceNode + id2;
-                                break;
-                            case "Z":
-                                nodeName = nodeInitial + id1 + id2 + faceNode;
-                                break;
-                            default:
-                                throw new ParseException(
-                                    $"wrong SurfaceId = {face.Substring(0, 1)}, must be:\n X, Y or Z");
-                        }
+                            "X" => nodeInitial + faceNode + id1 + id2,
+                            "Y" => nodeInitial + id1 + faceNode + id2,
+                            "Z" => nodeInitial + id1 + id2 + faceNode,
+                            _ => throw new ParseException(
+                                $"wrong SurfaceId = {face.Substring(0, 1)}, must be:\n X, Y or Z")
+                        };
 
                         var support = new Support(nodeName, face, conditions, prescribed, model);
                         model.BoundaryConditions.Add(supportName, support);

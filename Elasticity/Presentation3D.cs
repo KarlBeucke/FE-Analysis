@@ -11,26 +11,26 @@ namespace FE_Analysis.Elasticity
 {
     public class Presentation3D
     {
-        public readonly List<GeometryModel3D> edges = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> nodeLoads = new List<GeometryModel3D>();
+        public readonly List<GeometryModel3D> edges = new();
+        public readonly List<GeometryModel3D> nodeLoads = new();
 
-        public readonly List<GeometryModel3D> coordinates = new List<GeometryModel3D>();
+        public readonly List<GeometryModel3D> coordinates = new();
         private readonly double maxX, minY, maxY, minZ, maxZ;
         public readonly double minX;
         public readonly FeModel model;
-        public readonly List<GeometryModel3D> surfaces = new List<GeometryModel3D>();
+        public readonly List<GeometryModel3D> surfaces = new();
 
         // create Dictionary for finding triangular points efficiently
-        private readonly Dictionary<Point3D, int> pointDictionary = new Dictionary<Point3D, int>();
-        public readonly List<GeometryModel3D> boundaryConditionsFixed = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> boundaryConditionsPre = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> stressesXx = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> stressesXy = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> stressesYy = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> stressesYz = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> stressesZx = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> stressesZz = new List<GeometryModel3D>();
-        public readonly List<GeometryModel3D> deformations = new List<GeometryModel3D>();
+        private readonly Dictionary<Point3D, int> pointDictionary = new();
+        public readonly List<GeometryModel3D> boundaryConditionsFixed = new();
+        public readonly List<GeometryModel3D> boundaryConditionsPre = new();
+        public readonly List<GeometryModel3D> stressesXx = new();
+        public readonly List<GeometryModel3D> stressesXy = new();
+        public readonly List<GeometryModel3D> stressesYy = new();
+        public readonly List<GeometryModel3D> stressesYz = new();
+        public readonly List<GeometryModel3D> stressesZx = new();
+        public readonly List<GeometryModel3D> stressesZz = new();
+        public readonly List<GeometryModel3D> deformations = new();
         private GeometryModel3D wireFrameModel;
         private GeometryModel3D nodeLoadModel;
         private GeometryModel3D surfaceModel;
@@ -87,9 +87,9 @@ namespace FE_Analysis.Elasticity
         {
             const double weight = 0.1;
             var vectorLength = 1.0;
-            var AxisOvershoot = 0.8;
+            const double axisOvershoot = 0.8;
             // x-Axis
-            var start = new Point3D(-AxisOvershoot, 0, 0);
+            var start = new Point3D(-axisOvershoot, 0, 0);
             var end = new Point3D(vectorLength, 0, 0);
             var points = CuboidPointsX(start, end, weight);
             GenerateCuboid(mesh, points);
@@ -108,9 +108,9 @@ namespace FE_Analysis.Elasticity
         {
             const double weight = 0.1;
             var vectorLength = 1.0;
-            var AxisOvershoot = 0.8;
+            const double axisOvershoot = 0.8;
             // y-Axis
-            var start = new Point3D(0, -AxisOvershoot, 0);
+            var start = new Point3D(0, -axisOvershoot, 0);
             var end = new Point3D(0, vectorLength, 0);
             var points = CuboidPointsY(start, end, weight);
             GenerateCuboid(mesh, points);
@@ -350,20 +350,20 @@ namespace FE_Analysis.Elasticity
                     loadPoint.Z = node.Coordinates[1];
                 }
 
-                if (Math.Abs(load.Value.Intensity[0]) > 0)
+                if (Math.Abs(load.Value.Loadvalues[0]) > 0)
                 {
                     loadDirection.X = 1;
-                    loadValue = loadScaling * load.Value.Intensity[0];
+                    loadValue = loadScaling * load.Value.Loadvalues[0];
                 }
-                else if (Math.Abs(load.Value.Intensity[2]) > 0)
+                else if (Math.Abs(load.Value.Loadvalues[2]) > 0)
                 {
                     loadDirection.Y = -1;
-                    loadValue = loadScaling * load.Value.Intensity[2];
+                    loadValue = loadScaling * load.Value.Loadvalues[2];
                 }
-                else if (Math.Abs(load.Value.Intensity[1]) > 0)
+                else if (Math.Abs(load.Value.Loadvalues[1]) > 0)
                 {
                     loadDirection.Z = 1;
-                    loadValue = loadScaling * load.Value.Intensity[1];
+                    loadValue = loadScaling * load.Value.Loadvalues[1];
                 }
 
                 nodeLoadModel = LoadVector(mesh, loadPoint, loadDirection, loadValue);

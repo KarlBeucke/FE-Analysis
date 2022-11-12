@@ -8,9 +8,9 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
         public PointLoad(string elementId, double fx, double fy, double o)
         {
             ElementId = elementId;
-            Intensity = new double[2];
-            Intensity[0] = fx;
-            Intensity[1] = fy;
+            Loadvalues = new double[2];
+            Loadvalues[0] = fx;
+            Loadvalues[1] = fy;
             Offset = o;
         }
 

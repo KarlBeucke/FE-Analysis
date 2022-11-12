@@ -41,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>BF76D6371514C594ADD2B1C10517D8DBDE30F29A</ManifestCertificateThumbprint>
@@ -142,6 +144,36 @@
     <Compile Include="Elasticity\ModelData\NodeLoad.cs" />
     <Compile Include="Elasticity\ModelData\Support.cs" />
     <Compile Include="Heat Transfer\ModelDataRead\BoundaryConditionParser.cs" />
+    <Compile Include="Structural Analysis\ModelDataRead\BeamElementNew.xaml.cs">
+      <DependentUpon>BeamElementNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\CrossSectionKeys.xaml.cs">
+      <DependentUpon>CrossSectionKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\ElementKeys.xaml.cs">
+      <DependentUpon>ElementKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\LineLoadKeys.xaml.cs">
+      <DependentUpon>LineLoadKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\MaterialKeys.xaml.cs">
+      <DependentUpon>MaterialKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\NodeLoadKeys.xaml.cs">
+      <DependentUpon>NodeLoadKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\PointLoadKeys.xaml.cs">
+      <DependentUpon>PointLoadKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\SpringElementNew.xaml.cs">
+      <DependentUpon>SpringElementNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\SupportKeys.xaml.cs">
+      <DependentUpon>SupportKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataShow\DialogDeleteStructuralObjects.xaml.cs">
+      <DependentUpon>DialogDeleteStructuralObjects.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Structural Analysis\Results\ClippingFrameDialog.xaml.cs">
       <DependentUpon>ClippingFrameDialog.xaml</DependentUpon>
     </Compile>
@@ -181,39 +213,39 @@
     <Compile Include="Structural Analysis\ModelDataRead\ElementParser.cs" />
     <Compile Include="Structural Analysis\ModelDataRead\LoadParser.cs" />
     <Compile Include="Structural Analysis\ModelDataRead\MaterialParser.cs" />
-    <Compile Include="Structural Analysis\ModelDataRead\NewNodeLoad.xaml.cs">
-      <DependentUpon>NewNodeLoad.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\NodeLoadNew.xaml.cs">
+      <DependentUpon>NodeLoadNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewLineLoad.xaml.cs">
-      <DependentUpon>NewLineLoad.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\LineLoadNew.xaml.cs">
+      <DependentUpon>LineLoadNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewPointLoad.xaml.cs">
-      <DependentUpon>NewPointLoad.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\PointLoadNew.xaml.cs">
+      <DependentUpon>PointLoadNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewNode.xaml.cs">
-      <DependentUpon>NewNode.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\NodeNew.xaml.cs">
+      <DependentUpon>NodeNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewCrossSection.xaml.cs">
-      <DependentUpon>NewCrossSection.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\CrossSectionNew.xaml.cs">
+      <DependentUpon>CrossSectionNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewElement.xaml.cs">
-      <DependentUpon>NewElement.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\ElementNew.xaml.cs">
+      <DependentUpon>ElementNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewSupport.xaml.cs">
-      <DependentUpon>NewSupport.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\SupportNew.xaml.cs">
+      <DependentUpon>SupportNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewMaterial.xaml.cs">
-      <DependentUpon>NewMaterial.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\MaterialNew.xaml.cs">
+      <DependentUpon>MaterialNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\TransientParser.cs" />
-    <Compile Include="Structural Analysis\ModelDataRead\NewTimeDampingRatio.xaml.cs">
-      <DependentUpon>NewTimeDampingRatio.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\TimeDampingRatioNew.xaml.cs">
+      <DependentUpon>TimeDampingRatioNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewTimeNodalInitialConditions.xaml.cs">
-      <DependentUpon>NewTimeNodalInitialConditions.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\TimeNodalInitialConditionsNew.xaml.cs">
+      <DependentUpon>TimeNodalInitialConditionsNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\NewTimeNodeLoad.xaml.cs">
-      <DependentUpon>NewTimeNodeLoad.xaml</DependentUpon>
+    <Compile Include="Structural Analysis\ModelDataRead\TimeNodeLoadNew.xaml.cs">
+      <DependentUpon>TimeNodeLoadNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structural Analysis\Model Data\ExcitationFunction.cs" />
     <Compile Include="Structural Analysis\Model Data\Beam.cs" />
@@ -382,6 +414,46 @@
       <DependentUpon>Main Window.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Structural Analysis\ModelDataRead\BeamElementNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\CrossSectionKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\ElementKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\LineLoadKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\MaterialKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\NodeLoadKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\PointLoadKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\SpringElementNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\SupportKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataShow\DialogDeleteStructuralObjects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Structural Analysis\Results\ClippingFrameDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -426,47 +498,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewNodeLoad.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\NodeLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewLineLoad.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\LineLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewPointLoad.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\PointLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewNode.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\NodeNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewCrossSection.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\CrossSectionNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewElement.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\ElementNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewSupport.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\SupportNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewMaterial.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\MaterialNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewTimeDampingRatio.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\TimeDampingRatioNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewTimeNodalInitialConditions.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\TimeNodalInitialConditionsNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Structural Analysis\ModelDataRead\NewTimeNodeLoad.xaml">
+    <Page Include="Structural Analysis\ModelDataRead\TimeNodeLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

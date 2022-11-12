@@ -93,7 +93,7 @@ namespace FE_Analysis.Structural_Analysis.Results
 
             if (deformationsOn)
             {
-                foreach (Shape path in presentation.Deformations) 
+                foreach (Shape path in presentation.Deformations)
                     VisualResults.Children.Remove(path);
                 index++;
                 CurrentTimeStep.Text =
@@ -132,7 +132,7 @@ namespace FE_Analysis.Structural_Analysis.Results
 
             if (axialForcesOn)
             {
-                foreach (Shape path in presentation.AxialForceList) 
+                foreach (Shape path in presentation.AxialForceList)
                     VisualResults.Children.Remove(path);
                 index++;
                 CurrentTimeStep.Text =
@@ -171,13 +171,13 @@ namespace FE_Analysis.Structural_Analysis.Results
         private void Clean()
         {
             //index = dropDownIndex;
-            foreach (Shape path in presentation.Deformations) 
+            foreach (Shape path in presentation.Deformations)
                 VisualResults.Children.Remove(path);
-            foreach (Shape path in presentation.AxialForceList) 
+            foreach (Shape path in presentation.AxialForceList)
                 VisualResults.Children.Remove(path);
-            foreach (Shape path in presentation.ShearForceList) 
+            foreach (Shape path in presentation.ShearForceList)
                 VisualResults.Children.Remove(path);
-            foreach (Shape path in presentation.BendingMomentList) 
+            foreach (Shape path in presentation.BendingMomentList)
                 VisualResults.Children.Remove(path);
         }
 
@@ -235,7 +235,7 @@ namespace FE_Analysis.Structural_Analysis.Results
 
             if (bendingMomentsOn)
             {
-                foreach (Shape path in presentation.BendingMomentList) 
+                foreach (Shape path in presentation.BendingMomentList)
                     VisualResults.Children.Remove(path);
                 index++;
                 CurrentTimeStep.Text =

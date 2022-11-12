@@ -9,22 +9,22 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
         public LineLoad(string elementId, double p1X, double p2X, double p1Y, double p2Y)
         {
             ElementId = elementId;
-            Intensity = new double[4]; // 2 nodes, 2 dimensions
-            Intensity[0] = p1X;
-            Intensity[1] = p2X;
-            Intensity[2] = p1Y;
-            Intensity[3] = p2Y;
+            Loadvalues = new double[4]; // 2 nodes, 2 dimensions
+            Loadvalues[0] = p1X;
+            Loadvalues[1] = p2X;
+            Loadvalues[2] = p1Y;
+            Loadvalues[3] = p2Y;
         }
 
         public LineLoad(string elementId, double p1X, double p2X, double p1Y, double p2Y,
             bool inElementCoordinateSystem)
         {
             ElementId = elementId;
-            Intensity = new double[4]; // 2 nodes, 2 dimensions
-            Intensity[0] = p1X;
-            Intensity[1] = p2X;
-            Intensity[2] = p1Y;
-            Intensity[3] = p2Y;
+            Loadvalues = new double[4]; // 2 nodes, 2 dimensions
+            Loadvalues[0] = p1X;
+            Loadvalues[1] = p2X;
+            Loadvalues[2] = p1Y;
+            Loadvalues[3] = p2Y;
             InElementCoordinateSystem = inElementCoordinateSystem;
         }
 
@@ -47,14 +47,14 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
         {
             if (z < 0 || z > 1)
                 throw new ModelException("LineLoad on element:" + ElementId + "out of coordinate range 0 <= z <= 1");
-            return Intensity[0] * (1 - z) + Intensity[2] * z;
+            return Loadvalues[0] * (1 - z) + Loadvalues[2] * z;
         }
 
         public double GetYIntensity(double z)
         {
             if (z < 0 || z > 1)
                 throw new ModelException("LineLoad on element:" + ElementId + "out of coordinate range 0 <= z <= 1");
-            return Intensity[1] * (1 - z) + Intensity[3] * z;
+            return Loadvalues[1] * (1 - z) + Loadvalues[3] * z;
         }
     }
 }

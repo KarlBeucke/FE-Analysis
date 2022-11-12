@@ -15,7 +15,7 @@ namespace FE_Analysis.Elasticity.ModelDataShow
     {
         private readonly Presentation presentation;
         private readonly List<Shape> hitList = new List<Shape>();
-        private readonly List<TextBlock> hitTextBlock = new List<TextBlock>();
+        private readonly List<TextBlock> hitTextBlock = new();
         private readonly FeModel model;
         private EllipseGeometry hitArea;
         private bool loadsOn = true, supportsOn = true, nodeTextsOn = true, elementTextsOn = true;
@@ -45,7 +45,7 @@ namespace FE_Analysis.Elasticity.ModelDataShow
             }
             else
             {
-                foreach (TextBlock id in presentation.NodeIDs) VisualErgebnisse.Children.Remove(id);
+                foreach (var id in presentation.NodeIDs.Cast<TextBlock>()) VisualErgebnisse.Children.Remove(id);
                 nodeTextsOn = false;
             }
         }
@@ -59,7 +59,7 @@ namespace FE_Analysis.Elasticity.ModelDataShow
             }
             else
             {
-                foreach (TextBlock id in presentation.ElementIDs) VisualErgebnisse.Children.Remove(id);
+                foreach (var id in presentation.ElementIDs.Cast<TextBlock>()) VisualErgebnisse.Children.Remove(id);
                 elementTextsOn = false;
             }
         }
@@ -73,7 +73,7 @@ namespace FE_Analysis.Elasticity.ModelDataShow
             }
             else
             {
-                foreach (Shape lasten in presentation.LoadVectors) VisualErgebnisse.Children.Remove(lasten);
+                foreach (var lasten in presentation.LoadVectors.Cast<Shape>()) VisualErgebnisse.Children.Remove(lasten);
                 loadsOn = false;
             }
         }
@@ -87,7 +87,7 @@ namespace FE_Analysis.Elasticity.ModelDataShow
             }
             else
             {
-                foreach (Shape path in presentation.SupportRepresentation) VisualErgebnisse.Children.Remove(path);
+                foreach (var path in presentation.SupportRepresentation.Cast<Shape>()) VisualErgebnisse.Children.Remove(path);
                 supportsOn = false;
             }
         }
@@ -110,7 +110,7 @@ namespace FE_Analysis.Elasticity.ModelDataShow
 
                 switch (item)
                 {
-                    case Shape path:
+                    case { } path:
                         {
                             if (path.Name == null) continue;
                             if (model.Elements.TryGetValue(path.Name, out var element))
@@ -138,8 +138,8 @@ namespace FE_Analysis.Elasticity.ModelDataShow
                             if (model.Loads.TryGetValue(path.Name, out var nodeLoad))
                             {
                                 sb.Append("Last\t= " + path.Name);
-                                for (var i = 0; i < nodeLoad.Intensity.Length; i++)
-                                    sb.Append("\nload value " + i + "\t= " + nodeLoad.Intensity[i]);
+                                for (var i = 0; i < nodeLoad.Loadvalues.Length; i++)
+                                    sb.Append("\nload value " + i + "\t= " + nodeLoad.Loadvalues[i]);
                             }
 
                             sb.Append("\n");

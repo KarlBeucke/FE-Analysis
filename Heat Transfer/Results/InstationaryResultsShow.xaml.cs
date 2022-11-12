@@ -1,4 +1,6 @@
-﻿using FEALibrary.Model;
+﻿using FE_Analysis.Heat_Transfer.Model_Data;
+using FEALibrary.Model;
+using FEALibrary.Model.abstractClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +8,6 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using FE_Analysis.Heat_Transfer.Model_Data;
-using FEALibrary.Model.abstractClasses;
 
 namespace FE_Analysis.Heat_Transfer.Results
 {
@@ -147,15 +147,15 @@ namespace FE_Analysis.Heat_Transfer.Results
                 switch (item.Value)
                 {
                     case Abstract2D value:
-                    {
-                        value.ElementState = value.ComputeElementState(0, 0);
-                        break;
-                    }
+                        {
+                            value.ElementState = value.ComputeElementState(0, 0);
+                            break;
+                        }
                     case Element3D8 value:
-                    {
-                        value.ElementState = value.ComputeElementState(0, 0, 0);
-                        break;
-                    }
+                        {
+                            value.ElementState = value.ComputeElementState(0, 0, 0);
+                            break;
+                        }
                 }
             }
             if (HeatFlowVectorGrid != null) HeatFlowVectorGrid.ItemsSource = model.Elements;

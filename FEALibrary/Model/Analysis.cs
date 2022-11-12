@@ -394,7 +394,7 @@ namespace FEALibrary.Model
         {
             // set initial conditions to stationary solution
             if (model.Timeintegration.FromStationary) temperature[0] = systemEquations.Primal;
-            foreach (NodalValues init in model.Timeintegration.InitialConditions)
+            foreach (var init in model.Timeintegration.InitialConditions.Cast<NodalValues>())
             {
                 if (init.NodeId == "all")
                 {
@@ -667,7 +667,7 @@ namespace FEALibrary.Model
         private void Set2NdOrderInitialConditions(IReadOnlyList<double[]> displ, IReadOnlyList<double[]> veloc)
         {
             // find predefined initial conditions
-            foreach (NodalValues anf in model.Timeintegration.InitialConditions)
+            foreach (var anf in model.Timeintegration.InitialConditions.Cast<NodalValues>())
             {
                 if (!model.Nodes.TryGetValue(anf.NodeId, out var knoten)) continue;
                 for (var i = 0; i < anf.Values.Length / 2; i += 2)

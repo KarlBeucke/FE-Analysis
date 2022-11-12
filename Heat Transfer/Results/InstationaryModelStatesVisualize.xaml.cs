@@ -1,13 +1,13 @@
 ﻿using FEALibrary.Model;
+using FEALibrary.Model.abstractClasses;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Collections.Generic;
-using System.Linq;
-using FEALibrary.Model.abstractClasses;
 
 namespace FE_Analysis.Heat_Transfer.Results
 {
@@ -101,7 +101,7 @@ namespace FE_Analysis.Heat_Transfer.Results
                 elementTemperaturesOn = false;
             }
         }
-        
+
         private void BtnNodalTemperatures_Click(object sender, RoutedEventArgs e)
         {
             NodalTemperaturesDraw();
@@ -133,7 +133,7 @@ namespace FE_Analysis.Heat_Transfer.Results
         {
             ElementTemperaturesDraw();
         }
-        
+
         private void OnMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hitList.Clear();
@@ -176,9 +176,9 @@ namespace FE_Analysis.Heat_Transfer.Results
                         case Shape hit:
                             hitList.Add(hit);
                             break;
-                        //case TextBlock hit:
-                        //    hitTextBlock.Add(hit);
-                        //    break;
+                            //case TextBlock hit:
+                            //    hitTextBlock.Add(hit);
+                            //    break;
                     }
                     return HitTestResultBehavior.Continue;
                 case IntersectionDetail.FullyInside:

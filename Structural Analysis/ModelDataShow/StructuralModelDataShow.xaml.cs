@@ -36,8 +36,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
 
         private void NewNode(object sender, MouseButtonEventArgs e)
         {
-            const int numberNodalDof = 3;
-            _ = new NewNode(model, numberNodalDof);
+            _ = new NodeNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -81,7 +80,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         }
         private void NewElement(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewElement(model);
+            _ = new ElementNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -122,7 +121,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         }
         private void NewMaterial(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewMaterial(model);
+            _ = new MaterialNew(model);
             Close();
         }
         //UnloadingRow
@@ -153,7 +152,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         }
         private void NewCrossSection(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewCrossSection(model);
+            _ = new CrossSectionNew(model);
             Close();
         }
         //UnloadingRow
@@ -194,7 +193,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         private void NewSupport(object sender, MouseButtonEventArgs e)
         {
             const double vorX = 0, vorY = 0, vorRot = 0;
-            _ = new NewSupport(model, vorX, vorY, vorRot);
+            _ = new SupportNew(model, vorX, vorY, vorRot);
             MainWindow.analysed = false;
             Close();
         }
@@ -226,7 +225,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         }
         private void NewNodeLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewNodeLoad(model, string.Empty, string.Empty, 0, 0, 0);
+            _ = new NodeLoadNew(model, string.Empty, string.Empty, 0, 0, 0);
             MainWindow.analysed = false;
             Close();
         }
@@ -258,7 +257,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         }
         private void NewPointLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewPointLoad(model, string.Empty, string.Empty, 0, 0, 0);
+            _ = new PointLoadNew(model, string.Empty, string.Empty, 0, 0, 0);
             MainWindow.analysed = false;
             Close();
         }
@@ -290,7 +289,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         }
         private void NewLineLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewLineLoad(model, string.Empty, string.Empty, 0, 0, 0, 0, "false");
+            _ = new LineLoadNew(model, string.Empty, string.Empty, 0, 0, 0, 0, false);
             MainWindow.analysed = false;
             Close();
         }

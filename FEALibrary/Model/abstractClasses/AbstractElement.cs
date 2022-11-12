@@ -13,7 +13,7 @@ namespace FEALibrary.Model.abstractClasses
         public string ElementMaterialId { get; set; }
         public string ElementCrossSectionId { get; set; }
         public AbstractMaterial ElementMaterial { get; set; }
-        public int Type { get; protected set; }
+        public int Type { get; set; }
         public double[] ElementState { get; set; }
         public double[] ElementDeformations { get; protected set; }
         public double Determinant { get; protected set; }

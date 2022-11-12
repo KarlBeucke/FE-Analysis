@@ -197,7 +197,7 @@ namespace FE_Analysis.Heat_Transfer
             foreach (var item in model.Loads)
             {
                 var knotenId = item.Value.NodeId;
-                var lastWert = item.Value.Intensity[0];
+                var lastWert = item.Value.Loadvalues[0];
                 if (model.Nodes.TryGetValue(knotenId, out node)) { }
 
                 var lastPunkt = TransformNode(node, resolution, maxY);
@@ -439,7 +439,7 @@ namespace FE_Analysis.Heat_Transfer
             var start = (int)Math.Round(tmin / dt);
             for (var i = 0; i < ordinates.Length - start; i++)
             {
-                var point = new Point(dt * i * resolutionH, -ordinates[i+start] * resolutionV);
+                var point = new Point(dt * i * resolutionH, -ordinates[i + start] * resolutionV);
                 supportPoints.Add(point);
             }
 

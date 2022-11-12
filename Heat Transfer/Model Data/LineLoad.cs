@@ -9,8 +9,8 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
         {
             StartNodeId = startNodeId;
             EndNodeId = endNodeId;
-            Intensity = new double[2];
-            Intensity = p;
+            Loadvalues = new double[2];
+            Loadvalues = p;
         }
 
         public LineLoad(string id, string startNodeId, string endNodeId, double[] p)
@@ -18,8 +18,8 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
             LoadId = id;
             StartNodeId = startNodeId;
             EndNodeId = endNodeId;
-            Intensity = new double[2];
-            Intensity = p;
+            Loadvalues = new double[2];
+            Loadvalues = p;
         }
 
         // ....Compute concentrated node forces in local coordinate system....
@@ -32,8 +32,8 @@ namespace FE_Analysis.Heat_Transfer.Model_Data
             var c1 = nEnd[0] - nStart[0];
             var c2 = nEnd[1] - nStart[1];
             var l = Math.Sqrt(c1 * c1 + c2 * c2) / 6.0;
-            vector[0] = l * (2.0 * Intensity[0] + Intensity[1]);
-            vector[1] = l * (2.0 * Intensity[1] + Intensity[0]);
+            vector[0] = l * (2.0 * Loadvalues[0] + Loadvalues[1]);
+            vector[1] = l * (2.0 * Loadvalues[1] + Loadvalues[0]);
             return vector;
         }
     }

@@ -8,7 +8,7 @@ namespace FE_Analysis.Elasticity.ModelDataRead
 {
     public class BoundaryConditionParser : FeParser
     {
-        public readonly List<string> faces = new List<string>();
+        public readonly List<string> faces = new();
         private FeModel model;
         private string nodeId;
         private string[] substrings;
@@ -96,20 +96,13 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                     for (var count = 0; count < type.Length; count++)
                     {
                         var subType = type.Substring(count, 1).ToLower();
-                        switch (subType)
+                        conditions += subType switch
                         {
-                            case "x":
-                                conditions += Support.XFixed;
-                                break;
-                            case "y":
-                                conditions += Support.YFixed;
-                                break;
-                            case "z":
-                                conditions += Support.ZFixed;
-                                break;
-                            default:
-                                throw new ParseException("Support Condition for x, y and/or z must be defined");
-                        }
+                            "x" => Support.XFixed,
+                            "y" => Support.YFixed,
+                            "z" => Support.ZFixed,
+                            _ => throw new ParseException("Support Condition for x, y and/or z must be defined")
+                        };
                     }
 
                     var j = 0;
@@ -130,21 +123,14 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                                 throw new ParseException($"Support Condition \"{supportName}\" already exists.");
                             string nodeName;
                             const string faceNode = "00";
-                            switch (face.Substring(0, 1))
+                            nodeName = face.Substring(0, 1) switch
                             {
-                                case "X":
-                                    nodeName = nodeInitial + faceNode + id1 + id2;
-                                    break;
-                                case "Y":
-                                    nodeName = nodeInitial + id1 + faceNode + id2;
-                                    break;
-                                case "Z":
-                                    nodeName = nodeInitial + id1 + id2 + faceNode;
-                                    break;
-                                default:
-                                    throw new ParseException(
-                                        $"wrong FaceId = {face.Substring(0, 1)}, mut be:\n X, Y or Z");
-                            }
+                                "X" => nodeInitial + faceNode + id1 + id2,
+                                "Y" => nodeInitial + id1 + faceNode + id2,
+                                "Z" => nodeInitial + id1 + id2 + faceNode,
+                                _ => throw new ParseException(
+                                    $"wrong FaceId = {face.Substring(0, 1)}, mut be:\n X, Y or Z")
+                            };
 
                             support = new Support(nodeName, face, conditions, prescribed, model);
                             model.BoundaryConditions.Add(supportName, support);
@@ -197,20 +183,13 @@ namespace FE_Analysis.Elasticity.ModelDataRead
                     for (var count = 0; count < type.Length; count++)
                     {
                         subType = type.Substring(count, 1).ToLower();
-                        switch (subType)
+                        conditions += subType switch
                         {
-                            case "x":
-                                conditions += Support.XFixed;
-                                break;
-                            case "y":
-                                conditions += Support.YFixed;
-                                break;
-                            case "z":
-                                conditions += Support.ZFixed;
-                                break;
-                            default:
-                                throw new ParseException("5. Parameter must be x and/or y and/or z");
-                        }
+                            "x" => Support.XFixed,
+                            "y" => Support.YFixed,
+                            "z" => Support.ZFixed,
+                            _ => throw new ParseException("5. Parameter must be x and/or y and/or z")
+                        };
                     }
 
                     for (var m = 0; m < nNodes; m++)

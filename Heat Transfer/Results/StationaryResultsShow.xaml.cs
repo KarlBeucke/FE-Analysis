@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using FE_Analysis.Heat_Transfer.Model_Data;
+﻿using FE_Analysis.Heat_Transfer.Model_Data;
 using FEALibrary.Model;
 using FEALibrary.Model.abstractClasses;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Ink;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;

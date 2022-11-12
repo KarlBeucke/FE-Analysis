@@ -73,7 +73,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         // ************************* damping ratios *********************************
         private void NewModalDampingRatio(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewTimeDampingRatio(model);
+            _ = new TimeDampingRatioNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -100,7 +100,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         // ************************* Initial Conditions *********************************
         private void NewTimeNodalInitialConditions(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewTimeNodalInitialConditions(model);
+            _ = new TimeNodalInitialConditionsNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -127,7 +127,7 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
         // ************************* Time Dependent Node Loads *********************************
         private void NewTimeNodeLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewTimeNodeLoad(model);
+            _ = new TimeNodeLoadNew(model);
             MainWindow.analysed = false;
             Close();
         }

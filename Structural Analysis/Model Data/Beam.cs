@@ -90,17 +90,17 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
                         double na, nb, qa, qb;
                         if (!ll.IsInElementCoordinateSystem())
                         {
-                            na = ll.Intensity[0] * cos + ll.Intensity[0] * sin;
-                            nb = ll.Intensity[2] * cos + ll.Intensity[2] * sin;
-                            qa = ll.Intensity[1] * -sin + ll.Intensity[1] * cos;
-                            qb = ll.Intensity[3] * -sin + ll.Intensity[3] * cos;
+                            na = ll.Loadvalues[0] * cos + ll.Loadvalues[0] * sin;
+                            nb = ll.Loadvalues[2] * cos + ll.Loadvalues[2] * sin;
+                            qa = ll.Loadvalues[1] * -sin + ll.Loadvalues[1] * cos;
+                            qb = ll.Loadvalues[3] * -sin + ll.Loadvalues[3] * cos;
                         }
                         else
                         {
-                            na = ll.Intensity[0];
-                            nb = ll.Intensity[2];
-                            qa = ll.Intensity[1];
-                            qb = ll.Intensity[3];
+                            na = ll.Loadvalues[0];
+                            nb = ll.Loadvalues[2];
+                            qa = ll.Loadvalues[1];
+                            qb = ll.Loadvalues[3];
                         }
 
                         loadVector[0] = na * 0.5 * length;
@@ -142,13 +142,13 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
 
                         if (!pl.IsInElementCoordinateSystem())
                         {
-                            xLoad = pl.Intensity[0] * cos + pl.Intensity[1] * sin;
-                            yLoad = pl.Intensity[0] * -sin + pl.Intensity[1] * cos;
+                            xLoad = pl.Loadvalues[0] * cos + pl.Loadvalues[1] * sin;
+                            yLoad = pl.Loadvalues[0] * -sin + pl.Loadvalues[1] * cos;
                         }
                         else
                         {
-                            xLoad = pl.Intensity[0];
-                            yLoad = pl.Intensity[1];
+                            xLoad = pl.Loadvalues[0];
+                            yLoad = pl.Loadvalues[1];
                         }
 
                         var a = pl.Offset * length;

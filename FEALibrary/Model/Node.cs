@@ -9,7 +9,7 @@ namespace FEALibrary.Model
         // Properties
         public string Id { get; }
         public int SpatialDimension { get; }
-        public int NumberOfNodalDof { get; }
+        public int NumberOfNodalDof { get; set; }
         public double[] NodalDof { get; set; }
         public double[][] NodalVariables { get; set; }
         public double[][] NodalDerivatives { get; set; }

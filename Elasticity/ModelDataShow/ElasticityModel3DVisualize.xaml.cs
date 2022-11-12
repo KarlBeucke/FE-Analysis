@@ -25,7 +25,7 @@ namespace FE_Analysis.Elasticity.ModelDataShow
         private const double CameraDy = 5;
 
         // 3D model group
-        private readonly Model3DGroup model3DGroup = new Model3DGroup();
+        private readonly Model3DGroup model3DGroup = new();
 
         private readonly Presentation3D presentation3D;
 

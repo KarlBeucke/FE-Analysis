@@ -223,8 +223,8 @@ namespace FE_Analysis
             {
                 sb.Clear();
                 sb.Append("\n" + "NodeLoads");
-                sb.Append(item.Value.LoadId + "\t" + item.Value.Intensity[0]);
-                for (var i = 1; i < item.Value.Intensity.Length; i++) sb.Append("\t" + item.Value.Intensity[i]);
+                sb.Append(item.Value.LoadId + "\t" + item.Value.Loadvalues[0]);
+                for (var i = 1; i < item.Value.Loadvalues.Length; i++) sb.Append("\t" + item.Value.Loadvalues[i]);
                 rows.Add(sb.ToString());
             }
 
@@ -233,7 +233,7 @@ namespace FE_Analysis
                 sb.Clear();
                 sb.Append("\n" + "LineLoads");
                 sb.Append(item.Value.LoadId + "\t" + item.Value.StartNodeId + "\t" + item.Value.EndNodeId + "\t"
-                          + item.Value.Intensity[0] + "\t" + item.Value.Intensity[1]);
+                          + item.Value.Loadvalues[0] + "\t" + item.Value.Loadvalues[1]);
                 rows.Add(sb.ToString());
             }
 
@@ -254,17 +254,17 @@ namespace FE_Analysis
             {
                 rows.Add("\n" + "ElementLoad3");
                 rows.AddRange(allElementLoads3.Select(item => item.LoadId + "\t" + item.ElementId + "\t"
-                                                              + item.Intensity[0] + "\t" + item.Intensity[1] +
-                                                              "\t" + item.Intensity[2]));
+                                                              + item.Loadvalues[0] + "\t" + item.Loadvalues[1] +
+                                                              "\t" + item.Loadvalues[2]));
             }
 
             if (allElementLoads4.Count != 0)
             {
                 rows.Add("\n" + "ElementLoad4");
                 rows.AddRange(allElementLoads4.Select(item => item.LoadId + "\t" + item.ElementId + "\t"
-                                                              + item.Intensity[0] + "\t" + item.Intensity[1]
-                                                              + "\t" + item.Intensity[2] + "\t" +
-                                                              item.Intensity[3]));
+                                                              + item.Loadvalues[0] + "\t" + item.Loadvalues[1]
+                                                              + "\t" + item.Loadvalues[2] + "\t" +
+                                                              item.Loadvalues[3]));
             }
 
             // Boundary conditions
@@ -697,13 +697,13 @@ namespace FE_Analysis
                     break;
                 case 2:
                     rows.AddRange(model.Nodes.Select(node => node.Key
-                                                   + "\t" + node.Value.Coordinates[0] 
+                                                   + "\t" + node.Value.Coordinates[0]
                                                    + "\t" + node.Value.Coordinates[1]));
                     break;
                 case 3:
                     rows.AddRange(model.Nodes.Select(node => node.Key
-                                                   + "\t" + node.Value.Coordinates[0] 
-                                                   + "\t" + node.Value.Coordinates[1] 
+                                                   + "\t" + node.Value.Coordinates[0]
+                                                   + "\t" + node.Value.Coordinates[1]
                                                    + "\t" + node.Value.Coordinates[2]));
                     break;
                 default:
@@ -791,8 +791,8 @@ namespace FE_Analysis
             {
                 rows.Add("\nNodeLoad");
                 sb.Clear();
-                sb.Append(item.Value.LoadId + "\t" + item.Value.NodeId + "\t" + item.Value.Intensity[0]);
-                for (var i = 1; i < item.Value.Intensity.Length; i++) sb.Append("\t" + item.Value.Intensity[i]);
+                sb.Append(item.Value.LoadId + "\t" + item.Value.NodeId + "\t" + item.Value.Loadvalues[0]);
+                for (var i = 1; i < item.Value.Loadvalues.Length; i++) sb.Append("\t" + item.Value.Loadvalues[i]);
                 rows.Add(sb.ToString());
             }
 
@@ -802,7 +802,7 @@ namespace FE_Analysis
                 sb.Clear();
                 rows.Add("\nPointLoad");
                 rows.Add(pointLoad.LoadId + "\t" + pointLoad.ElementId
-                           + "\t" + pointLoad.Intensity[0] + "\t" + pointLoad.Intensity[1] + "\t" + pointLoad.Offset);
+                           + "\t" + pointLoad.Loadvalues[0] + "\t" + pointLoad.Loadvalues[1] + "\t" + pointLoad.Offset);
             }
 
             foreach (var item in model.ElementLoads)
@@ -810,8 +810,8 @@ namespace FE_Analysis
                 sb.Clear();
                 rows.Add("\nLineLoad");
                 rows.Add(item.Value.LoadId + "\t" + item.Value.ElementId
-                           + "\t" + item.Value.Intensity[0] + "\t" + item.Value.Intensity[1]
-                           + "\t" + item.Value.Intensity[2] + "\t" + item.Value.Intensity[3]
+                           + "\t" + item.Value.Loadvalues[0] + "\t" + item.Value.Loadvalues[1]
+                           + "\t" + item.Value.Loadvalues[2] + "\t" + item.Value.Loadvalues[3]
                            + "\t" + item.Value.InElementCoordinateSystem);
             }
 
@@ -1184,17 +1184,17 @@ namespace FE_Analysis
             foreach (var item in model.Loads)
             {
                 sb.Clear();
-                sb.Append(item.Value.LoadId + "\t" + item.Value.NodeId + "\t" + item.Value.Intensity[0]);
-                for (var i = 1; i < item.Value.Intensity.Length; i++) sb.Append("\t" + item.Value.Intensity[i]);
+                sb.Append(item.Value.LoadId + "\t" + item.Value.NodeId + "\t" + item.Value.Loadvalues[0]);
+                for (var i = 1; i < item.Value.Loadvalues.Length; i++) sb.Append("\t" + item.Value.Loadvalues[i]);
                 found.Add(sb.ToString());
             }
 
             if (model.LineLoads.Count > 0) found.Add("\nLineLoads");
             foreach (var item in model.LineLoads)
                 found.Add(item.Value.LoadId + "\t" + item.Value.StartNodeId
-                          + "\t" + item.Value.Intensity[0] + "\t" + item.Value.Intensity[1]
+                          + "\t" + item.Value.Loadvalues[0] + "\t" + item.Value.Loadvalues[1]
                           + "\t" + item.Value.EndNodeId
-                          + "\t" + item.Value.Intensity[2] + "\t" + item.Value.Intensity[3]);
+                          + "\t" + item.Value.Loadvalues[2] + "\t" + item.Value.Loadvalues[3]);
 
             // Randbedingungen
             var fest = string.Empty;
