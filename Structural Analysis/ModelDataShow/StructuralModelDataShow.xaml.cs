@@ -175,13 +175,12 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             removeKey = crossSection.CrossSectionId;
         }
 
-        private void Lager_Loaded(object sender, RoutedEventArgs e)
+        private void Support_Loaded(object sender, RoutedEventArgs e)
         {
             var support = new List<AbstractBoundaryCondition>();
             foreach (var item in model.BoundaryConditions)
             {
                 for (var i = 0; i < item.Value.Prescribed.Length; i++)
-                    //if (!item.Value.Restrained[i]) item.Value.Prescribed[i] = Double.NaN;
                     if (!item.Value.Restrained[i])
                         item.Value.Prescribed[i] = double.PositiveInfinity;
                 support.Add(item.Value);

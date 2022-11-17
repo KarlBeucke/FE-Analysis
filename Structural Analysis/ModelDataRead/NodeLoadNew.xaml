@@ -24,8 +24,8 @@
         </Label>
 
         <Label Grid.Row="1" Grid.Column="0" Margin="0,4.8,0.2,0.4">Load Id:</Label>
-        <TextBox Name="LoadId" Grid.Row="1" Grid.Column="1" Margin="10,9.8,10,5.4" Height="20"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" />
+        <TextBox Name="LoadId" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" Height="20"
+                 VerticalAlignment="Top" HorizontalAlignment="Center" Width="80"  LostFocus="LoadIdLostFocus"/>
         <Label Grid.Row="2" Grid.Column="0" Margin="0,4.6,0.2,34.8" Grid.RowSpan="2">Node Id:</Label>
         <TextBox Name="NodeId" Grid.Row="2" Grid.Column="1" Margin="10,9.6,10,5.6" Height="20"
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" />
@@ -39,10 +39,10 @@
         <TextBox Name="M" Grid.Row="5" Grid.Column="1" Margin="10,10,10,4.8" Height="20"
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" />
 
+        <Button Grid.Row="6" Grid.Column="0" Width="50"  Height="26" Margin="5,0,0,4.6" 
+                Click="BtnDelete_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" >delete</Button>
         <Button IsDefault="True" Grid.Row="6" Grid.Column="1" Margin="96,5,-31,1"
-                Click="BtnDialogOk_Click">
-            _Ok
-        </Button>
+                Click="BtnDialogOk_Click">_Ok</Button>
         <Button Grid.Row="6" Grid.Column="1" Margin="10,5,10.8,0.4"
                 Click="BtnDialogCancel_Click" Content="_Cancel"/>
     </Grid>

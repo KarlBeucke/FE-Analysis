@@ -70,7 +70,7 @@ public partial class NodeNew
         Close();
     }
 
-    private void KnotenIdLostFocus(object sender, RoutedEventArgs e)
+    private void NodeIdLostFocus(object sender, RoutedEventArgs e)
     {
         if (!model.Nodes.ContainsKey(NodeId.Text)) return;
         model.Nodes.TryGetValue(NodeId.Text, out var existingNode);

@@ -15,6 +15,7 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
         private readonly int[] clow = { 0, 1, 3, 4, 5 };
 
         private readonly int first = 1;
+        private readonly int second = 2;
 
         private readonly double[,] kcc = new double[5, 5];
         private readonly double[] kcl = new double[5];
@@ -27,19 +28,16 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
         private readonly int[] llow = { 2 };
         private readonly double[] massMatrix = new double[6];
         private readonly FeModel model;
-        private readonly int second = 2;
         private readonly double[] uc = new double[5];
         private AbstractElement element;
 
         // temp Variable for a hinge
         private double invkll;
         private double[] kcxuc = new double[5];
-        protected Node node;
         private double[,] redStiffnessMatrix = new double[5, 5];
         private double[,] stiffnessMatrix = new double[6, 6];
 
-        public BeamHinged(string[] eNodeIds, string eMaterialId, string eCrossSectionId, FeModel feModel,
-            int type)
+        public BeamHinged(string[] eNodeIds, string eMaterialId, string eCrossSectionId, FeModel feModel, int type)
         {
             model = feModel;
             ElementDof = 3;
@@ -48,7 +46,6 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
             ElementCrossSectionId = eCrossSectionId;
             NodesPerElement = 2;
             Nodes = new Node[2];
-            Type = type;
             ElementState = new double[6];
             ElementDeformations = new double[6];
 
@@ -69,7 +66,7 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
             }
         }
 
-        // ... compute lokale Steigigkeit ................................
+        // ... compute local stiffness ................................
         private double[,] ComputeLocalMatrix()
         {
             ComputeGeometry();

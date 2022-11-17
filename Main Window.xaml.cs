@@ -657,6 +657,9 @@ namespace FE_Analysis
             sb.Append(FeParser.InputFound + "\nStructural Model data successfully read");
             _ = MessageBox.Show(sb.ToString(), "Structural Analysis");
             sb.Clear();
+
+            structuralModel = new Structural_Analysis.ModelDataShow.StructuralModelVisualize(model);
+            structuralModel.Show();
         }
         private void StructuralModelDataEdit(object sender, RoutedEventArgs e)
         {

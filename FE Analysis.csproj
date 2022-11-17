@@ -144,9 +144,6 @@
     <Compile Include="Elasticity\ModelData\NodeLoad.cs" />
     <Compile Include="Elasticity\ModelData\Support.cs" />
     <Compile Include="Heat Transfer\ModelDataRead\BoundaryConditionParser.cs" />
-    <Compile Include="Structural Analysis\ModelDataRead\BeamElementNew.xaml.cs">
-      <DependentUpon>BeamElementNew.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\CrossSectionKeys.xaml.cs">
       <DependentUpon>CrossSectionKeys.xaml</DependentUpon>
     </Compile>
@@ -164,9 +161,6 @@
     </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\PointLoadKeys.xaml.cs">
       <DependentUpon>PointLoadKeys.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Structural Analysis\ModelDataRead\SpringElementNew.xaml.cs">
-      <DependentUpon>SpringElementNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\SupportKeys.xaml.cs">
       <DependentUpon>SupportKeys.xaml</DependentUpon>
@@ -414,10 +408,6 @@
       <DependentUpon>Main Window.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Structural Analysis\ModelDataRead\BeamElementNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Structural Analysis\ModelDataRead\CrossSectionKeys.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -439,10 +429,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Structural Analysis\ModelDataRead\PointLoadKeys.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Structural Analysis\ModelDataRead\SpringElementNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

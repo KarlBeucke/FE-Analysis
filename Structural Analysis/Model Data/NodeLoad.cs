@@ -5,6 +5,11 @@ namespace FE_Analysis.Structural_Analysis.Model_Data
     public class NodeLoad : AbstractNodeLoad
     {
         // ... Constructor ........................................................
+        public NodeLoad(string nodeId, double[] p)
+        {
+            NodeId = nodeId;
+            Loadvalues = p;
+        }
         public NodeLoad(string nodeId, double px, double py, double moment)
         {
             NodeId = nodeId;

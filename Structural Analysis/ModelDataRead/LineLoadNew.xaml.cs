@@ -1,6 +1,5 @@
 ﻿using FE_Analysis.Structural_Analysis.Model_Data;
 using FEALibrary.Model;
-using FEALibrary.Model.abstractClasses;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -11,7 +10,6 @@ namespace FE_Analysis.Structural_Analysis.ModelDataRead;
 public partial class LineLoadNew
 {
     private readonly FeModel model;
-    private AbstractElementLoad existingLineLoad;
     private readonly LineLoadKeys lineLoadKeys;
 
     public LineLoadNew(FeModel model)
@@ -50,7 +48,7 @@ public partial class LineLoadNew
         // existing LineLoad
         if (model.ElementLoads.Keys.Contains(LoadId.Text))
         {
-            model.ElementLoads.TryGetValue(lineLoadId, out existingLineLoad);
+            model.ElementLoads.TryGetValue(lineLoadId, out var existingLineLoad);
             Debug.Assert(existingLineLoad != null, nameof(existingLineLoad) + " != null");
 
             if (ElementId.Text.Length > 0)
@@ -104,7 +102,7 @@ public partial class LineLoadNew
         }
 
         // existing LineLoad definitions
-        model.ElementLoads.TryGetValue(LoadId.Text, out existingLineLoad);
+        model.ElementLoads.TryGetValue(LoadId.Text, out var existingLineLoad);
         Debug.Assert(existingLineLoad != null, nameof(existingLineLoad) + " != null"); LoadId.Text = "";
 
         LoadId.Text = existingLineLoad.LoadId;

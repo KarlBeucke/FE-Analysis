@@ -16,9 +16,14 @@ public partial class SupportNew
     {
         InitializeComponent();
         this.model = model;
+        Show();
+        SupportId.Text = string.Empty;
+        NodeId.Text = string.Empty;
+        PreX.Text = "0.00";
+        PreY.Text = "0.00";
+        PreRot.Text = "0.00";
         supportKeys = new SupportKeys(model);
         supportKeys.Show();
-        Show();
     }
 
     public SupportNew(FeModel model, double preDefX, double preDefY, double preDefRot)
@@ -55,15 +60,15 @@ public partial class SupportNew
             if (Yfixed.IsChecked != null && (bool)Yfixed.IsChecked) support.Restrained[1] = true;
             if (Rfixed.IsChecked != null && (bool)Rfixed.IsChecked) support.Restrained[2] = true;
             support.Type = 0;
-            if (support.Restrained[0]) support.Type = Support.X_FIXED;
-            if (support.Restrained[1]) support.Type += Support.Y_FIXED;
-            if (support.Restrained[2]) support.Type += Support.R_FIXED;
+            if (support.Restrained[0]) support.Type = Support.Xfixed;
+            if (support.Restrained[1]) support.Type += Support.Yfixed;
+            if (support.Restrained[2]) support.Type += Support.Rfixed;
 
             if (PreX.Text.Length > 0) support.Prescribed[0] = double.Parse(PreX.Text);
             if (PreY.Text.Length > 0) support.Prescribed[1] = double.Parse(PreY.Text);
             if (PreRot.Text.Length > 0) support.Prescribed[2] = double.Parse(PreRot.Text);
         }
-        // new Supportr
+        // new Support
         else
         {
             var prescribed = new double[3];
@@ -71,9 +76,9 @@ public partial class SupportNew
             if (PreY.Text.Length > 0) prescribed[1] = double.Parse(PreY.Text);
             if (PreRot.Text.Length > 0) prescribed[2] = double.Parse(PreRot.Text);
             var typ = 0;
-            if (Xfixed.IsChecked != null && (bool)Xfixed.IsChecked) typ = Support.X_FIXED;
-            if (Yfixed.IsChecked != null && (bool)Yfixed.IsChecked) typ += Support.Y_FIXED;
-            if (Rfixed.IsChecked != null && (bool)Rfixed.IsChecked) typ += Support.R_FIXED;
+            if (Xfixed.IsChecked != null && (bool)Xfixed.IsChecked) typ = Support.Xfixed;
+            if (Yfixed.IsChecked != null && (bool)Yfixed.IsChecked) typ += Support.Yfixed;
+            if (Rfixed.IsChecked != null && (bool)Rfixed.IsChecked) typ += Support.Rfixed;
             var support = new Support(NodeId.Text, typ, prescribed, model) { SupportId = supportId };
             model.BoundaryConditions.Add(supportId, support);
         }

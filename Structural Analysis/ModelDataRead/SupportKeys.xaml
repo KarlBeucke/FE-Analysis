@@ -14,9 +14,6 @@
                     <GridViewColumn Header="xFixed" Width="50" DisplayMemberBinding="{Binding Restrained[0]}" />
                     <GridViewColumn Header="yFixed" Width="50" DisplayMemberBinding="{Binding Restrained[1]}" />
                     <GridViewColumn Header="rFixed" Width="50" DisplayMemberBinding="{Binding Restrained[2]}" />
-                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding Prescribed[0], StringFormat=G3}"/>
-                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding Prescribed[1], StringFormat=G3}"/>
-                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding Prescribed[2], StringFormat=G3}"/>
                 </GridView>
             </ListView.View>
         </ListView>

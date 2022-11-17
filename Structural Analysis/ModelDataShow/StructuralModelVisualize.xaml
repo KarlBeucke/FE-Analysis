@@ -76,13 +76,10 @@
                           VerticalAlignment="Center" Width="70" FlowDirection="LeftToRight">
                         <MenuItem Header="Elements" Margin ="0,1,0,1"  Height="20" Width="70"
                                   Padding="5,0,0,0" VerticalAlignment="Center">
-                            <MenuItem Header="Beam element" HorizontalAlignment="Left" Height="20" Width="250" 
+                            <MenuItem Header="Elements" HorizontalAlignment="Left" Height="20" Width="250" 
                                       Margin="0,0,0,0" Click="MenuBeamElementNew"/>
                             <MenuItem Header="Cross Section" HorizontalAlignment="Left" Height="20" Width="250" 
                                       Margin="0,0,0,0" Click="MenuCrossSectionNew"/>
-                            <Separator></Separator>
-                            <MenuItem Header="Spring element" HorizontalAlignment="Left" Height="20" Width="250" 
-                                      Margin="0,0,0,0" Click="MenuSpringElementNew"/>
                             <Separator></Separator>
                             <MenuItem Header="Material" HorizontalAlignment="Left" Height="20" Width="250" 
                                       Margin="0,0,0,0" Click="MenuMaterialNew"/>

@@ -125,12 +125,12 @@ public class Presentation
         // nodal hinges will be added as EllipseGeometry to GeometryGroup structure
         var structure = new GeometryGroup();
         foreach (var gelenk in from item in model.Nodes
-                 select item.Value
+                               select item.Value
                  into node
-                 where node.NumberOfNodalDof == 2
-                 select TransformNode(node, resolution, maxY)
+                               where node.NumberOfNodalDof == 2
+                               select TransformNode(node, resolution, maxY)
                  into gelenkPunkt
-                 select new EllipseGeometry(gelenkPunkt, 5, 5))
+                               select new EllipseGeometry(gelenkPunkt, 5, 5))
             structure.Children.Add(gelenk);
 
         // Knotengelenke werden gezeichnet
@@ -173,36 +173,36 @@ public class Presentation
         {
             // spring element
             case SpringElement _:
-            {
-                pathGeometry = SpringElementDraw(element);
-                break;
-            }
+                {
+                    pathGeometry = SpringElementDraw(element);
+                    break;
+                }
 
             case Truss _:
-            {
-                // hinges will be added as half-circles at truss nodes
-                pathGeometry = TrussElementDraw(element);
-                break;
-            }
+                {
+                    // hinges will be added as half-circles at truss nodes
+                    pathGeometry = TrussElementDraw(element);
+                    break;
+                }
             case Beam _:
-            {
-                pathGeometry = BeamDraw(element);
-                break;
-            }
+                {
+                    pathGeometry = BeamDraw(element);
+                    break;
+                }
 
             case BeamHinged _:
-            {
-                // add hinge to start resp. end node of beam
-                pathGeometry = BeamHingedDraw(element);
-                break;
-            }
+                {
+                    // add hinge to start resp. end node of beam
+                    pathGeometry = BeamHingedDraw(element);
+                    break;
+                }
 
             // elements with multiple nodes
             default:
-            {
-                pathGeometry = MultiNodeElementDraw(element);
-                break;
-            }
+                {
+                    pathGeometry = MultiNodeElementDraw(element);
+                    break;
+                }
         }
 
         Shape elementPath = new Path
@@ -248,129 +248,129 @@ public class Presentation
             switch (element)
             {
                 case Truss _:
-                {
-                    if (model.Nodes.TryGetValue(element.NodeIds[0], out node)) { }
-
-                    start = TransformDeformedNode(node, resolution, maxY);
-                    pathFigure.StartPoint = start;
-
-                    for (var i = 1; i < element.NodeIds.Length; i++)
                     {
-                        if (model.Nodes.TryGetValue(element.NodeIds[i], out node))
+                        if (model.Nodes.TryGetValue(element.NodeIds[0], out node)) { }
+
+                        start = TransformDeformedNode(node, resolution, maxY);
+                        pathFigure.StartPoint = start;
+
+                        for (var i = 1; i < element.NodeIds.Length; i++)
                         {
+                            if (model.Nodes.TryGetValue(element.NodeIds[i], out node))
+                            {
+                            }
+
+                            end = TransformDeformedNode(node, resolution, maxY);
+                            pathFigure.Segments.Add(new LineSegment(end, true));
                         }
 
-                        end = TransformDeformedNode(node, resolution, maxY);
-                        pathFigure.Segments.Add(new LineSegment(end, true));
+                        pathGeometry.Figures.Add(pathFigure);
+                        break;
                     }
-
-                    pathGeometry.Figures.Add(pathFigure);
-                    break;
-                }
                 case Beam _:
-                {
-                    element.ComputeStateVector();
-                    if (model.Nodes.TryGetValue(element.NodeIds[0], out node))
                     {
-                    }
-
-                    start = TransformDeformedNode(node, resolution, maxY);
-                    pathFigure.StartPoint = start;
-
-                    for (var i = 1; i < element.NodeIds.Length; i++)
-                    {
-                        if (model.Nodes.TryGetValue(element.NodeIds[i], out node))
+                        element.ComputeStateVector();
+                        if (model.Nodes.TryGetValue(element.NodeIds[0], out node))
                         {
                         }
 
-                        end = TransformDeformedNode(node, resolution, maxY);
-                        var richtung = end - start;
-                        richtung.Normalize();
-                        winkel = -element.ElementDeformations[2] * 180 / Math.PI * scalingRotation;
-                        richtung = RotateVectorScreen(richtung, winkel);
-                        var control1 = start + richtung * element.length / 4 * resolution;
+                        start = TransformDeformedNode(node, resolution, maxY);
+                        pathFigure.StartPoint = start;
 
-                        richtung = start - end;
-                        richtung.Normalize();
-                        winkel = -element.ElementDeformations[5] * 180 / Math.PI * scalingRotation;
-                        richtung = RotateVectorScreen(richtung, winkel);
-                        var control2 = end + richtung * element.length / 4 * resolution;
+                        for (var i = 1; i < element.NodeIds.Length; i++)
+                        {
+                            if (model.Nodes.TryGetValue(element.NodeIds[i], out node))
+                            {
+                            }
 
-                        pathFigure.Segments.Add(new BezierSegment(control1, control2, end, true));
+                            end = TransformDeformedNode(node, resolution, maxY);
+                            var richtung = end - start;
+                            richtung.Normalize();
+                            winkel = -element.ElementDeformations[2] * 180 / Math.PI * scalingRotation;
+                            richtung = RotateVectorScreen(richtung, winkel);
+                            var control1 = start + richtung * element.length / 4 * resolution;
+
+                            richtung = start - end;
+                            richtung.Normalize();
+                            winkel = -element.ElementDeformations[5] * 180 / Math.PI * scalingRotation;
+                            richtung = RotateVectorScreen(richtung, winkel);
+                            var control2 = end + richtung * element.length / 4 * resolution;
+
+                            pathFigure.Segments.Add(new BezierSegment(control1, control2, end, true));
+                        }
+
+                        pathGeometry.Figures.Add(pathFigure);
+                        break;
                     }
-
-                    pathGeometry.Figures.Add(pathFigure);
-                    break;
-                }
                 case BeamHinged _:
-                {
-                    if (model.Nodes.TryGetValue(element.NodeIds[0], out node))
                     {
-                    }
-
-                    start = TransformDeformedNode(node, resolution, maxY);
-                    pathFigure.StartPoint = start;
-
-                    var control = start;
-                    for (var i = 1; i < element.NodeIds.Length; i++)
-                    {
-                        if (model.Nodes.TryGetValue(element.NodeIds[i], out node))
+                        if (model.Nodes.TryGetValue(element.NodeIds[0], out node))
                         {
                         }
 
-                        end = TransformDeformedNode(node, resolution, maxY);
+                        start = TransformDeformedNode(node, resolution, maxY);
+                        pathFigure.StartPoint = start;
 
-                        switch (element.Type)
+                        var control = start;
+                        for (var i = 1; i < element.NodeIds.Length; i++)
                         {
-                            case 1:
+                            if (model.Nodes.TryGetValue(element.NodeIds[i], out node))
                             {
-                                var richtung = start - end;
-                                richtung.Normalize();
-                                winkel = element.ElementDeformations[4] * 180 / Math.PI * scalingRotation;
-                                richtung = RotateVectorScreen(richtung, winkel);
-                                control = end + richtung * element.length / 4 * resolution;
-                                break;
                             }
-                            case 2:
+
+                            end = TransformDeformedNode(node, resolution, maxY);
+
+                            switch (element.Type)
                             {
-                                var richtung = end - start;
-                                richtung.Normalize();
-                                winkel = element.ElementDeformations[2] * 180 / Math.PI * scalingRotation;
-                                richtung = RotateVectorScreen(richtung, winkel);
-                                control = start + richtung * element.length / 4 * resolution;
-                                break;
+                                case 1:
+                                    {
+                                        var richtung = start - end;
+                                        richtung.Normalize();
+                                        winkel = element.ElementDeformations[4] * 180 / Math.PI * scalingRotation;
+                                        richtung = RotateVectorScreen(richtung, winkel);
+                                        control = end + richtung * element.length / 4 * resolution;
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        var richtung = end - start;
+                                        richtung.Normalize();
+                                        winkel = element.ElementDeformations[2] * 180 / Math.PI * scalingRotation;
+                                        richtung = RotateVectorScreen(richtung, winkel);
+                                        control = start + richtung * element.length / 4 * resolution;
+                                        break;
+                                    }
                             }
+
+                            pathFigure.Segments.Add(new QuadraticBezierSegment(control, end, true));
                         }
 
-                        pathFigure.Segments.Add(new QuadraticBezierSegment(control, end, true));
+                        pathGeometry.Figures.Add(pathFigure);
+                        break;
                     }
-
-                    pathGeometry.Figures.Add(pathFigure);
-                    break;
-                }
                 default:
-                {
-                    if (model.Nodes.TryGetValue(element.NodeIds[0], out node))
                     {
-                    }
-
-                    start = TransformDeformedNode(node, resolution, maxY);
-                    pathFigure.StartPoint = start;
-
-                    for (var i = 1; i < element.NodeIds.Length; i++)
-                    {
-                        if (model.Nodes.TryGetValue(element.NodeIds[i], out node))
+                        if (model.Nodes.TryGetValue(element.NodeIds[0], out node))
                         {
                         }
 
-                        var next = TransformDeformedNode(node, resolution, maxY);
-                        pathFigure.Segments.Add(new LineSegment(next, true));
-                    }
+                        start = TransformDeformedNode(node, resolution, maxY);
+                        pathFigure.StartPoint = start;
 
-                    pathFigure.IsClosed = true;
-                    pathGeometry.Figures.Add(pathFigure);
-                    break;
-                }
+                        for (var i = 1; i < element.NodeIds.Length; i++)
+                        {
+                            if (model.Nodes.TryGetValue(element.NodeIds[i], out node))
+                            {
+                            }
+
+                            var next = TransformDeformedNode(node, resolution, maxY);
+                            pathFigure.Segments.Add(new LineSegment(next, true));
+                        }
+
+                        pathFigure.IsClosed = true;
+                        pathGeometry.Figures.Add(pathFigure);
+                        break;
+                    }
             }
 
             Shape path = new Path
@@ -673,13 +673,14 @@ public class Presentation
 
         maxLoadValue =
             (from linienLast in model.ElementLoads.Select(item => (AbstractLineLoad)item.Value)
-                from loadValue in linienLast.Loadvalues
-                select Math.Abs(loadValue)).Prepend(maxLoadValue).Max();
+             from loadValue in linienLast.Loadvalues
+             select Math.Abs(loadValue)).Prepend(maxLoadValue).Max();
         loadResolution = maxLastScreen / maxLoadValue;
 
         foreach (var item in model.Loads)
         {
             load = item.Value;
+            load.LoadId = item.Key;
             var pathGeometry = NodeLoadDraw(load);
             path = new Path
             {
@@ -759,7 +760,7 @@ public class Presentation
         }
         foreach (var item in model.ElementLoads)
         {
-            if (item.Value is not { } lineload) continue;
+            if (item.Value is not { } linienlast) continue;
             const int nodeOffset = 10;
 
             var id = new TextBlock
@@ -1017,13 +1018,13 @@ public class Presentation
                 // X_FIXED = 1, Y_FIXED = 2, XY_FIXED = 3, XYR_FIXED = 7
                 // R_FIXED = 4, XR_FIXED = 5, YR_FIXED = 6 werden in Balkentheorie nicht dargestellt
                 case 1:
-                {
-                    pathGeometry = SingleConstraintDraw(supportNode);
-                    if (left) pivotAngle = 90;
-                    else if (right) pivotAngle = -90;
-                    pathGeometry.Transform = new RotateTransform(pivotAngle, pivotPoint.X, pivotPoint.Y);
-                    break;
-                }
+                    {
+                        pathGeometry = SingleConstraintDraw(supportNode);
+                        if (left) pivotAngle = 90;
+                        else if (right) pivotAngle = -90;
+                        pathGeometry.Transform = new RotateTransform(pivotAngle, pivotPoint.X, pivotPoint.Y);
+                        break;
+                    }
                 case 2:
                     pathGeometry = SingleConstraintDraw(supportNode);
                     break;
@@ -1035,14 +1036,14 @@ public class Presentation
                     pathGeometry.Transform = new RotateTransform(pivotAngle, pivotPoint.X, pivotPoint.Y);
                     break;
                 case 7:
-                {
-                    pathGeometry = TripleConstraintDraw(supportNode);
-                    if (left) pivotAngle = 90;
-                    else if (right) pivotAngle = -90;
-                    if (bottom && !beam) pivotAngle = 0;
-                    pathGeometry.Transform = new RotateTransform(pivotAngle, pivotPoint.X, pivotPoint.Y);
-                    break;
-                }
+                    {
+                        pathGeometry = TripleConstraintDraw(supportNode);
+                        if (left) pivotAngle = 90;
+                        else if (right) pivotAngle = -90;
+                        if (bottom && !beam) pivotAngle = 0;
+                        pathGeometry.Transform = new RotateTransform(pivotAngle, pivotPoint.X, pivotPoint.Y);
+                        break;
+                    }
             }
 
             Shape path = new Path

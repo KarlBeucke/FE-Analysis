@@ -36,13 +36,13 @@ public class BoundaryConditionParser
                         switch (subType)
                         {
                             case "x":
-                                conditions += Support.X_FIXED;
+                                conditions += Support.Xfixed;
                                 break;
                             case "y":
-                                conditions += Support.Y_FIXED;
+                                conditions += Support.Yfixed;
                                 break;
                             case "r":
-                                conditions += Support.R_FIXED;
+                                conditions += Support.Rfixed;
                                 break;
                         }
                     }

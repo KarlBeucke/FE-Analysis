@@ -94,7 +94,7 @@
             <Label Content="Support definitions" VerticalAlignment="Top" Height="27" Margin="0,0,0,0" />
             <DataGrid
                 Name="SupportGrid" Margin="0,20,0,0" AlternatingRowBackground="Aqua"
-                Loaded="Lager_Loaded" AutoGenerateColumns="False" CellEditEnding="Model_Changed"
+                Loaded="Support_Loaded" AutoGenerateColumns="False" CellEditEnding="Model_Changed"
                 MouseDoubleClick="NewSupport" UnloadingRow="SupportRowRemove" SelectionChanged="SupportRowSelected">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Node" Binding="{Binding NodeId}" />
@@ -153,10 +153,10 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding LoadId}" />
                     <DataGridTextColumn Header="Element" Binding="{Binding ElementId}" />
-                    <DataGridTextColumn Header="p1x" Binding="{Binding Intensity[0], StringFormat=N2}" />
-                    <DataGridTextColumn Header="p1y" Binding="{Binding Intensity[1], StringFormat=N2}" />
-                    <DataGridTextColumn Header="p2x" Binding="{Binding Intensity[2], StringFormat=N2}" />
-                    <DataGridTextColumn Header="p2y" Binding="{Binding Intensity[3], StringFormat=N2}" />
+                    <DataGridTextColumn Header="p1x" Binding="{Binding Loadvalues[0], StringFormat=N2}" />
+                    <DataGridTextColumn Header="p1y" Binding="{Binding Loadvalues[1], StringFormat=N2}" />
+                    <DataGridTextColumn Header="p2x" Binding="{Binding Loadvalues[2], StringFormat=N2}" />
+                    <DataGridTextColumn Header="p2y" Binding="{Binding Loadvalues[3], StringFormat=N2}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -28,7 +28,7 @@
         <Label Grid.Row="1" Grid.Column="0" Margin="0,5,0,0">Material ID:</Label>
         <TextBox Name="MaterialId" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="4,0,0,0" Height="32" Padding="0,0,0,0"
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" LostFocus="MaterialIdLostFocus"/>
-        <Label Grid.Row="2" Grid.Column="0" Margin="0,5,0,35" Grid.RowSpan="2">Young modulus</Label>
+        <Label Grid.Row="2" Grid.Column="0" Margin="0,5,0,35" Grid.RowSpan="2">Young's modulus</Label>
         <TextBox Name="EModulus" Grid.Row="2" Grid.Column="1" Margin="2,9.6,0,11.2" Height="30" 
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="45"/>
         <Label Grid.Row="3" Grid.Column="0" Margin="0,5,0,35" Grid.RowSpan="2">Poisson number</Label>

@@ -12,8 +12,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="70" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="70" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
@@ -23,38 +23,39 @@
         <Label Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,-44,0">
             Input for the definition of a new Element
         </Label>
-        <Label Grid.Row="2" Grid.Column="0" Margin="0,5,0,0">Element Id:</Label>
-        <TextBox Name="ElementId" Grid.Row="2" Grid.Column="1" Margin="9.8,9.8,0,6.4" Height="15"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" />
+        <Label Grid.Row="1" Grid.Column="0" Margin="0,5,0,0">Element Id:</Label>
+        <TextBox Name="ElementId" Grid.Row="1" Grid.Column="1" Margin="10,0,-10,0" Height="20"
+                 VerticalAlignment="Center" LostFocus="ElementIdLostFocus" />
+        <CheckBox x:Name="TrussCheck" Grid.Row="2" Grid.Column="0" Margin="9.8,3.2,0,48.2" 
+                  Checked="TrussChecked">Truss</CheckBox>
+        <CheckBox x:Name="BeamCheck" Grid.Row="2" Grid.Column="0" Margin="9.8,20.2,0,33.2" 
+                  Checked="BeamChecked">Beam</CheckBox>
+        <CheckBox x:Name="SpringCheck" Grid.Row="2" Grid.Column="0" Margin="10,37,0,16" 
+                  Checked="SpringChecked">Spring element</CheckBox>
+        <CheckBox Name="Hinge1" Grid.Row="2" Grid.Column="1" Margin="11,4,-11,48" 
+                  >hinge at start</CheckBox>
+        <CheckBox Name="Hinge2" Grid.Row="2" Grid.Column="1" Margin="11,22,-11,31"
+                  >hinge at end</CheckBox>
+
         <Label Grid.Row="3" Grid.Column="0" Margin="0,5,0,0">start node Id:</Label>
-        <TextBox Name="StartNodeId" Grid.Row="3" Grid.Column="1" Margin="9.8,7.6,0,8.6" Height="15"
+        <TextBox Name="StartNodeId" Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Height="23"
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" />
         <Label Grid.Row="4" Grid.Column="0" Margin="0,5,0,0">end node Id:</Label>
-        <TextBox Name="EndNodeId" Grid.Row="4" Grid.Column="1" Margin="9.8,6.4,0,4.8" Height="15"
+        <TextBox Name="EndNodeId" Grid.Row="4" Grid.Column="1" Margin="10,0,0,0" Height="21"
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" />
         <Label Grid.Row="5" Grid.Column="0" Margin="0,5,0,0">Material Id:</Label>
-        <TextBox Name="MaterialId" Grid.Row="5" Grid.Column="1" Margin="9.8,9,0,6.4" Height="15"
+        <TextBox Name="MaterialId" Grid.Row="5" Grid.Column="1" Margin="10,0,0,0" Height="20"
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" />
         <Label Grid.Row="6" Grid.Column="0" Margin="0,5,0,0">CrossSection Id:</Label>
-        <TextBox Name="CrossSectionId" Grid.Row="6" Grid.Column="1" Margin="9.8,9.8,0,5.2" Height="15"
+        <TextBox Name="CrossSectionId" Grid.Row="6" Grid.Column="1" Margin="10,0,0,0" Height="20"
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" />
 
-        <CheckBox Name="Truss" Grid.Row="1" Grid.Column="0" Margin="9.8,3.2,0,48.2">Truss</CheckBox>
-        <CheckBox Name="Beam" Grid.Row="1" Grid.Column="0" Margin="9.8,20.2,0,33.2">Beam</CheckBox>
-        <CheckBox Name="BeamHinged" Grid.Row="1" Grid.Column="0" Margin="9.8,37.2,-34,16.2">Beam hinged</CheckBox>
-        <CheckBox Name="Spring" Grid.Row="1" Grid.Column="0" Margin="10,53.2,6.2,2.2">Spring Support</CheckBox>
-
-        <Label Grid.Row="1" Margin="4.8,1.2,-39,39.2" Grid.Column="1">hinge at start: 1</Label>
-        <Label Grid.Row="1" Margin="4.8,13.2,-39,31.2" Grid.Column="1">hinge at end: 2</Label>
-        <TextBox Name="Hinge" Grid.Row="1" Grid.Column="1" Margin="9.8,38.2,0,17.2" Height="15"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" />
-
+        <Button Grid.Row="7" Grid.Column="0" Width="50"  Height="26" Margin="5,0,0,0" 
+                Click="BtnDelete_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" >delete</Button>
         <Button IsDefault="True" Grid.Row="7" Grid.Column="1" Width="34" Height="26"
-                Click="BtnDialogOk_Click" HorizontalAlignment="Center" VerticalAlignment="Center">
-            _Ok
-        </Button>
-        <Button Grid.Row="7" Height="26" Margin="77,0,-43,0"
-                Click="BtnDialogCancel_Click" VerticalAlignment="Center" Grid.Column="1">
+                Click="BtnDialogOk_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom">_Ok</Button>
+        <Button Grid.Row="7" Height="26" Margin="0,0,-43,0"
+                Click="BtnDialogCancel_Click" VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Right" Width="66">
             _Cancel
         </Button>
     </Grid>
