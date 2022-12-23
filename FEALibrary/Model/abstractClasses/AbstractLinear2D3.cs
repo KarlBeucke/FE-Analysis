@@ -36,7 +36,7 @@ namespace FEALibrary.Model.abstractClasses
             return Sx;
         }
 
-        protected static Point CenterOfGravity(AbstractElement element)
+        protected Point CenterOfGravity(AbstractElement element)
         {
             var cg = new Point();
             var nodes = element.Nodes;

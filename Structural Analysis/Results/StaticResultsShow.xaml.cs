@@ -35,13 +35,13 @@ namespace FE_Analysis.Structural_Analysis.Results
             var node = cell.Value;
             if (lastNode != null)
             {
-                MainWindow.staticResults.VisualResults.Children.Remove(lastNode);
+                MainWindow.staticResults.VisualStructuralResults.Children.Remove(lastNode);
             }
             lastNode = MainWindow.staticResults.presentation.NodeIndicate(node, Brushes.Green, 1);
         }
         private void NoNodeSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.staticResults.VisualResults.Children.Remove(lastNode);
+            MainWindow.staticResults.VisualStructuralResults.Children.Remove(lastNode);
         }
 
         private void ElementEndForces_Loaded(object sender, RoutedEventArgs e)
@@ -65,13 +65,13 @@ namespace FE_Analysis.Structural_Analysis.Results
             if (!model.Elements.TryGetValue(beamEndForces.ElementId, out var element)) return;
             if (lastElement != null)
             {
-                MainWindow.staticResults.VisualResults.Children.Remove(lastElement);
+                MainWindow.staticResults.VisualStructuralResults.Children.Remove(lastElement);
             }
             lastElement = MainWindow.staticResults.presentation.ElementDraw(element, Brushes.Green, 5);
         }
         private void NoElementSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.staticResults.VisualResults.Children.Remove(lastElement);
+            MainWindow.staticResults.VisualStructuralResults.Children.Remove(lastElement);
         }
 
         private void SupportReactions_Loaded(object sender, RoutedEventArgs e)

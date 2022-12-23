@@ -16,7 +16,7 @@ namespace FE_Analysis
     {
         private FeParser parse;
         private FeModel model;
-        private Analysis modelAnalysis;
+        public static Analysis modelAnalysis;
         private OpenFileDialog fileDialog;
         private string path;
         public static Structural_Analysis.ModelDataShow.StructuralModelVisualize structuralModel;
@@ -24,10 +24,9 @@ namespace FE_Analysis
         public static Heat_Transfer.ModelDataShow.HeatDataVisualize heatModel;
         public static Heat_Transfer.Results.StationaryResultsVisualize stationaryResults;
 
-
         private string[] lines;
-        private bool heatData, structuresData, timeintegrationData;
-        public static bool analysed, timeintegrationAnalysed;
+        public static bool heatData, structuresData, timeintegrationData;
+        public static bool analysed, eigenAnalysed, timeintegrationAnalysed;
 
         public MainWindow()
         {
@@ -102,6 +101,9 @@ namespace FE_Analysis
             sb.Append(FeParser.InputFound + "\nHeat Model input data successfully read");
             _ = MessageBox.Show(sb.ToString(), "Heat Transfer Analysis");
             sb.Clear();
+
+            heatModel = new Heat_Transfer.ModelDataShow.HeatDataVisualize(model);
+            heatModel.Show();
         }
         private void HeatDataEdit(object sender, RoutedEventArgs e)
         {
@@ -466,16 +468,17 @@ namespace FE_Analysis
         {
             if (model != null)
             {
+                modelAnalysis ??= new Analysis(model);
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
                     modelAnalysis.ComputeSystemMatrix();
                     analysed = true;
                 }
-
                 // default = 2 Eigenstates, if not specified otherwise
-                if (model.Eigenstate == null) model.Eigenstate = new Eigenstates("default", 2);
+                model.Eigenstate ??= new Eigenstates("default", 2);
+                if (model.Eigenstate.Eigenvalues != null) return;
                 modelAnalysis.Eigenstates();
+                eigenAnalysed = true;
                 _ = MessageBox.Show("Eigensolutions successfully analysed", "Heat Transfer Analysis");
             }
             else
@@ -487,16 +490,16 @@ namespace FE_Analysis
         {
             if (model != null)
             {
+                modelAnalysis ??= new Analysis(model);
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
                     modelAnalysis.ComputeSystemMatrix();
+                    analysed = true;
                 }
 
                 // default = 2 Eigenstates, if not specified otherwise
-                if (model.Eigenstate == null) model.Eigenstate = new Eigenstates("default", 2);
-                modelAnalysis.Eigenstates();
-
+                model.Eigenstate ??= new Eigenstates("default", 2);
+                if (model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
                 var eigen = new Heat_Transfer.Results.EigensolutionsShow(model);
                 eigen.Show();
             }
@@ -509,15 +512,16 @@ namespace FE_Analysis
         {
             if (model != null)
             {
+                modelAnalysis ??= new Analysis(model);
                 if (!timeintegrationAnalysed)
                 {
-                    modelAnalysis = new Analysis(model);
                     modelAnalysis.ComputeSystemMatrix();
                     // default = 2 Eigenstates, if not specified otherwise
-                    if (model.Eigenstate == null) model.Eigenstate = new Eigenstates("default", 2);
+                    model.Eigenstate ??= new Eigenstates("default", 2);
                 }
-
-                modelAnalysis.Eigenstates();
+                // default = 2 Eigenstates, if not specified otherwise
+                model.Eigenstate ??= new Eigenstates("default", 2);
+                if (model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
                 var visual = new Heat_Transfer.Results.EigensolutionVisualize(model);
                 visual.Show();
             }
@@ -686,12 +690,12 @@ namespace FE_Analysis
             {
                 "Model Name",
                 model.ModelId,
-                "\nSpatial Dimension"
+                "\nSpatial Dimension",
+                model.SpatialDimension + "\t" + model.NumberNodalDof,
+                // Nodes
+                "\nNodes"
             };
-            rows.Add(model.SpatialDimension + "\t" + model.NumberNodalDof);
 
-            // Nodes
-            rows.Add("\nNodes");
             switch (model.SpatialDimension)
             {
                 case 1:
@@ -896,15 +900,17 @@ namespace FE_Analysis
         {
             if (model != null)
             {
+                modelAnalysis ??= new Analysis(model);
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
                     modelAnalysis.ComputeSystemMatrix();
+                    analysed = true;
                 }
-
                 // default = 2 Eigenstates, if not specified otherwise
-                if (model.Eigenstate == null) model.Eigenstate = new Eigenstates("default", 2);
+                model.Eigenstate ??= new Eigenstates("default", 2);
+                if (model.Eigenstate.Eigenvalues != null) return;
                 modelAnalysis.Eigenstates();
+                eigenAnalysed = true;
                 _ = MessageBox.Show("Eigenfrequencies successfully analysed", "dynamic Structural Analysis");
             }
             else
@@ -916,15 +922,15 @@ namespace FE_Analysis
         {
             if (model != null)
             {
+                modelAnalysis ??= new Analysis(model);
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
                     modelAnalysis.ComputeSystemMatrix();
-                    // default = 2 Eigenstates, if not specified otherwise
-                    if (model.Eigenstate == null) model.Eigenstate = new Eigenstates("default", 2);
+                    analysed = true;
                 }
-
-                modelAnalysis.Eigenstates();
+                // default = 2 Eigenstates, if not specified otherwise
+                model.Eigenstate ??= new Eigenstates("default", 2);
+                if (model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
                 var eigen = new Structural_Analysis.Results.EigensolutionShow(model);
                 eigen.Show();
             }
@@ -937,15 +943,15 @@ namespace FE_Analysis
         {
             if (model != null)
             {
+                modelAnalysis ??= new Analysis(model);
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
                     modelAnalysis.ComputeSystemMatrix();
-                    // default = 2 Eigenstates, falls nicht anders spezifiziert
-                    if (model.Eigenstate == null) model.Eigenstate = new Eigenstates("default", 2);
+                    analysed = true;
                 }
-
-                modelAnalysis.Eigenstates();
+                // default = 2 Eigenstates, falls nicht anders spezifiziert
+                model.Eigenstate ??= new Eigenstates("default", 2);
+                if(model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
                 var visual = new Structural_Analysis.Results.EigensolutionVisualize(model);
                 visual.Show();
             }

@@ -36,13 +36,13 @@ namespace FE_Analysis.Heat_Transfer.Results
             var node = cell.Value;
             if (lastNode != null)
             {
-                MainWindow.stationaryResults.VisualResults.Children.Remove(lastNode);
+                MainWindow.stationaryResults.VisualHeatResults.Children.Remove(lastNode);
             }
             lastNode = MainWindow.stationaryResults.presentation.NodeIndicate(node, Brushes.Green, 1);
         }
         private void NoNodeSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.stationaryResults.VisualResults.Children.Remove(lastNode);
+            MainWindow.stationaryResults.VisualHeatResults.Children.Remove(lastNode);
             lastElement = null;
         }
 
@@ -76,14 +76,14 @@ namespace FE_Analysis.Heat_Transfer.Results
             var element = cell.Value;
             if (lastElement != null)
             {
-                MainWindow.stationaryResults.VisualResults.Children.Remove(lastElement);
+                MainWindow.stationaryResults.VisualHeatResults.Children.Remove(lastElement);
             }
             lastElement = MainWindow.stationaryResults.presentation.ElementFillDraw((Abstract2D)element,
                 Brushes.Black, Colors.Green, .2, 2);
         }
         private void NoElementSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.stationaryResults.VisualResults.Children.Remove(lastElement);
+            MainWindow.stationaryResults.VisualHeatResults.Children.Remove(lastElement);
             lastNode = null;
         }
 

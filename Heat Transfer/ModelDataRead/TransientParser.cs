@@ -63,11 +63,12 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                 if (lines[i] != "Initial Temperatures") continue;
                 FeParser.InputFound += "\nInitial Temperatures";
 
-                var teilStrings = lines[i + 1].Split(delimiters);
-                if (teilStrings[0] == "stationary solution")
-                    feModel.Timeintegration.FromStationary = true;
-                else if (teilStrings.Length == 2)
-                    do
+                do
+                {
+                    var teilStrings = lines[i + 1].Split(delimiters);
+                    if (teilStrings[0] == "stationary solution")
+                        feModel.Timeintegration.FromStationary = true;
+                    else if (teilStrings.Length == 2)
                     {
                         // nodeId incl. all
                         var nodeId = teilStrings[0];
@@ -75,11 +76,9 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                         var initial = new double[1];
                         initial[0] = t0;
                         feModel.Timeintegration.InitialConditions.Add(new NodalValues(nodeId, initial));
-                        i++;
-                        teilStrings = lines[i + 1].Split(delimiters);
-                    } while (lines[i + 1].Length != 0);
-                else
-                    break;
+                    }
+                    i++;
+                } while (lines[i + 1].Length != 0);
             }
 
             // find time dependent boundary temperatures, induced temperature at boundary
@@ -270,21 +269,10 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
         [Serializable]
         private class ParseException : Exception
         {
-            public ParseException()
-            {
-            }
-
-            public ParseException(string message) : base(message)
-            {
-            }
-
-            public ParseException(string message, Exception innerException) : base(message, innerException)
-            {
-            }
-
-            protected ParseException(SerializationInfo info, StreamingContext context) : base(info, context)
-            {
-            }
+            public ParseException() { }
+            public ParseException(string message) : base(message) { }
+            public ParseException(string message, Exception innerException) : base(message, innerException) { }
+            protected ParseException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         }
     }
 }

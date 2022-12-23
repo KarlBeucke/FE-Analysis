@@ -30,7 +30,7 @@ namespace FE_Analysis.Heat_Transfer.Results
 
         private void ModelGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            presentation = new Presentation(model, VisualResults);
+            presentation = new Presentation(model, VisualHeatResults);
             presentation.EvaluateResolution();
             presentation.AllElementsDraw();
             presentation.NodalTemperaturesDraw();
@@ -48,7 +48,7 @@ namespace FE_Analysis.Heat_Transfer.Results
             else
             {
                 // remove ALL texts of temperatures at boundary
-                foreach (var knotenTemp in presentation.NodalTemperatures) VisualResults.Children.Remove(knotenTemp);
+                foreach (var knotenTemp in presentation.NodalTemperatures) VisualHeatResults.Children.Remove(knotenTemp);
                 nodalTemperaturesOn = false;
             }
         }
@@ -57,20 +57,20 @@ namespace FE_Analysis.Heat_Transfer.Results
         {
             if (!heatFlowOn)
             {
-                // zeichne ALLE resultierenden Wärmeflussvektoren in Elementschwerpunkten
+                // draw ALL resulting heat flow vectors in element center
                 presentation.HeatFlowVectorsDraw();
 
-                // zeichne den Wert einer jeden Randbedingung als Text an Randknoten
-                presentation.BoundaryConditionDraw();
+                // draw value of boundary condition as text with boundary node
+                presentation.BoundaryConditionsDraw();
                 heatFlowOn = true;
             }
             else
             {
-                // entferne ALLE resultierenden Wärmeflussvektoren in Elementschwerpunkten
-                foreach (Shape path in presentation.HeatVectors) VisualResults.Children.Remove(path);
+                // remove ALL resulting heat flow vectors in element center
+                foreach (Shape path in presentation.HeatVectors) VisualHeatResults.Children.Remove(path);
 
-                // entferne ALLE Textdarstellungen der Randbedingungen
-                foreach (var rand in presentation.BoundaryNode) VisualResults.Children.Remove((TextBlock)rand);
+                // remove ALL text representations of boundary conditions
+                foreach (var boundary in presentation.BoundaryNode) VisualHeatResults.Children.Remove((TextBlock)boundary);
                 heatFlowOn = false;
             }
         }
@@ -84,7 +84,7 @@ namespace FE_Analysis.Heat_Transfer.Results
             }
             else
             {
-                foreach (var path in presentation.TemperatureElements) VisualResults.Children.Remove(path);
+                foreach (var path in presentation.TemperatureElements) VisualHeatResults.Children.Remove(path);
                 elementTemperaturesOn = false;
             }
         }
@@ -93,9 +93,9 @@ namespace FE_Analysis.Heat_Transfer.Results
         {
             hitList.Clear();
             hitTextBlock.Clear();
-            var hitPoint = e.GetPosition(VisualResults);
+            var hitPoint = e.GetPosition(VisualHeatResults);
             hitArea = new EllipseGeometry(hitPoint, 1, 1);
-            VisualTreeHelper.HitTest(VisualResults, null, HitTestCallBack,
+            VisualTreeHelper.HitTest(VisualHeatResults, null, HitTestCallBack,
                 new GeometryHitTestParameters(hitArea));
 
             MyPopup.IsOpen = true;
@@ -140,7 +140,7 @@ namespace FE_Analysis.Heat_Transfer.Results
             {
                 if (!model.Nodes.TryGetValue(item.Name, out var knoten)) continue;
                 sb.Append("Node\t\t = " + knoten.Id);
-                sb.Append("\nTemperatur\t= " + knoten.NodalDof[0].ToString("F2"));
+                sb.Append("\nTemperature\t= " + knoten.NodalDof[0].ToString("F2"));
                 if (knoten.Reactions != null)
                     sb.Append("\nHeat Flow\t= " + knoten.Reactions[0].ToString("F2"));
                 MyPopupText.Text = sb.ToString();

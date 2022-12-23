@@ -1,0 +1,24 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.ModelDataRead.ElementKeys"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Element IDs already in use" Height="200" Width="240">
+    <Grid>
+        <ListView Margin="10" Name="ElementKey">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="30" 
+                                    DisplayMemberBinding="{Binding ElementId}" />
+                    <GridViewColumn Header="start" Width="30" 
+                                    DisplayMemberBinding="{Binding KnotenIds[0]}" />
+                    <GridViewColumn Header="end" Width="30" 
+                                    DisplayMemberBinding="{Binding KnotenIds[1]}" />
+                    <GridViewColumn Header="material" Width="50" 
+                                    DisplayMemberBinding="{Binding ElementMaterialId}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

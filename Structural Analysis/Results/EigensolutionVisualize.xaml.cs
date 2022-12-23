@@ -17,16 +17,13 @@ namespace FE_Analysis.Structural_Analysis.Results
 {
     public partial class EigensolutionVisualize
     {
-        private const int BorderTop = 60;
-        private const int BorderLeft = 60;
         private readonly double resolution;
         private readonly double maxY;
         private readonly FeModel model;
-        public Presentation presentation;
+        private readonly Presentation presentation;
         private double eigenformScaling;
         private int index;
         private Node node;
-        public double screenH, screenV;
         private bool deformationsOn;
 
         public EigensolutionVisualize(FeModel feModel)
@@ -80,7 +77,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             Toggle_Eigenform();
         }
 
-        public void Toggle_Eigenform()
+        private void Toggle_Eigenform()
         {
             if (!deformationsOn)
             {
@@ -92,8 +89,8 @@ namespace FE_Analysis.Structural_Analysis.Results
                     StrokeThickness = 2,
                     Data = pathGeometry
                 };
-                SetLeft(path, BorderLeft);
-                SetTop(path, BorderTop);
+                SetLeft(path, presentation.placementH);
+                SetTop(path, presentation.placementV);
                 // draw Shape
                 VisualResults.Children.Add(path);
                 Deformations.Add(path);
@@ -106,8 +103,8 @@ namespace FE_Analysis.Structural_Analysis.Results
                     Text = "Eigenfrequency Nr. " + (index + 1) + " = " + value.ToString("N2"),
                     Foreground = Blue
                 };
-                SetTop(eigenfrequenz, -BorderTop + SteuerLeiste.Height);
-                SetLeft(eigenfrequenz, BorderLeft);
+                SetTop(eigenfrequenz, -presentation.placementV + SteuerLeiste.Height);
+                SetLeft(eigenfrequenz, presentation.placementH);
                 VisualResults.Children.Add(eigenfrequenz);
                 Eigenfrequencies.Add(eigenfrequenz);
             }
@@ -119,7 +116,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
         }
 
-        public PathGeometry EigenformDraw(double[] zustand)
+        private PathGeometry EigenformDraw(double[] zustand)
         {
             var pathGeometry = new PathGeometry();
 
@@ -161,9 +158,7 @@ namespace FE_Analysis.Structural_Analysis.Results
                         }
                     case Beam _:
                         {
-                            if (model.Nodes.TryGetValue(element.NodeIds[0], out node))
-                            {
-                            }
+                            if (model.Nodes.TryGetValue(element.NodeIds[0], out node)) { }
 
                             start = TransformNode(node, zustand, resolution, maxY);
                             pathFigure.StartPoint = start;
@@ -244,7 +239,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             return pathGeometry;
         }
 
-        public Point TransformNode(Node modellKnoten, double[] state, double res, double max)
+        private Point TransformNode(Node modellKnoten, double[] state, double res, double max)
         {
             var screenNode = new int[2];
             screenNode[0] = (int)(modellKnoten.Coordinates[0] * res +
@@ -255,7 +250,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             return punkt;
         }
 
-        public static Vector RotateVectorScreen(Vector vec, double ang) // clockwise in degree
+        private static Vector RotateVectorScreen(Vector vec, double ang) // clockwise in degree
         {
             var vector = vec;
             var angle = ang * Math.PI / 180;

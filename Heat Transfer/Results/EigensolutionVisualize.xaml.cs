@@ -12,13 +12,12 @@ namespace FE_Analysis.Heat_Transfer.Results
 {
     public partial class EigensolutionVisualize
     {
-        private const int BorderLeft = 40;
+        private const int BorderLeft = 60;
         private readonly FeModel model;
         private double resolution, maxY;
         private Presentation presentation;
         private int index;
         private bool nodalTemperaturesOn;
-        public double screenH, screenV;
 
         public EigensolutionVisualize(FeModel model)
         {

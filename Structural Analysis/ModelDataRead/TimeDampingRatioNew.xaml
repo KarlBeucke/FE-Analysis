@@ -19,13 +19,19 @@
             Input for the definition of new Modal Damping Ratio
         </Label>
 
-        <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">Modal Damping Ratio:</Label>
-
-        <Label Grid.Row="1" Grid.Column="1" Margin="0.8,10,76,0">xi</Label>
+        <RichTextBox Grid.Row="1" Grid.Column="0" Margin="0,14,0,8" 
+                     BorderThickness="0,0,0,0" HorizontalAlignment="Center" Width="136">
+            <FlowDocument>
+                <Paragraph FontSize="12">modal damping ratio &#958;
+                    <Run BaselineAlignment="Subscript" FontSize="6">i</Run>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
         <TextBox Name="Xi" Grid.Row="1" Grid.Column="1" Margin="28.8,13.6,0,7.2" Height="20"
                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="39" />
 
-
+        <Button Grid.Row="2" Grid.Column="0" Width="50"  Height="26" Margin="5,5,0,0" 
+                Click="BtnDelete_Click" HorizontalAlignment="Left" VerticalAlignment="Top" >delete</Button>
         <Button IsDefault="True" Grid.Row="2" Grid.Column="1" Height="26" Margin="82,0,-20,0"
                 Click="BtnDialogOk_Click" VerticalAlignment="Center">
             _Ok

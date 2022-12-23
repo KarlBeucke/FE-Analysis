@@ -1,9 +1,10 @@
 ﻿using FEALibrary.Model;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 
-namespace FE_Analysis.Structural_Analysis.ModelDataRead;
+namespace FE_Analysis.Heat_Transfer.ModelDataRead;
 
 public partial class NodeNew
 {
@@ -17,23 +18,12 @@ public partial class NodeNew
     {
         InitializeComponent();
         model = feModel;
-        // activate event handler for Canvas
-        MainWindow.structuralModel.VisualStructuralModel.Background = System.Windows.Media.Brushes.Transparent;
+        // activate evnet handler for Canvas
+        MainWindow.heatModel.VisualHeatModel.Background = System.Windows.Media.Brushes.Transparent;
         Show();
     }
-
-    private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
-    {
-        // remove pilot node and deactivate event handler for Canvas
-        MainWindow.structuralModel.VisualStructuralModel.Children.Remove(MainWindow.structuralModel.Node);
-        MainWindow.structuralModel.VisualStructuralModel.Background = null;
-        MainWindow.structuralModel.isNode = false;
-        Close();
-    }
-
     private void BtnDialogOk_Click(object sender, RoutedEventArgs e)
     {
-
         var nodeId = NodeId.Text;
 
         if (nodeId == "")
@@ -46,7 +36,6 @@ public partial class NodeNew
         {
             model.Nodes.TryGetValue(nodeId, out var existingNode);
             Debug.Assert(existingNode != null, nameof(existingNode) + " != null");
-            if (NumberDof.Text.Length > 0) existingNode.NumberOfNodalDof = int.Parse(NumberDof.Text);
             if (X.Text.Length > 0) existingNode.Coordinates[0] = double.Parse(X.Text);
             if (Y.Text.Length > 0) existingNode.Coordinates[1] = double.Parse(Y.Text);
         }
@@ -54,29 +43,45 @@ public partial class NodeNew
         {
             var dimension = model.SpatialDimension;
             var coordinates = new double[dimension];
-            int numberNodalDof = 3;
-            if (NumberDof.Text.Length > 0) numberNodalDof = int.Parse(NumberDof.Text);
+            int anzahlKnotenDof = 1;
             if (X.Text.Length > 0) coordinates[0] = double.Parse(X.Text);
             if (Y.Text.Length > 0) coordinates[1] = double.Parse(Y.Text);
-            var newNode = new Node(NodeId.Text, coordinates, numberNodalDof, dimension);
+            var newNode = new Node(NodeId.Text, coordinates, anzahlKnotenDof, dimension);
             model.Nodes.Add(nodeId, newNode);
         }
 
+        // remove pilot Node and deactivate event handler for Canvas
+        MainWindow.heatModel.VisualHeatModel.Children.Remove(MainWindow.heatModel.Node);
+        MainWindow.heatModel.VisualHeatModel.Background = null;
+        MainWindow.heatModel.isNode = false;
+        MainWindow.heatModel.Close();
+        Close();
+    }
+
+    private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
+    {
         // remove pilot node and deactivate event handler for Canvas
-        MainWindow.structuralModel.VisualStructuralModel.Children.Remove(MainWindow.structuralModel.Node);
-        MainWindow.structuralModel.VisualStructuralModel.Background = null;
-        MainWindow.structuralModel.isNode = false;
-        MainWindow.structuralModel.Close();
+        MainWindow.heatModel.VisualHeatModel.Children.Remove(MainWindow.heatModel.Node);
+        MainWindow.heatModel.VisualHeatModel.Background = null;
+        MainWindow.heatModel.isNode = false;
         Close();
     }
 
     private void NodeIdLostFocus(object sender, RoutedEventArgs e)
     {
+        // remove pilot Node and deactivate event handler for Canvas
         if (!model.Nodes.ContainsKey(NodeId.Text)) return;
         model.Nodes.TryGetValue(NodeId.Text, out var existingNode);
         Debug.Assert(existingNode != null, nameof(existingNode) + " != null");
-        NumberDof.Text = existingNode.NumberOfNodalDof.ToString();
         X.Text = existingNode.Coordinates[0].ToString("N2", CultureInfo.CurrentCulture);
         Y.Text = existingNode.Coordinates[1].ToString("N2", CultureInfo.CurrentCulture);
+    }
+
+    private void BtnDelete_Click(object sender, RoutedEventArgs e)
+    {
+        if (!model.Nodes.Keys.Contains(NodeId.Text)) return;
+        model.Nodes.Remove(NodeId.Text);
+        Close();
+        MainWindow.heatModel.Close();
     }
 }

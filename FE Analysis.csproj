@@ -26,7 +26,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -143,7 +143,25 @@
     <Compile Include="Elasticity\ModelData\Material.cs" />
     <Compile Include="Elasticity\ModelData\NodeLoad.cs" />
     <Compile Include="Elasticity\ModelData\Support.cs" />
+    <Compile Include="Heat Transfer\ModelDataRead\BoundaryCondionsKeys.xaml.cs">
+      <DependentUpon>BoundaryCondionsKeys.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Heat Transfer\ModelDataRead\BoundaryConditionParser.cs" />
+    <Compile Include="Heat Transfer\ModelDataRead\ElementKeys.xaml.cs">
+      <DependentUpon>ElementKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Heat Transfer\ModelDataRead\HeatloadKeys.xaml.cs">
+      <DependentUpon>HeatloadKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Heat Transfer\ModelDataRead\NodeNew.xaml.cs">
+      <DependentUpon>NodeNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Heat Transfer\ModelDataRead\TimeIntegrationNew.xaml.cs">
+      <DependentUpon>TimeIntegrationNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Heat Transfer\ModelDataShow\DialogueDeleteHeatObjects.xaml.cs">
+      <DependentUpon>DialogueDeleteHeatObjects.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\CrossSectionKeys.xaml.cs">
       <DependentUpon>CrossSectionKeys.xaml</DependentUpon>
     </Compile>
@@ -164,6 +182,9 @@
     </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\SupportKeys.xaml.cs">
       <DependentUpon>SupportKeys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\TimeIntegrationNew.xaml.cs">
+      <DependentUpon>TimeIntegrationNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structural Analysis\ModelDataShow\DialogDeleteStructuralObjects.xaml.cs">
       <DependentUpon>DialogDeleteStructuralObjects.xaml</DependentUpon>
@@ -291,40 +312,37 @@
     <Compile Include="Heat Transfer\ModelDataRead\ElementParser.cs" />
     <Compile Include="Heat Transfer\ModelDataRead\LoadParser.cs" />
     <Compile Include="Heat Transfer\ModelDataRead\MaterialParser.cs" />
-    <Compile Include="Heat Transfer\ModelDataRead\NewElementLoad.xaml.cs">
-      <DependentUpon>NewElementLoad.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\ElementLoadNew.xaml.cs">
+      <DependentUpon>ElementLoadNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\NewNodeLoad.xaml.cs">
-      <DependentUpon>NewNodeLoad.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\NodeLoadNew.xaml.cs">
+      <DependentUpon>NodeLoadNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\NewLineLoad.xaml.cs">
-      <DependentUpon>NewLineLoad.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\LineLoadNew.xaml.cs">
+      <DependentUpon>LineLoadNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\NewBoundaryCondition.xaml.cs">
-      <DependentUpon>NewBoundaryCondition.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\BoundaryConditionNew.xaml.cs">
+      <DependentUpon>BoundaryConditionNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\NewNode.xaml.cs">
-      <DependentUpon>NewNode.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\MaterialNew.xaml.cs">
+      <DependentUpon>MaterialNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\NewMaterial.xaml.cs">
-      <DependentUpon>NewMaterial.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\NewElement.xaml.cs">
-      <DependentUpon>NewElement.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\ElementNew.xaml.cs">
+      <DependentUpon>ElementNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\BoundaryConditionParser.cs" />
     <Compile Include="Heat Transfer\ModelDataRead\TransientParser.cs" />
-    <Compile Include="Heat Transfer\ModelDataRead\TimeNewInitialTemperature.xaml.cs">
-      <DependentUpon>TimeNewInitialTemperature.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\TimeInitialTemperatureNew.xaml.cs">
+      <DependentUpon>TimeInitialTemperatureNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\TimeNewElementLoad.xaml.cs">
-      <DependentUpon>TimeNewElementLoad.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\TimeElementLoadNew.xaml.cs">
+      <DependentUpon>TimeElementLoadNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\TimeNewNodeLoad.xaml.cs">
-      <DependentUpon>TimeNewNodeLoad.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\TimeNodeLoadNew.xaml.cs">
+      <DependentUpon>TimeNodeLoadNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Heat Transfer\ModelDataRead\TimeNewBoundaryCondition.xaml.cs">
-      <DependentUpon>TimeNewBoundaryCondition.xaml</DependentUpon>
+    <Compile Include="Heat Transfer\ModelDataRead\TimeBoundaryConditionNew.xaml.cs">
+      <DependentUpon>TimeBoundaryConditionNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Heat Transfer\Model Data\Element2D2.cs" />
     <Compile Include="Heat Transfer\Model Data\Element2D3.cs" />
@@ -396,6 +414,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Heat Transfer\ModelDataRead\BoundaryCondionsKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Heat Transfer\ModelDataRead\ElementKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Heat Transfer\ModelDataRead\HeatloadKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Heat Transfer\ModelDataRead\NodeNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Heat Transfer\ModelDataRead\TimeIntegrationNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Heat Transfer\ModelDataShow\DialogueDeleteHeatObjects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Main Window.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -433,6 +475,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Structural Analysis\ModelDataRead\SupportKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataRead\TimeIntegrationNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -572,47 +618,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\NewElementLoad.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\ElementLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\NewNodeLoad.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\NodeLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\NewLineLoad.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\LineLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\NewBoundaryCondition.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\BoundaryConditionNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\NewNode.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\MaterialNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\NewMaterial.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\ElementNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\NewElement.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\TimeInitialTemperatureNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\TimeNewInitialTemperature.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\TimeElementLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\TimeNewElementLoad.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\TimeNodeLoadNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Heat Transfer\ModelDataRead\TimeNewNodeLoad.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Heat Transfer\ModelDataRead\TimeNewBoundaryCondition.xaml">
+    <Page Include="Heat Transfer\ModelDataRead\TimeBoundaryConditionNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

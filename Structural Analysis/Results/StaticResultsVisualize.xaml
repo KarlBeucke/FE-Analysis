@@ -69,7 +69,7 @@
                 <TextBox Name="MaximumForces" Grid.Column="0" Grid.ColumnSpan="8"
                          Margin="0,65,19,-41" BorderThickness="0"/>
             </Grid>
-            <Canvas x:Name="VisualResults" Height="660" Width="1200" ScrollViewer.CanContentScroll="True"
+            <Canvas x:Name="VisualStructuralResults" Height="660" Width="1200" ScrollViewer.CanContentScroll="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                     MouseLeftButtonDown="OnMouseLeftButtonDown"
                     MouseRightButtonDown="OnMouseRightButtonDown">

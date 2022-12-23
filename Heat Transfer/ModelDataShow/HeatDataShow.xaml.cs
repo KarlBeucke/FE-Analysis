@@ -35,7 +35,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         }
         private void NewNode(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewNode(model);
+            _ = new NodeNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -59,13 +59,13 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             removeKey = node.Id;
             if (lastNode != null)
             {
-                MainWindow.heatModel.VisualModel.Children.Remove(lastNode);
+                MainWindow.heatModel.VisualHeatModel.Children.Remove(lastNode);
             }
             lastNode = MainWindow.heatModel.presentation.NodeIndicate(node, Brushes.Green, 1);
         }
         private void NoNodeSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.heatModel.VisualModel.Children.Remove(lastNode);
+            MainWindow.heatModel.VisualHeatModel.Children.Remove(lastNode);
         }
 
         private void Elements_Loaded(object sender, RoutedEventArgs e)
@@ -78,7 +78,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         }
         private void NewElement(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewElement(model);
+            _ = new ElementNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -102,14 +102,14 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             removeKey = element.ElementId;
             if (lastElement != null)
             {
-                MainWindow.heatModel.VisualModel.Children.Remove(lastElement);
+                MainWindow.heatModel.VisualHeatModel.Children.Remove(lastElement);
             }
             lastElement = MainWindow.heatModel.presentation.ElementFillDraw((Abstract2D)element,
                 Brushes.Black, Colors.Green, .2, 2);
         }
         private void NoElementSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.heatModel.VisualModel.Children.Remove(lastElement);
+            MainWindow.heatModel.VisualHeatModel.Children.Remove(lastElement);
         }
 
         private void Material_Loaded(object sender, RoutedEventArgs e)
@@ -122,7 +122,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         }
         private void NewMaterial(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewMaterial(model);
+            _ = new MaterialNew(model);
             Close();
         }
         //UnloadingRow
@@ -153,7 +153,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         }
         private void NewBoundaryCondition(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewBoundaryCondition(model);
+            _ = new BoundaryConditionNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -185,7 +185,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         }
         private void NewNodeLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewNodeLoad(model);
+            _ = new NodeLoadNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -217,7 +217,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         }
         private void NewLineLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewLineLoad(model);
+            _ = new LineLoadNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -249,7 +249,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         }
         private void NewElementLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new NewElementLoad(model);
+            _ = new ElementLoadNew(model);
             MainWindow.analysed = false;
             Close();
         }

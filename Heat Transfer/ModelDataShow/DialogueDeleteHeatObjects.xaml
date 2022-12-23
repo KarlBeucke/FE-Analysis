@@ -1,0 +1,17 @@
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.ModelDataShow.DialogueDeleteHeatObjects"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Delete objects in Heat model" Height="100" Width="220">
+    <Grid>
+        <TextBlock Margin="5,5,0,0"> 
+            Click object in heat model,<LineBreak/> that is to be deleted
+        </TextBlock>
+        <Button IsDefault="True" Name="BtnDialogOk" Width="25"  Margin="0,0,2,1" 
+                Click="BtnDialogOk_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="19">_Ok</Button>
+        <Button Name="BtnDialogCancel" Width="70" Margin="0,0,33,1" 
+                Click="BtnDialogCancel_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom">_Cancel</Button>
+    </Grid>
+</Window>

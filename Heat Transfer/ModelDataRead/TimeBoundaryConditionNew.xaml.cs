@@ -1,19 +1,22 @@
 ﻿using FE_Analysis.Heat_Transfer.Model_Data;
+using FE_Analysis.Structural_Analysis.ModelDataRead;
 using FEALibrary.Model;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead
 {
-    public partial class TimeNewNodeLoad
+    public partial class TimeBoundaryConditionNew
     {
         private readonly FeModel model;
+        private string timeDependentTemperatureId;
 
-        public TimeNewNodeLoad(FeModel model)
+        public TimeBoundaryConditionNew(FeModel model)
         {
             InitializeComponent();
             this.model = model;
-            LoadId.Text = string.Empty;
+            SupportId.Text = string.Empty;
             NodeId.Text = string.Empty;
             File.IsChecked = false;
             Constant.Text = string.Empty;
@@ -26,9 +29,9 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
 
         private void BtnDialogOk_Click(object sender, RoutedEventArgs e)
         {
-            var loadId = LoadId.Text;
+            timeDependentTemperatureId = SupportId.Text;
             var knotenId = NodeId.Text;
-            TimeDependentNodeLoad zeitabhängigeKnotentemperatur = null;
+            TimeDependentBoundaryCondition timeDependentBoundaryCondition = null;
 
             if (File.IsChecked == true)
             {
@@ -37,39 +40,42 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                 Frequency.Text = string.Empty;
                 Angle.Text = string.Empty;
                 Linear.Text = string.Empty;
-                zeitabhängigeKnotentemperatur =
-                    new TimeDependentNodeLoad(knotenId, true) { LoadId = loadId, VariationType = 0 };
+                timeDependentBoundaryCondition =
+                    new TimeDependentBoundaryCondition(knotenId, true)
+                    { SupportId = timeDependentTemperatureId, VariationType = 0, Prescribed = new double[1] };
             }
             else if (Constant.Text.Length != 0)
             {
+                File.IsChecked = false;
                 Amplitude.Text = string.Empty;
                 Frequency.Text = string.Empty;
                 Angle.Text = string.Empty;
                 Linear.Text = string.Empty;
-                File.IsChecked = false;
                 var konstanteTemperatur = double.Parse(Constant.Text);
-                zeitabhängigeKnotentemperatur =
-                    new TimeDependentNodeLoad(knotenId, konstanteTemperatur) { LoadId = loadId, VariationType = 1 };
+                timeDependentBoundaryCondition =
+                    new TimeDependentBoundaryCondition(knotenId, konstanteTemperatur)
+                    { SupportId = timeDependentTemperatureId, VariationType = 1, Prescribed = new double[1] };
             }
             else if ((Amplitude.Text.Length & Frequency.Text.Length & Angle.Text.Length) != 0)
             {
+                File.IsChecked = false;
                 Constant.Text = string.Empty;
                 Linear.Text = string.Empty;
-                File.IsChecked = false;
                 var amplitude = double.Parse(Amplitude.Text);
                 var frequency = 2 * Math.PI * double.Parse(Frequency.Text);
                 var phaseAngle = Math.PI / 180 * double.Parse(Angle.Text);
-                zeitabhängigeKnotentemperatur =
-                    new TimeDependentNodeLoad(knotenId, amplitude, frequency, phaseAngle)
-                    { LoadId = loadId, VariationType = 2 };
+                timeDependentBoundaryCondition =
+                    new TimeDependentBoundaryCondition(knotenId, amplitude, frequency, phaseAngle)
+                    { SupportId = timeDependentTemperatureId, VariationType = 2, Prescribed = new double[1] };
             }
             else if (Linear.Text.Length != 0)
             {
+                File.IsChecked = false;
                 Constant.Text = string.Empty;
                 Amplitude.Text = string.Empty;
                 Frequency.Text = string.Empty;
                 Angle.Text = string.Empty;
-                File.IsChecked = false;
+
                 var delimiters = new[] { '\t' };
                 var teilStrings = Linear.Text.Split(delimiters);
                 var k = 0;
@@ -83,19 +89,26 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                     k += 2;
                 }
 
-                zeitabhängigeKnotentemperatur = new TimeDependentNodeLoad(knotenId, interval)
-                { LoadId = loadId, VariationType = 3 };
+                timeDependentBoundaryCondition = new TimeDependentBoundaryCondition(knotenId, interval)
+                { SupportId = timeDependentTemperatureId, VariationType = 3, Prescribed = new double[1] };
             }
 
-            if (zeitabhängigeKnotentemperatur != null)
-                model.TimeDependentNodeLoads.Add(loadId, zeitabhängigeKnotentemperatur);
-
+            if (timeDependentBoundaryCondition != null)
+                model.TimeDependentBoundaryConditions.Add(timeDependentTemperatureId, timeDependentBoundaryCondition);
             Close();
         }
 
         private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (!model.TimeDependentBoundaryConditions.Keys.Contains(timeDependentTemperatureId)) return;
+            model.Elements.Remove(timeDependentTemperatureId);
+            Close();
+            MainWindow.heatModel.Close();
         }
     }
 }

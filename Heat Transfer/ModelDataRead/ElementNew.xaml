@@ -1,10 +1,10 @@
-﻿<Window x:Class="FE_Analysis.Heat_Transfer.ModelDataRead.NewElement"
+﻿<Window x:Class="FE_Analysis.Heat_Transfer.ModelDataRead.ElementNew"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Neues Element definieren" Height="322.64" Width="300">
+        Title="Neues Element definieren" Height="330" Width="310">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" />
@@ -25,51 +25,51 @@
         <Label Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,-44,0">
             Data input for the definition of a new element
         </Label>
-        <CheckBox Name="Element2D2" Grid.Row="1" Grid.Column="0" Margin="10,3.2,0,0">Element2D2</CheckBox>
-        <CheckBox Name="Element2D3" Grid.Row="1" Grid.Column="1" Margin="10,3.2,0,0">Element2D3</CheckBox>
-        <CheckBox Name="Element2D4" Grid.Row="1" Grid.Column="0" Margin="10,25.6,0,0">Element2D4</CheckBox>
-        <CheckBox Name="Element3D8" Grid.Row="1" Grid.Column="1" Margin="10,25.6,0,0">Element3D8</CheckBox>
+        <CheckBox Name="Element2D2Check" Grid.Row="1" Grid.Column="0" Margin="10,3.2,0,0">Element2D2</CheckBox>
+        <CheckBox Name="Element2D3Check" Grid.Row="1" Grid.Column="1" Margin="10,3.2,0,0">Element2D3</CheckBox>
+        <CheckBox Name="Element2D4Check" Grid.Row="1" Grid.Column="0" Margin="10,25.6,0,0">Element2D4</CheckBox>
+        <CheckBox Name="Element3D8Check" Grid.Row="1" Grid.Column="1" Margin="10,25.6,0,0">Element3D8</CheckBox>
 
 
         <Label Grid.Row="2" Grid.Column="0" Margin="0,5,0,0">Element ID:</Label>
-        <TextBox Name="ElementId" Grid.Row="2" Grid.Column="0" Margin="110,7.6,0,0" Height="15"
-                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
+        <TextBox Name="ElementId" Grid.Row="2" Grid.Column="0" Margin="110,0,0,0" Height="15"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Grid.ColumnSpan="2" LostFocus="ElementIdLostFocus" />
 
         <Label Grid.Row="3" Grid.Column="0" Margin="0,5,0,0">Node 1 ID:</Label>
         <TextBox Name="Node1Id" Grid.Row="3" Grid.Column="0" Margin="110,7.6,0,0" Height="15"
                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
         <Label Grid.Row="3" Grid.Column="1" Margin="0,5,0,0">Node 2 ID:</Label>
-        <TextBox Name="Node2Id" Grid.Row="3" Grid.Column="1" Margin="108.8,7.6,-33,0" Height="15"
-                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
+        <TextBox Name="Node2Id" Grid.Row="3" Grid.Column="1" Margin="109,0,-34,0" Height="15"
+                 VerticalAlignment="Center" />
         <Label Grid.Row="4" Grid.Column="0" Margin="0,5,0,0">Node 3 ID:</Label>
         <TextBox Name="Node3Id" Grid.Row="4" Grid.Column="0" Margin="110,7.6,0,0" Height="15"
                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
         <Label Grid.Row="4" Grid.Column="1" Margin="0,5,0,0">Node 4 ID:</Label>
-        <TextBox Name="Node4Id" Grid.Row="4" Grid.Column="1" Margin="108.8,7.2,-33,0" Height="15"
-                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
+        <TextBox Name="Node4Id" Grid.Row="4" Grid.Column="1" Margin="109,0,-34,0" Height="15"
+                 VerticalAlignment="Center" />
         <Label Grid.Row="5" Grid.Column="0" Margin="0,5,0,0">Node 5 ID:</Label>
         <TextBox Name="Node5Id" Grid.Row="5" Grid.Column="0" Margin="110,7.6,0,0" Height="15"
                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
         <Label Grid.Row="5" Grid.Column="1" Margin="0,5,0,0">Node 6 ID:</Label>
-        <TextBox Name="Node6Id" Grid.Row="5" Grid.Column="1" Margin="108.8,7.8,-33,0" Height="15"
-                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
+        <TextBox Name="Node6Id" Grid.Row="5" Grid.Column="1" Margin="109,0,-34,0" Height="15"
+                 VerticalAlignment="Center" />
         <Label Grid.Row="6" Grid.Column="0" Margin="0,5,0,0">Node 7 ID:</Label>
         <TextBox Name="Node7Id" Grid.Row="6" Grid.Column="0" Margin="110,7.6,0,0" Height="15"
                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
         <Label Grid.Row="6" Grid.Column="1" Margin="0,5,0,0">Node 8 ID:</Label>
-        <TextBox Name="Node8Id" Grid.Row="6" Grid.Column="1" Margin="108.8,7.4,-33,0" Height="15"
-                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
+        <TextBox Name="Node8Id" Grid.Row="6" Grid.Column="1" Margin="109,0,-34,0" Height="15"
+                 VerticalAlignment="Center" />
 
         <Label Grid.Row="7" Grid.Column="0" Margin="0,5,0,0">Material ID:</Label>
         <TextBox Name="MaterialId" Grid.Row="7" Grid.Column="0" Margin="110,7.6,0,0" Height="15"
                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" />
 
+        <Button Grid.Row="8" Grid.Column="0" Width="50"  Height="26" Margin="5,0,0,0" 
+                Click="BtnDelete_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" >delete</Button>
         <Button IsDefault="True" Grid.Row="8" Grid.Column="1" Width="35" Height="26" Margin="22.8,0,0,2.6"
-                Click="BtnDialogOk_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            _Ok
-        </Button>
-        <Button Grid.Row="8" Width="71" Height="26" Margin="64.8,0,-35,2.6"
-                Click="BtnDialogCancel_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1"
+                Click="BtnDialogOk_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom">_Ok</Button>
+        <Button Grid.Row="8" Height="26" Margin="65,0,-36,0"
+                Click="BtnDialogCancel_Click" VerticalAlignment="Center" Grid.Column="1"
                 Content="_Cancel" />
     </Grid>
 </Window>

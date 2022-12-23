@@ -62,14 +62,14 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             removeKey = node.Id;
             if (lastNode != null)
             {
-                MainWindow.structuralModel.VisualModel.Children.Remove(lastNode);
+                MainWindow.structuralModel.VisualStructuralModel.Children.Remove(lastNode);
             }
             lastNode = MainWindow.structuralModel.presentation.NodeIndicate(node, Brushes.Green, 1);
         }
         //LostFocus
         private void NoNodeSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.structuralModel.VisualModel.Children.Remove(lastNode);
+            MainWindow.structuralModel.VisualStructuralModel.Children.Remove(lastNode);
         }
 
         private void ElementsGrid_Loaded(object sender, RoutedEventArgs e)
@@ -104,13 +104,13 @@ namespace FE_Analysis.Structural_Analysis.ModelDataShow
             removeKey = element.ElementId;
             if (lastElement != null)
             {
-                MainWindow.structuralModel.VisualModel.Children.Remove(lastElement);
+                MainWindow.structuralModel.VisualStructuralModel.Children.Remove(lastElement);
             }
             lastElement = MainWindow.structuralModel.presentation.ElementDraw(element, Brushes.Green, 5);
         }
         private void NoElementSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.structuralModel.VisualModel.Children.Remove(lastElement);
+            MainWindow.structuralModel.VisualStructuralModel.Children.Remove(lastElement);
         }
 
         private void Material_Loaded(object sender, RoutedEventArgs e)

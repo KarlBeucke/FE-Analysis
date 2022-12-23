@@ -24,40 +24,34 @@
         </Label>
 
         <Label Grid.Row="1" Grid.Column="0" Margin="0,5,0,0">Node Id:</Label>
-        <TextBox Name="NodeId" Grid.Row="1" Grid.Column="1" Margin="10,13.2,0,6.8" Height="20"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" />
+        <TextBox Name="NodeId" Grid.Row="1" Grid.Column="1" Margin="10,13,40,7" />
 
         <Label Grid.Row="2" Grid.Column="0" Margin="0,5,0,0">degree of freedom 1:</Label>
         <Label Grid.Row="2" Grid.Column="1" Margin="0.8,10,76,0">d0</Label>
-        <TextBox Name="D0" Grid.Row="2" Grid.Column="1" Margin="28.8,13.6,0,7.2" Height="20"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="39" />
+        <TextBox Name="Dof1D0" Grid.Row="2" Grid.Column="1" Margin="29,0,32,7" Height="20"
+                 VerticalAlignment="Bottom" />
         <Label Grid.Row="2" Grid.Column="2" Margin="0.8,10,76,0">v0</Label>
-        <TextBox Name="V0" Grid.Row="2" Grid.Column="2" Margin="28.8,13.6,0,7.2" Height="20"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" />
+        <TextBox Name="Dof1V0" Grid.Row="2" Grid.Column="2" Margin="29,13,21,7" />
 
         <Label Grid.Row="3" Grid.Column="0" Margin="0,5,0,0">degree of freedom 2:</Label>
         <Label Grid.Row="3" Grid.Column="1" Margin="0.8,10,76,0">d0</Label>
-        <TextBox Name="D1" Grid.Row="3" Grid.Column="1" Margin="28.8,13.6,0,7.2" Height="20"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="39" />
+        <TextBox Name="Dof2D0" Grid.Row="3" Grid.Column="1" Margin="29,0,32,7" Height="20"
+                 VerticalAlignment="Bottom" />
         <Label Grid.Row="3" Grid.Column="2" Margin="0.8,10,76,0">v0</Label>
-        <TextBox Name="V1" Grid.Row="3" Grid.Column="2" Margin="28.8,13.6,0,7.2" Height="20"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" />
+        <TextBox Name="Dof2V0" Grid.Row="3" Grid.Column="2" Margin="29,13,21,7" />
 
         <Label Grid.Row="4" Grid.Column="0" Margin="0,5,0,0">degree of freedom 3:</Label>
         <Label Grid.Row="4" Grid.Column="1" Margin="0.8,10,76,0">d0</Label>
-        <TextBox Name="D2" Grid.Row="4" Grid.Column="1" Margin="28.8,13.6,0,7.2" Height="20"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="39" />
+        <TextBox Name="Dof3D0" Grid.Row="4" Grid.Column="1" Margin="29,0,32,7" Height="20"
+                 VerticalAlignment="Bottom" />
         <Label Grid.Row="4" Grid.Column="2" Margin="0.8,10,76,0">v0</Label>
-        <TextBox Name="V2" Grid.Row="4" Grid.Column="2" Margin="28.8,13.6,0,7.2" Height="20"
-                 VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" />
+        <TextBox Name="Dof3V0" Grid.Row="4" Grid.Column="2" Margin="29,13,21,7" />
 
+        <Button Grid.Row="5" Grid.Column="0" Width="71" Height="26" Margin="13,0,0,0" 
+                Click="BtnDelete_Click" HorizontalAlignment="Left" VerticalAlignment="Center">delete</Button>
         <Button IsDefault="True" Grid.Row="5" Grid.Column="2" Width="39" Height="26" Margin="0,0,-21,0"
-                Click="BtnDialogOk_Click" HorizontalAlignment="Right" VerticalAlignment="Center">
-            _Ok
-        </Button>
+                Click="BtnDialogOk_Click" HorizontalAlignment="Right" VerticalAlignment="Center">_Ok</Button>
         <Button Grid.Row="5" Grid.Column="2" Width="71" Height="26" Margin="7,0,0,0"
-                Click="BtnDialogCancel_Click" HorizontalAlignment="Left" VerticalAlignment="Center">
-            _Cancel
-        </Button>
+                Click="BtnDialogCancel_Click" HorizontalAlignment="Left" VerticalAlignment="Center">_Cancel</Button>
     </Grid>
 </Window>

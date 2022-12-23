@@ -30,7 +30,7 @@ public class Presentation
     private const int MaxAxialForceScreen = 30;
     private const int MaxShearForceScreen = 30;
     private const int MaxMomentScreen = 50;
-    private readonly Canvas visualResults;
+    private readonly Canvas visual;
     public TextBlock maxMomentText;
     private Point placementText;
 
@@ -50,7 +50,7 @@ public class Presentation
     public Presentation(FeModel feModel, Canvas visual)
     {
         model = feModel;
-        visualResults = visual;
+        this.visual = visual;
         ElementIDs = new List<object>();
         NodeIDs = new List<object>();
         LoadIDs = new List<object>();
@@ -66,8 +66,8 @@ public class Presentation
     }
     public void EvaluateResolution()
     {
-        screenH = visualResults.ActualWidth;
-        screenV = visualResults.ActualHeight;
+        screenH = visual.ActualWidth;
+        screenV = visual.ActualHeight;
 
         var x = new List<double>();
         var y = new List<double>();
@@ -142,7 +142,7 @@ public class Presentation
         };
         SetLeft(structurePath, placementH);
         SetTop(structurePath, placementV);
-        visualResults.Children.Add(structurePath);
+        visual.Children.Add(structurePath);
     }
 
     public Shape NodeIndicate(Node feNode, Brush color, double weight)
@@ -161,7 +161,7 @@ public class Presentation
         };
         SetLeft(nodePath, placementH);
         SetTop(nodePath, placementV);
-        visualResults.Children.Add(nodePath);
+        visual.Children.Add(nodePath);
         return nodePath;
     }
 
@@ -214,7 +214,7 @@ public class Presentation
         };
         SetLeft(elementPath, placementH);
         SetTop(elementPath, placementV);
-        visualResults.Children.Add(elementPath);
+        visual.Children.Add(elementPath);
         return elementPath;
     }
 
@@ -383,7 +383,7 @@ public class Presentation
 
             SetLeft(path, placementH);
             SetTop(path, placementV);
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
             Deformations.Add(path);
         }
     }
@@ -627,7 +627,7 @@ public class Presentation
             };
             SetTop(id, (-cg.Y + maxY) * resolution + placementV);
             SetLeft(id, cg.X * resolution + placementH);
-            visualResults.Children.Add(id);
+            visual.Children.Add(id);
             ElementIDs.Add(id);
         }
     }
@@ -640,11 +640,11 @@ public class Presentation
             {
                 FontSize = 12,
                 Text = item.Key,
-                Foreground = Red
+                Foreground = Black
             };
             SetTop(id, (-item.Value.Coordinates[1] + maxY) * resolution + placementV);
             SetLeft(id, item.Value.Coordinates[0] * resolution + placementH);
-            visualResults.Children.Add(id);
+            visual.Children.Add(id);
             NodeIDs.Add(id);
         }
     }
@@ -693,7 +693,7 @@ public class Presentation
 
             SetLeft(path, placementH);
             SetTop(path, placementV);
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
         }
 
         foreach (var item in model.PointLoads)
@@ -710,7 +710,7 @@ public class Presentation
 
             SetLeft(path, placementH);
             SetTop(path, placementV);
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
         }
 
         foreach (var item in model.ElementLoads)
@@ -733,7 +733,7 @@ public class Presentation
 
             SetLeft(path, placementH);
             SetTop(path, placementV);
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
         }
     }
 
@@ -746,7 +746,7 @@ public class Presentation
             {
                 FontSize = 12,
                 Text = item.Key,
-                Foreground = Black
+                Foreground = Red
             };
             if (model.Nodes.TryGetValue(item.Value.NodeId, out var loadNode))
             {
@@ -754,57 +754,46 @@ public class Presentation
                 const int knotenOffset = 20;
                 SetTop(id, placementText.Y + placementV - knotenOffset);
                 SetLeft(id, placementText.X + placementH);
-                visualResults.Children.Add(id);
+                visual.Children.Add(id);
                 LoadIDs.Add(id);
             }
         }
-        foreach (var item in model.ElementLoads)
+        foreach (var item in model.ElementLoads.
+                     Where(item => item.Value is LineLoad))
         {
-            if (item.Value is not { } linienlast) continue;
-            const int nodeOffset = 10;
+            const int elementOffset = -20;
 
             var id = new TextBlock
             {
                 FontSize = 12,
                 Text = item.Key,
-                Foreground = Black
+                Foreground = Red
             };
-            placementText = TransformNode(item.Value.Element.Nodes[0], resolution, maxY);
-            SetTop(id, placementText.Y + placementV + nodeOffset);
+            var placement = ((Vector)TransformNode(item.Value.Element.Nodes[0], resolution, maxY)
+                             +(Vector)TransformNode(item.Value.Element.Nodes[1], resolution, maxY)) / 2;
+            placementText = (Point)placement;
+            SetTop(id, placementText.Y + placementV + elementOffset);
             SetLeft(id, placementText.X + placementH);
-            visualResults.Children.Add(id);
+            visual.Children.Add(id);
             LoadIDs.Add(id);
-
-            var id2 = new TextBlock
-            {
-                FontSize = 12,
-                Text = item.Key,
-                Foreground = Black
-            };
-            placementText = TransformNode(item.Value.Element.Nodes[1], resolution, maxY);
-            SetTop(id2, placementText.Y + placementV + nodeOffset);
-            SetLeft(id2, placementText.X + placementH);
-            visualResults.Children.Add(id2);
-            LoadIDs.Add(id2);
         }
         foreach (var item in model.PointLoads)
         {
             if (item.Value is not PointLoad last) continue;
-            var punktlast = (PointLoad)last;
             var id = new TextBlock
             {
                 FontSize = 12,
                 Text = item.Key,
-                Foreground = Black
+                Foreground = Red
             };
 
             var startPoint = TransformNode(last.Element.Nodes[0], resolution, maxY);
             var endPoint = TransformNode(last.Element.Nodes[1], resolution, maxY);
-            placementText = (Point)(startPoint + (endPoint - startPoint) * punktlast.Offset);
+            placementText = startPoint + (endPoint - startPoint) * last.Offset;
             const int knotenOffset = 15;
             SetTop(id, placementText.Y + placementV + knotenOffset);
             SetLeft(id, placementText.X + placementH);
-            visualResults.Children.Add(id);
+            visual.Children.Add(id);
             LoadIDs.Add(id);
         }
     }
@@ -1058,7 +1047,7 @@ public class Presentation
             SetLeft(path, placementH);
             SetTop(path, placementV);
             // draw Shape
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
         }
     }
 
@@ -1159,7 +1148,7 @@ public class Presentation
     {
         foreach (var item in model.BoundaryConditions)
         {
-            if (item.Value is not { } support) continue;
+            if (item.Value is not Support) continue;
             var id = new TextBlock
             {
                 FontSize = 12,
@@ -1171,7 +1160,7 @@ public class Presentation
             const int supportSymbol = 25;
             SetTop(id, placementText.Y + placementV + supportSymbol);
             SetLeft(id, placementText.X + placementH);
-            visualResults.Children.Add(id);
+            visual.Children.Add(id);
             SupportIDs.Add(id);
         }
     }
@@ -1262,7 +1251,7 @@ public class Presentation
             };
             SetLeft(path, placementH);
             SetTop(path, placementV);
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
             AxialForceList.Add(path);
         }
         else
@@ -1341,7 +1330,7 @@ public class Presentation
                 };
                 SetLeft(path, placementH);
                 SetTop(path, placementV);
-                visualResults.Children.Add(path);
+                visual.Children.Add(path);
                 AxialForceList.Add(path);
             }
         }
@@ -1396,7 +1385,7 @@ public class Presentation
             };
             SetLeft(path, placementH);
             SetTop(path, placementV);
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
             ShearForceList.Add(path);
         }
         // element has 1 point and/or 1 line load
@@ -1458,7 +1447,7 @@ public class Presentation
                 };
                 SetLeft(path, placementH);
                 SetTop(path, placementV);
-                visualResults.Children.Add(path);
+                visual.Children.Add(path);
                 ShearForceList.Add(path);
 
                 // Shear Force line from load to end point
@@ -1487,7 +1476,7 @@ public class Presentation
                 };
                 SetLeft(path, placementH);
                 SetTop(path, placementV);
-                visualResults.Children.Add(path);
+                visual.Children.Add(path);
                 ShearForceList.Add(path);
             }
 
@@ -1545,7 +1534,7 @@ public class Presentation
                 };
                 SetLeft(path, placementH);
                 SetTop(path, placementV);
-                visualResults.Children.Add(path);
+                visual.Children.Add(path);
                 ShearForceList.Add(path);
 
                 // Shear Force line on right side
@@ -1577,7 +1566,7 @@ public class Presentation
                 };
                 SetLeft(path, placementH);
                 SetTop(path, placementV);
-                visualResults.Children.Add(path);
+                visual.Children.Add(path);
                 ShearForceList.Add(path);
             }
         }
@@ -1636,7 +1625,7 @@ public class Presentation
             };
             SetLeft(path, placementH);
             SetTop(path, placementV);
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
             BendingMomentList.Add(path);
         }
 
@@ -1850,7 +1839,7 @@ public class Presentation
             };
             SetLeft(path, placementH);
             SetTop(path, placementV);
-            visualResults.Children.Add(path);
+            visual.Children.Add(path);
             BendingMomentList.Add(path);
 
             maxMomentText = new TextBlock
@@ -1861,7 +1850,7 @@ public class Presentation
             };
             SetTop(maxMomentText, maxPoint.Y + placementV);
             SetLeft(maxMomentText, maxPoint.X);
-            visualResults.Children.Add(maxMomentText);
+            visual.Children.Add(maxMomentText);
             MaxTexts.Add(maxMomentText);
         }
     }
@@ -1869,8 +1858,8 @@ public class Presentation
     public void CoordinateSystem(double tmin, double tmax, double max, double min)
     {
         const int border = 20;
-        screenH = visualResults.ActualWidth;
-        screenV = visualResults.ActualHeight;
+        screenH = visual.ActualWidth;
+        screenV = visual.ActualHeight;
         resolutionV = (screenV - border) / (max - min);
         resolutionH = (screenH - border) / (tmax - tmin);
         var xAxis = new Line
@@ -1882,7 +1871,7 @@ public class Presentation
             Y2 = max * resolutionV + placementV,
             StrokeThickness = 2
         };
-        _ = visualResults.Children.Add(xAxis);
+        _ = visual.Children.Add(xAxis);
         var yAxis = new Line
         {
             Stroke = Black,
@@ -1892,7 +1881,7 @@ public class Presentation
             Y2 = placementV,
             StrokeThickness = 2
         };
-        visualResults.Children.Add(yAxis);
+        visual.Children.Add(yAxis);
     }
 
     // time history drawn from tmin
@@ -1919,7 +1908,7 @@ public class Presentation
         SetLeft(timeHistory, BorderLeft);
         SetTop(timeHistory, mY * resolutionV + placementV);
         // draw Shape
-        visualResults.Children.Add(timeHistory);
+        visual.Children.Add(timeHistory);
     }
 
     private static Vector RotateVectorScreen(Vector vec, double rotationAngle) // clockwise in degree

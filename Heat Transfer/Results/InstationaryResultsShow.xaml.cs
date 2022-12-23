@@ -84,7 +84,7 @@ namespace FE_Analysis.Heat_Transfer.Results
 
             if (lastNode != null)
             {
-                heatModel.VisualModel.Children.Remove(lastNode);
+                heatModel.VisualHeatModel.Children.Remove(lastNode);
             }
             lastNode = heatModel.presentation.NodeIndicate(node, Brushes.Green, 1);
         }
@@ -130,14 +130,14 @@ namespace FE_Analysis.Heat_Transfer.Results
             if (model.Nodes.TryGetValue(nodeId, out node)) { }
             if (lastNode != null)
             {
-                heatModel.VisualModel.Children.Remove(lastNode);
+                heatModel.VisualHeatModel.Children.Remove(lastNode);
             }
             lastNode = heatModel.presentation.NodeIndicate(node, Brushes.Green, 1);
         }
         //LostFocus
         private void NoNodalValuesSelected(object sender, RoutedEventArgs e)
         {
-            heatModel.VisualModel.Children.Remove(lastNode);
+            heatModel.VisualHeatModel.Children.Remove(lastNode);
         }
 
         private void HeatFlowVectorGrid_Show()
@@ -169,7 +169,7 @@ namespace FE_Analysis.Heat_Transfer.Results
             var element = cell.Value;
             if (lastElement != null)
             {
-                heatModel.VisualModel.Children.Remove(lastElement);
+                heatModel.VisualHeatModel.Children.Remove(lastElement);
             }
             lastElement = heatModel.presentation.ElementFillDraw((Abstract2D)element,
                 Brushes.Black, Colors.Green, .2, 2);
@@ -177,7 +177,7 @@ namespace FE_Analysis.Heat_Transfer.Results
         //LostFocus
         private void NoElementSelected(object sender, RoutedEventArgs e)
         {
-            heatModel.VisualModel.Children.Remove(lastElement);
+            heatModel.VisualHeatModel.Children.Remove(lastElement);
             lastNode = null;
         }
 

@@ -112,7 +112,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
 
         private void NewInitialTemperature(object sender, MouseButtonEventArgs e)
         {
-            _ = new TimeNewInitialTemperature(model);
+            _ = new TimeInitialTemperatureNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -139,7 +139,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         // ************************* Time Dependent Boundary Conditions ***********************
         private void TimeNewBoundaryCondition(object sender, MouseButtonEventArgs e)
         {
-            _ = new TimeNewBoundaryCondition(model);
+            _ = new TimeBoundaryConditionNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -221,7 +221,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         // ************************* time dependent Nodal Temperatures ********************************
         private void TimeNewNodeLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new TimeNewBoundaryCondition(model);
+            _ = new TimeBoundaryConditionNew(model);
             MainWindow.analysed = false;
             Close();
         }
@@ -285,7 +285,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
         // ************************* time dependent Element Temperatures ********************************
         private void TimeNewElementLoad(object sender, MouseButtonEventArgs e)
         {
-            _ = new TimeNewElementLoad(model);
+            _ = new TimeElementLoadNew(model);
             MainWindow.analysed = false;
             Close();
         }

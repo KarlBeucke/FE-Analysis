@@ -18,8 +18,8 @@ namespace FE_Analysis.Structural_Analysis.Results
     public partial class StaticResultsVisualize
     {
         public readonly Presentation presentation;
-        private readonly List<Shape> hitList = new List<Shape>();
-        private readonly List<TextBlock> hitTextBlock = new List<TextBlock>();
+        private readonly List<Shape> hitList = new();
+        private readonly List<TextBlock> hitTextBlock = new();
         private readonly FeModel model;
 
         private bool elementTextsOn = true,
@@ -38,7 +38,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             InitializeComponent();
             Show();
 
-            presentation = new Presentation(model, VisualResults);
+            presentation = new Presentation(model, VisualStructuralResults);
 
             presentation.UndeformedGeometry();
 
@@ -62,7 +62,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             else
             {
-                foreach (Shape path in presentation.Deformations) VisualResults.Children.Remove(path);
+                foreach (Shape path in presentation.Deformations) VisualStructuralResults.Children.Remove(path);
                 deformationsOn = false;
             }
         }
@@ -72,14 +72,14 @@ namespace FE_Analysis.Structural_Analysis.Results
             double maxAxialForce = 0;
             if (shearForcesOn)
             {
-                foreach (Shape path in presentation.ShearForceList) VisualResults.Children.Remove(path);
+                foreach (Shape path in presentation.ShearForceList) VisualStructuralResults.Children.Remove(path);
                 shearForcesOn = false;
             }
 
             if (bendingMomentsOn)
             {
-                foreach (Shape path in presentation.BendingMomentList) VisualResults.Children.Remove(path);
-                VisualResults.Children.Remove(presentation.maxMomentText);
+                foreach (Shape path in presentation.BendingMomentList) VisualStructuralResults.Children.Remove(path);
+                VisualStructuralResults.Children.Remove(presentation.maxMomentText);
                 bendingMomentsOn = false;
             }
 
@@ -118,7 +118,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             else
             {
-                foreach (Shape path in presentation.AxialForceList) VisualResults.Children.Remove(path);
+                foreach (Shape path in presentation.AxialForceList) VisualStructuralResults.Children.Remove(path);
                 axialForcesOn = false;
             }
         }
@@ -128,14 +128,14 @@ namespace FE_Analysis.Structural_Analysis.Results
             double maxShearForce = 0;
             if (axialForcesOn)
             {
-                foreach (Shape path in presentation.AxialForceList) VisualResults.Children.Remove(path);
+                foreach (Shape path in presentation.AxialForceList) VisualStructuralResults.Children.Remove(path);
                 axialForcesOn = false;
             }
 
             if (bendingMomentsOn)
             {
-                foreach (Shape path in presentation.BendingMomentList) VisualResults.Children.Remove(path);
-                VisualResults.Children.Remove(presentation.maxMomentText);
+                foreach (Shape path in presentation.BendingMomentList) VisualStructuralResults.Children.Remove(path);
+                VisualStructuralResults.Children.Remove(presentation.maxMomentText);
                 bendingMomentsOn = false;
             }
 
@@ -170,7 +170,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             else
             {
-                foreach (Shape path in presentation.ShearForceList) VisualResults.Children.Remove(path);
+                foreach (Shape path in presentation.ShearForceList) VisualStructuralResults.Children.Remove(path);
                 shearForcesOn = false;
             }
         }
@@ -180,13 +180,13 @@ namespace FE_Analysis.Structural_Analysis.Results
             double maxMoment = 0;
             if (axialForcesOn)
             {
-                foreach (Shape path in presentation.AxialForceList) VisualResults.Children.Remove(path);
+                foreach (Shape path in presentation.AxialForceList) VisualStructuralResults.Children.Remove(path);
                 axialForcesOn = false;
             }
 
             if (shearForcesOn)
             {
-                foreach (Shape path in presentation.ShearForceList) VisualResults.Children.Remove(path);
+                foreach (Shape path in presentation.ShearForceList) VisualStructuralResults.Children.Remove(path);
                 shearForcesOn = false;
             }
 
@@ -264,8 +264,8 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             else
             {
-                foreach (Shape path in presentation.BendingMomentList) VisualResults.Children.Remove(path);
-                foreach (TextBlock maxWerte in presentation.MaxTexts) VisualResults.Children.Remove(maxWerte);
+                foreach (Shape path in presentation.BendingMomentList) VisualStructuralResults.Children.Remove(path);
+                foreach (TextBlock maxWerte in presentation.MaxTexts) VisualStructuralResults.Children.Remove(maxWerte);
                 bendingMomentsOn = false;
             }
         }
@@ -279,7 +279,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             else
             {
-                foreach (TextBlock id in presentation.ElementIDs) VisualResults.Children.Remove(id);
+                foreach (TextBlock id in presentation.ElementIDs) VisualStructuralResults.Children.Remove(id);
                 elementTextsOn = false;
             }
         }
@@ -293,7 +293,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             else
             {
-                foreach (TextBlock id in presentation.NodeIDs) VisualResults.Children.Remove(id);
+                foreach (TextBlock id in presentation.NodeIDs) VisualStructuralResults.Children.Remove(id);
                 nodesTextsOn = false;
             }
         }
@@ -301,7 +301,7 @@ namespace FE_Analysis.Structural_Analysis.Results
         private void BtnDisplacement_Click(object sender, RoutedEventArgs e)
         {
             presentation.scalingDisplacement = int.Parse(Displacement.Text);
-            foreach (Shape path in presentation.Deformations) VisualResults.Children.Remove(path);
+            foreach (Shape path in presentation.Deformations) VisualStructuralResults.Children.Remove(path);
             deformationsOn = false;
             presentation.DeformedGeometry();
             deformationsOn = true;
@@ -310,7 +310,7 @@ namespace FE_Analysis.Structural_Analysis.Results
         private void BtnRotation_Click(object sender, RoutedEventArgs e)
         {
             presentation.scalingRotation = int.Parse(Rotation.Text);
-            foreach (Shape path in presentation.Deformations) VisualResults.Children.Remove(path);
+            foreach (Shape path in presentation.Deformations) VisualStructuralResults.Children.Remove(path);
             deformationsOn = false;
             presentation.DeformedGeometry();
             deformationsOn = true;
@@ -320,9 +320,9 @@ namespace FE_Analysis.Structural_Analysis.Results
         {
             hitList.Clear();
             hitTextBlock.Clear();
-            var hitPoint = e.GetPosition(VisualResults);
+            var hitPoint = e.GetPosition(VisualStructuralResults);
             hitArea = new EllipseGeometry(hitPoint, 0.1, 0.1);
-            VisualTreeHelper.HitTest(VisualResults, null, HitTestCallBack,
+            VisualTreeHelper.HitTest(VisualStructuralResults, null, HitTestCallBack,
                 new GeometryHitTestParameters(hitArea));
 
             MyPopup.IsOpen = false;

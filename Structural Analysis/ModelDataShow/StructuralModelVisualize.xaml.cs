@@ -30,16 +30,18 @@ public partial class StructuralModelVisualize
     private bool isDragging;
     public bool isNode;
     private bool deleteFlag;
+    private DialogDeleteStructuralObjects dialogDelete;
+    public TimeIntegrationNew timeIntegrationNew;
 
     public StructuralModelVisualize(FeModel feModel)
     {
         Language = XmlLanguage.GetLanguage("us-US");
         InitializeComponent();
-        VisualModel.Children.Remove(Node);
+        VisualStructuralModel.Children.Remove(Node);
         Show();
-        VisualModel.Background = Brushes.Transparent;
+        VisualStructuralModel.Background = Brushes.Transparent;
         model = feModel;
-        presentation = new Presentation(feModel, VisualModel);
+        presentation = new Presentation(feModel, VisualStructuralModel);
         presentation.UndeformedGeometry();
 
         // with Node and Element Ids
@@ -61,11 +63,10 @@ public partial class StructuralModelVisualize
         }
         else
         {
-            foreach (TextBlock id in presentation.NodeIDs) VisualModel.Children.Remove(id);
+            foreach (TextBlock id in presentation.NodeIDs) VisualStructuralModel.Children.Remove(id);
             nodeTextsOn = false;
         }
     }
-
     private void OnBtnElementIDs_Click(object sender, RoutedEventArgs e)
     {
         if (!elementTextsOn)
@@ -75,11 +76,10 @@ public partial class StructuralModelVisualize
         }
         else
         {
-            foreach (TextBlock id in presentation.ElementIDs) VisualModel.Children.Remove(id);
+            foreach (TextBlock id in presentation.ElementIDs) VisualStructuralModel.Children.Remove(id);
             elementTextsOn = false;
         }
     }
-
     private void OnBtnLoads_Click(object sender, RoutedEventArgs e)
     {
         if (!loadsOn)
@@ -92,13 +92,12 @@ public partial class StructuralModelVisualize
         {
             foreach (Shape lasten in presentation.LoadVectors)
             {
-                VisualModel.Children.Remove(lasten);
-                foreach (TextBlock id in presentation.LoadIDs) VisualModel.Children.Remove(id);
+                VisualStructuralModel.Children.Remove(lasten);
+                foreach (TextBlock id in presentation.LoadIDs) VisualStructuralModel.Children.Remove(id);
             }
             loadsOn = false;
         }
     }
-
     private void OnBtnSupport_Click(object sender, RoutedEventArgs e)
     {
         if (!supportsOn)
@@ -111,8 +110,8 @@ public partial class StructuralModelVisualize
         {
             foreach (Shape path in presentation.SupportRepresentation)
             {
-                VisualModel.Children.Remove(path);
-                foreach (TextBlock id in presentation.SupportIDs) VisualModel.Children.Remove(id);
+                VisualStructuralModel.Children.Remove(path);
+                foreach (TextBlock id in presentation.SupportIDs) VisualStructuralModel.Children.Remove(id);
             }
             supportsOn = false;
         }
@@ -123,21 +122,18 @@ public partial class StructuralModelVisualize
         nodeNew = new NodeNew(model);
         MainWindow.analysed = false;
     }
-
+    
     private void MenuBeamElementNew(object sender, RoutedEventArgs e)
     {
         _ = new ElementNew(model);
         MainWindow.analysed = false;
         //Close();
     }
-
     private void MenuCrossSectionNew(object sender, RoutedEventArgs e)
     {
         _ = new CrossSectionNew(model);
 
     }
-
-
     private void MenuMaterialNew(object sender, RoutedEventArgs e)
     {
         _ = new MaterialNew(model);
@@ -149,13 +145,11 @@ public partial class StructuralModelVisualize
         _ = new NodeLoadNew(model);
         MainWindow.analysed = false;
     }
-
     private void MenuLineLoadNew(object sender, RoutedEventArgs e)
     {
         _ = new LineLoadNew(model);
         MainWindow.analysed = false;
     }
-
     private void MenuPointLoadNew(object sender, RoutedEventArgs e)
     {
         _ = new PointLoadNew(model);
@@ -168,10 +162,15 @@ public partial class StructuralModelVisualize
         MainWindow.analysed = false;
     }
 
+    private void OnBtnTimeintegrationNew_Click(object sender, RoutedEventArgs e)
+    {
+        timeIntegrationNew = new TimeIntegrationNew(model);
+    }
+
     private void OnBtnDelete_Click(object sender, RoutedEventArgs e)
     {
         deleteFlag = true;
-        _ = new DialogDeleteStructuralObjects(deleteFlag);
+        dialogDelete = new DialogDeleteStructuralObjects(deleteFlag);
     }
 
     private void Node_MouseDown(object sender, MouseButtonEventArgs e)
@@ -179,18 +178,17 @@ public partial class StructuralModelVisualize
         Node.CaptureMouse();
         isDragging = true;
     }
-
     private void Node_MouseMove(object sender, MouseEventArgs e)
     {
         if (!isDragging) return;
-        var canvPosToWindow = VisualModel.TransformToAncestor(this).Transform(new Point(0, 0));
+        var canvPosToWindow = VisualStructuralModel.TransformToAncestor(this).Transform(new Point(0, 0));
 
         if (sender is not Ellipse node) return;
         var upperlimit = canvPosToWindow.Y + node.Height / 2;
-        var lowerlimit = canvPosToWindow.Y + VisualModel.ActualHeight - node.Height / 2;
+        var lowerlimit = canvPosToWindow.Y + VisualStructuralModel.ActualHeight - node.Height / 2;
 
         var leftlimit = canvPosToWindow.X + node.Width / 2;
-        var rightlimit = canvPosToWindow.X + VisualModel.ActualWidth - node.Width / 2;
+        var rightlimit = canvPosToWindow.X + VisualStructuralModel.ActualWidth - node.Width / 2;
 
 
         var absmouseXpos = e.GetPosition(this).X;
@@ -199,7 +197,7 @@ public partial class StructuralModelVisualize
         if (!(absmouseXpos > leftlimit) || !(absmouseXpos < rightlimit)
                                         || !(absmouseYpos > upperlimit) || !(absmouseYpos < lowerlimit)) return;
 
-        midPoint = new Point(e.GetPosition(VisualModel).X, e.GetPosition(VisualModel).Y);
+        midPoint = new Point(e.GetPosition(VisualStructuralModel).X, e.GetPosition(VisualStructuralModel).Y);
 
         Canvas.SetLeft(node, midPoint.X - Node.Width / 2);
         Canvas.SetTop(node, midPoint.Y - Node.Height / 2);
@@ -208,7 +206,6 @@ public partial class StructuralModelVisualize
         nodeNew.X.Text = coordinates[0].ToString("N2", CultureInfo.CurrentCulture);
         nodeNew.Y.Text = coordinates[1].ToString("N2", CultureInfo.CurrentCulture);
     }
-
     private void Node_MouseUp(object sender, MouseButtonEventArgs e)
     {
         Node.ReleaseMouseCapture();
@@ -219,19 +216,19 @@ public partial class StructuralModelVisualize
     {
         hitList.Clear();
         hitTextBlock.Clear();
-        var hitPoint = e.GetPosition(VisualModel);
+        var hitPoint = e.GetPosition(VisualStructuralModel);
         hitArea = new EllipseGeometry(hitPoint, 1.0, 1.0);
-        VisualTreeHelper.HitTest(VisualModel, null, HitTestCallBack,
+        VisualTreeHelper.HitTest(VisualStructuralModel, null, HitTestCallBack,
             new GeometryHitTestParameters(hitArea));
 
         // click on Canvas neither text nor Shape --> new pilot node will be placed and mat be moved
         if (hitList.Count == 0 && hitTextBlock.Count == 0)
         {
             if (deleteFlag | nodeNew == null) return;
-            midPoint = new Point(e.GetPosition(VisualModel).X, e.GetPosition(VisualModel).Y);
+            midPoint = new Point(e.GetPosition(VisualStructuralModel).X, e.GetPosition(VisualStructuralModel).Y);
             Canvas.SetLeft(nodeNew, midPoint.X - Node.Width / 2);
             Canvas.SetTop(nodeNew, midPoint.Y - Node.Height / 2);
-            VisualModel.Children.Add(Node);
+            VisualStructuralModel.Children.Add(Node);
             isNode = true;
             var coordinates = presentation.TransformScreenPoint(midPoint);
             nodeNew.X.Text = coordinates[0].ToString("N2", CultureInfo.CurrentCulture);
@@ -252,16 +249,15 @@ public partial class StructuralModelVisualize
             {
                 if (deleteFlag)
                 {
-                    if (MessageBox.Show("Element " + element.ElementId + " will be deleted.",
-                            "Structural Model",
+                    if (MessageBox.Show("Element " + element.ElementId + " will be deleted", "Structural Model",
                             MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
                     else
                     {
                         model.Elements.Remove(element.ElementId);
                         MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
                     }
-
-                    return;
+                    continue;
                 }
 
                 MyPopup.IsOpen = true;
@@ -306,16 +302,15 @@ public partial class StructuralModelVisualize
             {
                 if (deleteFlag)
                 {
-                    if (MessageBox.Show("NodeLoad " + nodeLoad.LoadId + " will be deleted.",
-                            "Structural Model",
+                    if (MessageBox.Show("Nodeload " + nodeLoad.LoadId + " will be deleted", "Structural Model",
                             MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
                     else
                     {
                         model.Loads.Remove(nodeLoad.LoadId);
                         MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
                     }
-
-                    return;
+                    continue;
                 }
 
                 MyPopup.IsOpen = true;
@@ -331,9 +326,15 @@ public partial class StructuralModelVisualize
             {
                 if (deleteFlag)
                 {
-                    model.PointLoads.Remove(shape.Name);
-                    MainWindow.structuralModel.Close();
-                    return;
+                    if (MessageBox.Show("Pointload " + abstractElementLoad.LoadId + " will be deleted", "Structural Model",
+                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
+                    else
+                    {
+                        model.PointLoads.Remove(abstractElementLoad.LoadId);
+                        MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
+                    }
+                    continue;
                 }
                 var pointLoad = (PointLoad)abstractElementLoad;
                 MyPopup.IsOpen = true;
@@ -350,9 +351,15 @@ public partial class StructuralModelVisualize
             {
                 if (deleteFlag)
                 {
-                    model.ElementLoads.Remove(shape.Name);
-                    MainWindow.structuralModel.Close();
-                    return;
+                    if (MessageBox.Show("Elementload " + elementLoad.LoadId + " will be deleted", "Structural Model",
+                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
+                    else
+                    {
+                        model.ElementLoads.Remove(elementLoad.LoadId);
+                        MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
+                    }
+                    continue;
                 }
 
                 MyPopup.IsOpen = true;
@@ -366,31 +373,31 @@ public partial class StructuralModelVisualize
             }
 
             // Support
-            if (model.BoundaryConditions.TryGetValue(shape.Name, out var support))
+            if (!model.BoundaryConditions.TryGetValue(shape.Name, out var support)) continue;
+            if (deleteFlag)
             {
-                if (deleteFlag)
+                if (MessageBox.Show("Support " + support.SupportId + " will be deleted", "Structural Model",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
+                else
                 {
-                    if (MessageBox.Show("Support " + support.SupportId + " will be deleted.",
-                            "Structural Model",
-                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
-
                     model.BoundaryConditions.Remove(support.SupportId);
                     MainWindow.structuralModel.Close();
-                    return;
+                    dialogDelete.Close();
                 }
-
-                MyPopup.IsOpen = true;
-                sb.Append("Support\t= " + support.SupportId);
-                sb.Append("\nfixed\t= " + SupportType(support.Type));
-                if (support.Type == 1 | support.Type == 3 | support.Type == 7)
-                    sb.Append("\nprescribed boundary value x \t= " + support.Prescribed[0]);
-                if (support.Type == 2 | support.Type == 3 | support.Type == 7)
-                    sb.Append("\nprescribed boundary value y \t= " + support.Prescribed[1]);
-                if (support.Type == 4 | support.Type == 7)
-                    sb.Append("\nprescribed boundary value r \t= " + support.Prescribed[2]);
-
-                sb.Append("\n");
+                continue;
             }
+
+            MyPopup.IsOpen = true;
+            sb.Append("Support\t= " + support.SupportId);
+            sb.Append("\nfixed\t= " + SupportType(support.Type));
+            if (support.Type == 1 | support.Type == 3 | support.Type == 7)
+                sb.Append("\nprescribed boundary value x \t= " + support.Prescribed[0]);
+            if (support.Type == 2 | support.Type == 3 | support.Type == 7)
+                sb.Append("\nprescribed boundary value y \t= " + support.Prescribed[1]);
+            if (support.Type == 4 | support.Type == 7)
+                sb.Append("\nprescribed boundary value r \t= " + support.Prescribed[2]);
+
+            sb.Append("\n");
         }
 
 
@@ -400,17 +407,15 @@ public partial class StructuralModelVisualize
             if (!model.Nodes.TryGetValue(item.Text, out var node)) continue;
             if (deleteFlag)
             {
-                if (MessageBox.Show("Node " + node.Id + " will be deleted.", "Structural Model",
-                        MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                {
-                }
+                if (MessageBox.Show("Node " + node.Id + " will be deleted", "Structural Model",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
                 else
                 {
                     model.Nodes.Remove(node.Id);
                     MainWindow.structuralModel.Close();
+                    dialogDelete.Close();
                 }
-
-                return;
+                continue;
             }
 
             if (item.Text != node.Id)
@@ -427,7 +432,7 @@ public partial class StructuralModelVisualize
                 (-node.Coordinates[1] + presentation.maxY) * presentation.resolution + presentation.placementV);
             Canvas.SetLeft(Node, midPoint.X - Node.Width / 2);
             Canvas.SetTop(Node, midPoint.Y - Node.Height / 2);
-            VisualModel.Children.Add(Node);
+            VisualStructuralModel.Children.Add(Node);
             isNode = true;
             MyPopup.IsOpen = false;
         }
@@ -442,14 +447,15 @@ public partial class StructuralModelVisualize
             {
                 if (deleteFlag)
                 {
-                    if (MessageBox.Show("Element " + element.ElementId + " will be deleted.", "Structural Model",
+                    if (MessageBox.Show("Element " + element.ElementId + " will be deleted", "Structural Model",
                             MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
                     else
                     {
                         model.Elements.Remove(element.ElementId);
                         MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
                     }
-                    return;
+                    continue;
                 }
                 switch (element)
                 {
@@ -519,17 +525,15 @@ public partial class StructuralModelVisualize
             {
                 if (deleteFlag)
                 {
-                    if (MessageBox.Show("NodeLoad " + nodeLoad.LoadId + " will be deleted.", "Structural Model",
-                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                    {
-                    }
+                    if (MessageBox.Show("Nodeload " + nodeLoad.LoadId + " will be deleted", "Structural Model",
+                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
                     else
                     {
-                        model.Elements.Remove(nodeLoad.LoadId);
+                        model.Loads.Remove(nodeLoad.LoadId);
                         MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
                     }
-
-                    return;
+                    continue;
                 }
 
                 var load = new NodeLoadNew(model)
@@ -543,20 +547,20 @@ public partial class StructuralModelVisualize
                     load.M.Text = nodeLoad.Loadvalues[2].ToString(CultureInfo.CurrentCulture);
 
             }
-            // Text representation is an ElementLoad (LineLoad)
-            else if (model.ElementLoads.TryGetValue(item.Text, out var lineLoad))
+            // Text representation is a LineLoad
+            else if (model.LineLoads.TryGetValue(item.Text, out var lineLoad))
             {
                 if (deleteFlag)
                 {
-                    if (MessageBox.Show("LineLoad " + lineLoad.LoadId + " will bedeleted.", "Structural Model",
-                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                    {
-                    }
+                    if (MessageBox.Show("Lineload " + lineLoad.LoadId + " will be deleted", "Structural Model",
+                            MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
                     else
                     {
                         model.LineLoads.Remove(lineLoad.LoadId);
                         MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
                     }
+                    continue;
                 }
 
                 _ = new LineLoadNew(model)
@@ -575,12 +579,13 @@ public partial class StructuralModelVisualize
             {
                 if (deleteFlag)
                 {
-                    if (MessageBox.Show("PointLoad " + pointload.LoadId + " will be deleted.", "Structural Model",
+                    if (MessageBox.Show("Pointload " + pointload.LoadId + " will be deleted", "Structural Model",
                             MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
                     else
                     {
                         model.PointLoads.Remove(pointload.LoadId);
                         MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
                     }
                 }
 
@@ -599,14 +604,15 @@ public partial class StructuralModelVisualize
             {
                 if (deleteFlag)
                 {
-                    if (MessageBox.Show("Support " + support.SupportId + " will be deleted.", "Structural Model",
+                    if (MessageBox.Show("Support " + support.SupportId + " will be deleted", "Structural Model",
                             MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) { }
                     else
                     {
                         model.BoundaryConditions.Remove(support.SupportId);
                         MainWindow.structuralModel.Close();
+                        dialogDelete.Close();
                     }
-                    return;
+                    continue;
                 }
 
                 var supportNew = new SupportNew(model)
@@ -623,7 +629,6 @@ public partial class StructuralModelVisualize
             }
         }
     }
-
     private void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         MyPopup.IsOpen = false;
