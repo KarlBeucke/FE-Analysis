@@ -529,6 +529,7 @@ public class Presentation
             {
                 Stroke = Blue,
                 StrokeThickness = 1,
+                Name = currentElement.ElementId,
                 Opacity = 0.5,
                 Fill = myBrush,
                 Data = pathGeometry

@@ -35,12 +35,13 @@ public partial class ElementNew
         {
             model.Elements.Remove(ElementId.Text);
         }
-        var nodeIds = new string[2];
-        nodeIds[0] = Node1Id.Text;
-        if (Node2Id.Text.Length != 0) nodeIds[1] = Node2Id.Text;
 
+        string[] nodeIds;
         if (Element2D2Check.IsChecked != null && (bool)Element2D2Check.IsChecked)
         {
+            nodeIds = new string[2];
+            nodeIds[0] = Node1Id.Text;
+            if (Node2Id.Text.Length != 0) nodeIds[1] = Node2Id.Text;
             var element = new Element2D2(nodeIds, MaterialId.Text, model)
             {
                 ElementId = ElementId.Text
@@ -49,6 +50,9 @@ public partial class ElementNew
         }
         else if (Element2D3Check.IsChecked != null && (bool)Element2D3Check.IsChecked)
         {
+            nodeIds = new string[3];
+            nodeIds[0] = Node1Id.Text;
+            if (Node2Id.Text.Length != 0) nodeIds[1] = Node2Id.Text;
             if (Node3Id.Text.Length != 0) nodeIds[2] = Node3Id.Text;
             var element = new Element2D3(nodeIds, MaterialId.Text, model)
             {
@@ -58,6 +62,9 @@ public partial class ElementNew
         }
         else if (Element2D4Check.IsChecked != null && (bool)Element2D4Check.IsChecked)
         {
+            nodeIds = new string[4];
+            nodeIds[0] = Node1Id.Text;
+            if (Node2Id.Text.Length != 0) nodeIds[1] = Node2Id.Text;
             if (Node3Id.Text.Length != 0) nodeIds[2] = Node3Id.Text;
             if (Node4Id.Text.Length != 0) nodeIds[3] = Node4Id.Text;
             var element = new Element2D4(ElementId.Text, nodeIds, MaterialId.Text, model);
@@ -65,6 +72,9 @@ public partial class ElementNew
         }
         else if (Element3D8Check.IsChecked != null && (bool)Element3D8Check.IsChecked)
         {
+            nodeIds = new string[8];
+            nodeIds[0] = Node1Id.Text;
+            if (Node2Id.Text.Length != 0) nodeIds[1] = Node2Id.Text;
             if (Node3Id.Text.Length != 0) nodeIds[2] = Node3Id.Text;
             if (Node4Id.Text.Length != 0) nodeIds[3] = Node4Id.Text;
             if (Node5Id.Text.Length != 0) nodeIds[4] = Node5Id.Text;

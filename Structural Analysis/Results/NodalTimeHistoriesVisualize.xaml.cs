@@ -76,7 +76,7 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             else
             {
-                time = dt * Array.IndexOf(node.NodalVariables[0], maxDeformation);
+                time = dt * Array.IndexOf(node.NodalVariables[0], minDeformation);
                 absMaxDeformation = minDeformation;
                 DeltaXNewDraw();
             }

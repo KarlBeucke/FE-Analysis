@@ -1895,9 +1895,7 @@ public class Presentation
         var supportPoints = new PointCollection();
 
         var start = (int)Math.Round(tmin / dt);
-        var nSteps = (int)Math.Round((tmax - tmin) / dt) + 1;
-
-        for (var i = 0; i < nSteps - start; i++)
+        for (var i = 0; i < ordinates.Length - start; i++)
         {
             var point = new Point(dt * i * resolutionH, -ordinates[i + start] * resolutionV);
             supportPoints.Add(point);

@@ -498,7 +498,7 @@ namespace FEALibrary.Model
                             {
                                 // read from file
                                 const string inputDirectory =
-                                    "\\FE Analysis\\input\\Heat_Transfer\\instationary\\ExcitationFiles";
+                                    "\\FE-Analysis-App\\input\\HeatTransfer\\instationary\\ExcitationFiles";
                                 const int col = 1;
                                 FromFile(inputDirectory, col, preTemperature);
                                 break;
@@ -766,42 +766,70 @@ namespace FEALibrary.Model
             try
             {
                 lines = File.ReadAllLines(path);
-                var valuesPerLine = lines[0].Split(delimiters).Length;
-                if (lines.Length * valuesPerLine > force.Count)
-                {
-                    _ = MessageBox.Show(" excitation file not consistent with given number of time steps!!!",
-                        "Analysis FromFile");
-                    return;
-                }
             }
             catch (IOException ex)
             {
                 _ = MessageBox.Show(ex + " Excitation function could not be read from file!!!",
-                    "Analysis FromFile");
+                    "Analysis.FromFile");
                 return;
             }
 
             // Excitation function[timeSteps]
             // File contains only excitation values at PREDFINED TIME STEPS dt
-            var counter = 0;
             if (col < 0)
+            {
                 // read all values from file
+                var values = new List<double>();
                 foreach (var line in lines)
                 {
                     substrings = line.Split(delimiters);
-                    foreach (var word in substrings)
-                    {
-                        force[counter] = double.Parse(word, CultureInfo.InvariantCulture);
-                        counter++;
-                    }
+                    values.AddRange(substrings.Select(item => double.Parse(item, CultureInfo.InvariantCulture)));
                 }
+                for (var i = 0; i < values.Count; i++) { force[i] = values[i]; }
+            }
             else
+            {
                 // read all values from a specific column [][0-n]
-                for (var k = 0; k < lines.Length; k++)
+                var steps = force.Count;
+                if (steps > lines.Length) steps = lines.Length;
+                for (var k = 0; k < steps; k++)
                 {
                     substrings = lines[k].Split(delimiters);
-                    force[k] = double.Parse(substrings[col], CultureInfo.InvariantCulture);
+                    force[k] = double.Parse(substrings[col-1], CultureInfo.InvariantCulture);
                 }
+            }
+        }
+        public List<double> FromFile(string inputDirectory)
+        {
+            var delimiters = new[] { '\t' };
+            var values = new List<double>();
+
+            var file = new OpenFileDialog
+            {
+                Filter = "All files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            };
+            file.InitialDirectory += inputDirectory;
+
+            if (file.ShowDialog() != true)
+                return values;
+            var path = file.FileName;
+
+            try
+            {
+                var lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    var substrings = line.Split(delimiters);
+                    values.AddRange(substrings.Select(item => double.Parse(item, CultureInfo.InvariantCulture)));
+                }
+            }
+            catch (IOException ex)
+            {
+                _ = MessageBox.Show(ex + " Excitation function could not be read from file!!!", "Analysis.FromFile");
+                return values;
+            }
+            return values;
         }
         private static void PiecewiseLinear(double dt, IReadOnlyList<double> interval, IList<double> force)
         {

@@ -3,6 +3,7 @@ using FE_Analysis.Structural_Analysis.ModelDataRead;
 using FEALibrary.Model;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -63,7 +64,7 @@ public partial class StructuralModelVisualize
         }
         else
         {
-            foreach (TextBlock id in presentation.NodeIDs) VisualStructuralModel.Children.Remove(id);
+            foreach (var id in presentation.NodeIDs.Cast<TextBlock>()) VisualStructuralModel.Children.Remove(id);
             nodeTextsOn = false;
         }
     }
@@ -76,7 +77,7 @@ public partial class StructuralModelVisualize
         }
         else
         {
-            foreach (TextBlock id in presentation.ElementIDs) VisualStructuralModel.Children.Remove(id);
+            foreach (var id in presentation.ElementIDs.Cast<TextBlock>()) VisualStructuralModel.Children.Remove(id);
             elementTextsOn = false;
         }
     }
@@ -90,10 +91,10 @@ public partial class StructuralModelVisualize
         }
         else
         {
-            foreach (Shape lasten in presentation.LoadVectors)
+            foreach (var lasten in presentation.LoadVectors.Cast<Shape>())
             {
                 VisualStructuralModel.Children.Remove(lasten);
-                foreach (TextBlock id in presentation.LoadIDs) VisualStructuralModel.Children.Remove(id);
+                foreach (var id in presentation.LoadIDs.Cast<TextBlock>()) VisualStructuralModel.Children.Remove(id);
             }
             loadsOn = false;
         }
@@ -108,10 +109,10 @@ public partial class StructuralModelVisualize
         }
         else
         {
-            foreach (Shape path in presentation.SupportRepresentation)
+            foreach (var path in presentation.SupportRepresentation.Cast<Shape>())
             {
                 VisualStructuralModel.Children.Remove(path);
-                foreach (TextBlock id in presentation.SupportIDs) VisualStructuralModel.Children.Remove(id);
+                foreach (var id in presentation.SupportIDs.Cast<TextBlock>()) VisualStructuralModel.Children.Remove(id);
             }
             supportsOn = false;
         }
@@ -119,46 +120,45 @@ public partial class StructuralModelVisualize
 
     private void OnBtnNodeNew_Click(object sender, RoutedEventArgs e)
     {
-        nodeNew = new NodeNew(model);
+        nodeNew = new NodeNew(model) { Topmost = true, Owner = (Window)Parent};
         MainWindow.analysed = false;
     }
     
     private void MenuBeamElementNew(object sender, RoutedEventArgs e)
     {
-        _ = new ElementNew(model);
+        _ = new ElementNew(model) { Topmost = true, Owner = (Window)Parent };
         MainWindow.analysed = false;
-        //Close();
     }
     private void MenuCrossSectionNew(object sender, RoutedEventArgs e)
     {
-        _ = new CrossSectionNew(model);
+        _ = new CrossSectionNew(model) { Topmost = true, Owner = (Window)Parent };
 
     }
     private void MenuMaterialNew(object sender, RoutedEventArgs e)
     {
-        _ = new MaterialNew(model);
+        _ = new MaterialNew(model) { Topmost = true, Owner = (Window)Parent };
 
     }
 
     private void MenuNodeLoadNew(object sender, RoutedEventArgs e)
     {
-        _ = new NodeLoadNew(model);
+        _ = new NodeLoadNew(model) { Topmost = true, Owner = (Window)Parent };
         MainWindow.analysed = false;
     }
     private void MenuLineLoadNew(object sender, RoutedEventArgs e)
     {
-        _ = new LineLoadNew(model);
+        _ = new LineLoadNew(model) { Topmost = true, Owner = (Window)Parent };
         MainWindow.analysed = false;
     }
     private void MenuPointLoadNew(object sender, RoutedEventArgs e)
     {
-        _ = new PointLoadNew(model);
+        _ = new PointLoadNew(model) { Topmost = true, Owner = (Window)Parent };
         MainWindow.analysed = false;
     }
 
     private void OnBtnSupportNew_Click(object sender, RoutedEventArgs e)
     {
-        _ = new SupportNew(model);
+        _ = new SupportNew(model) { Topmost = true, Owner = (Window)Parent };
         MainWindow.analysed = false;
     }
 

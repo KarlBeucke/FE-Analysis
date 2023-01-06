@@ -14,8 +14,8 @@ namespace FE_Analysis.Heat_Transfer.Results
 {
     public partial class StationaryResultsVisualize
     {
-        private readonly List<object> hitList = new List<object>();
-        private readonly List<TextBlock> hitTextBlock = new List<TextBlock>();
+        private readonly List<object> hitList = new();
+        private readonly List<TextBlock> hitTextBlock = new();
         private readonly FeModel model;
         public Presentation presentation;
         private EllipseGeometry hitArea;
@@ -28,7 +28,7 @@ namespace FE_Analysis.Heat_Transfer.Results
             InitializeComponent();
         }
 
-        private void ModelGrid_Loaded(object sender, RoutedEventArgs e)
+        private void Results_Loaded(object sender, RoutedEventArgs e)
         {
             presentation = new Presentation(model, VisualHeatResults);
             presentation.EvaluateResolution();
@@ -57,7 +57,7 @@ namespace FE_Analysis.Heat_Transfer.Results
         {
             if (!heatFlowOn)
             {
-                // draw ALL resulting heat flow vectors in element center
+                // draw ALL resulting heat flow vectors at element center
                 presentation.HeatFlowVectorsDraw();
 
                 // draw value of boundary condition as text with boundary node
@@ -70,7 +70,7 @@ namespace FE_Analysis.Heat_Transfer.Results
                 foreach (Shape path in presentation.HeatVectors) VisualHeatResults.Children.Remove(path);
 
                 // remove ALL text representations of boundary conditions
-                foreach (var boundary in presentation.BoundaryNode) VisualHeatResults.Children.Remove((TextBlock)boundary);
+                foreach (var boundary in presentation.BoundaryNode) VisualHeatResults.Children.Remove(boundary);
                 heatFlowOn = false;
             }
         }
@@ -101,6 +101,7 @@ namespace FE_Analysis.Heat_Transfer.Results
             MyPopup.IsOpen = true;
 
             var sb = new StringBuilder();
+            string done = "";
             foreach (var item in hitList.Where(item => item != null))
                 switch (item)
                 {
@@ -121,6 +122,7 @@ namespace FE_Analysis.Heat_Transfer.Results
                         }
                     case Path path:
                         {
+                            if (path.Name == done) break;
                             MyPopup.IsOpen = true;
                             if (model.Elements.TryGetValue(path.Name, out var multiKnotenElement))
                             {
@@ -130,8 +132,8 @@ namespace FE_Analysis.Heat_Transfer.Results
                                 sb.Append("\ncenter of Element Tx\t= " + elementTemperaturen[0].ToString("F2"));
                                 sb.Append("\ncenter of Element Ty\t= " + elementTemperaturen[1].ToString("F2") + "\n");
                             }
-
                             MyPopupText.Text = sb.ToString();
+                            path.Name = "";
                             break;
                         }
                 }
@@ -147,7 +149,7 @@ namespace FE_Analysis.Heat_Transfer.Results
                 break;
             }
         }
-
+        
         private HitTestResultBehavior HitTestCallBack(HitTestResult result)
         {
             var intersectionDetail = ((GeometryHitTestResult)result).IntersectionDetail;

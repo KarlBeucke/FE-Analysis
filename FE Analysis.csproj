@@ -26,7 +26,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>19</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -174,6 +174,9 @@
     <Compile Include="Structural Analysis\ModelDataRead\MaterialKeys.xaml.cs">
       <DependentUpon>MaterialKeys.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Structural Analysis\ModelDataRead\NodeKeys.xaml.cs">
+      <DependentUpon>NodeKeys.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\NodeLoadKeys.xaml.cs">
       <DependentUpon>NodeLoadKeys.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,9 @@
     </Compile>
     <Compile Include="Structural Analysis\ModelDataShow\DialogDeleteStructuralObjects.xaml.cs">
       <DependentUpon>DialogDeleteStructuralObjects.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Structural Analysis\ModelDataShow\ExcitationVisualize.xaml.cs">
+      <DependentUpon>ExcitationVisualize.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structural Analysis\Results\ClippingFrameDialog.xaml.cs">
       <DependentUpon>ClippingFrameDialog.xaml</DependentUpon>
@@ -466,6 +472,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Structural Analysis\ModelDataRead\NodeKeys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Structural Analysis\ModelDataRead\NodeLoadKeys.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -483,6 +493,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Structural Analysis\ModelDataShow\DialogDeleteStructuralObjects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Structural Analysis\ModelDataShow\ExcitationVisualize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

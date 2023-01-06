@@ -9,7 +9,7 @@
         <ListView Margin="10" Name="RandbedingungKey">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding BoundaryConditionId}" />
+                    <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding SupportId}" />
                     <GridViewColumn Header="Node" Width="100" DisplayMemberBinding="{Binding NodeId}" />
                     <GridViewColumn Header="Element" Width="100" DisplayMemberBinding="{Binding ElementId}" />
                 </GridView>

@@ -46,6 +46,8 @@
                 <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
                 <MenuItem Header="dynamic Model Data show" HorizontalAlignment="Left" Height="20" Width="250"
                           Margin="0,0,0,0" Click="StructuralModelDynamicDataShow" />
+                <MenuItem Header="visualize excitation time history" HorizontalAlignment="Left" Height="20" Width="250" Margin="0,0,0,0" 
+                          Click="ExcitationVisualize"/>
                 <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
                 <MenuItem Header="Eigensolution analyse" HorizontalAlignment="Left" Height="20" Width="250"
                           Margin="0,0,0,0" Click="StructuralModelEigensolutionAnalysis" />

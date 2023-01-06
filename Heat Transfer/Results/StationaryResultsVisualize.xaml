@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="visualize results of Stationary Heat Flow Analysis" Height="800" Width="1000">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0">
-        <Grid Margin="10,10,10,10" x:Name="HeatResults" Loaded="ModelGrid_Loaded">
+        <Grid Margin="10,10,10,10" x:Name="HeatResults" Loaded="Results_Loaded">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition />

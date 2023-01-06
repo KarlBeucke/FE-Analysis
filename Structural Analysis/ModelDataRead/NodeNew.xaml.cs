@@ -20,6 +20,8 @@ public partial class NodeNew
         // activate event handler for Canvas
         MainWindow.structuralModel.VisualStructuralModel.Background = System.Windows.Media.Brushes.Transparent;
         Show();
+        var nodeKeys = new NodeKeys(model) { Owner = this };
+        nodeKeys.Show();
     }
 
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)

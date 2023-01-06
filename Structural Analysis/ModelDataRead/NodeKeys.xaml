@@ -1,0 +1,21 @@
+﻿<Window x:Class="FE_Analysis.Structural_Analysis.ModelDataRead.NodeKeys"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="existing Node definitions" Height="200" Width="300">
+    <Grid>
+        <ListView Margin="10" Name="NodeKey">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Degrees of Freedom" Width="50" DisplayMemberBinding="{Binding NumberOfNodalDof}" />
+                    <GridViewColumn Header="x" Width="50" DisplayMemberBinding="{Binding Coordinates[0]}" />
+                    <GridViewColumn Header="y" Width="50" DisplayMemberBinding="{Binding Coordinates[1]}" />
+                    <GridViewColumn Header="z" Width="50" DisplayMemberBinding="{Binding Coordinates[2]}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

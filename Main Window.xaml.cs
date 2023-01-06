@@ -972,6 +972,13 @@ namespace FE_Analysis
                 _ = MessageBox.Show("Model Data for time history analysis have not been specified yet", "dynamic Structural Analysis");
             }
         }
+        private void ExcitationVisualize(object sender, RoutedEventArgs e)
+        {
+            modelAnalysis ??= new Analysis(model);
+            var excitation = new Structural_Analysis.ModelDataShow.ExcitationVisualize(model);
+            excitation.Show();
+        }
+
         private void StructuralModelDynamicAnalysis(object sender, EventArgs e)
         {
             if (timeintegrationData)
@@ -1242,6 +1249,7 @@ namespace FE_Analysis
             path = fileDialog.InitialDirectory + dateiName;
             File.WriteAllLines(path, found);
         }
+
         private void ElasticityDataVisualize(object sender, RoutedEventArgs e)
         {
             if (model == null)
