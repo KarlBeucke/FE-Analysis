@@ -26,7 +26,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationRevision>22</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -161,6 +161,9 @@
     </Compile>
     <Compile Include="Heat Transfer\ModelDataShow\DialogueDeleteHeatObjects.xaml.cs">
       <DependentUpon>DialogueDeleteHeatObjects.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Heat Transfer\ModelDataShow\HeatExcitationVisualize.xaml.cs">
+      <DependentUpon>HeatExcitationVisualize.xaml</DependentUpon>
     </Compile>
     <Compile Include="Structural Analysis\ModelDataRead\CrossSectionKeys.xaml.cs">
       <DependentUpon>CrossSectionKeys.xaml</DependentUpon>
@@ -441,6 +444,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Heat Transfer\ModelDataShow\DialogueDeleteHeatObjects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Heat Transfer\ModelDataShow\HeatExcitationVisualize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

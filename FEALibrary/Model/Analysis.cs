@@ -747,7 +747,7 @@ namespace FEALibrary.Model
             }
         }
         // time varying input data
-        private void FromFile(string inputDirectory, int col, IList<double> force)
+        public void FromFile(string inputDirectory, int col, IList<double> force)
         {
             string[] lines, substrings;
             var delimiters = new[] { '\t' };
@@ -776,10 +776,10 @@ namespace FEALibrary.Model
 
             // Excitation function[timeSteps]
             // File contains only excitation values at PREDFINED TIME STEPS dt
+            var values = new List<double>();
             if (col < 0)
             {
                 // read all values from file
-                var values = new List<double>();
                 foreach (var line in lines)
                 {
                     substrings = line.Split(delimiters);
@@ -790,12 +790,10 @@ namespace FEALibrary.Model
             else
             {
                 // read all values from a specific column [][0-n]
-                var steps = force.Count;
-                if (steps > lines.Length) steps = lines.Length;
-                for (var k = 0; k < steps; k++)
+                foreach (var line in lines)
                 {
-                    substrings = lines[k].Split(delimiters);
-                    force[k] = double.Parse(substrings[col-1], CultureInfo.InvariantCulture);
+                    substrings = line.Split(delimiters);
+                    force.Add(double.Parse(substrings[col - 1], CultureInfo.InvariantCulture));
                 }
             }
         }

@@ -464,6 +464,12 @@ namespace FE_Analysis
                 timeintegrationAnalysed = false;
             }
         }
+        private void HeatExcitationVisualize(object sender, RoutedEventArgs e)
+        {
+            modelAnalysis ??= new Analysis(model);
+            var excitation = new Heat_Transfer.ModelDataShow.HeatExcitationVisualize(model);
+            excitation.Show();
+        }
         private void EigensolutionHeatAnalyse(object sender, RoutedEventArgs e)
         {
             if (model != null)

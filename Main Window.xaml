@@ -154,8 +154,10 @@
                 <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
                 <MenuItem Header="instationary Heat Model Data show" HorizontalAlignment="Left" Height="20" Width="300"
                           Margin="0,0,0,0" Click="InstationaryData" />
+                <MenuItem Header="visualize excitation time history" HorizontalAlignment="Left" Height="20" Width="250" Margin="0,0,0,0" 
+                          Click="HeatExcitationVisualize"/>
                 <Separator HorizontalAlignment="Left" Height="4" Width="250" Margin="0,0,-0.2,0" />
-                <MenuItem Header="Eigensolution analyse" HorizontalAlignment="Left" Height="20" Width="250"
+                <MenuItem Header="Eigensolution analysis" HorizontalAlignment="Left" Height="20" Width="250"
                           Margin="0,0,0,0" Click="EigensolutionHeatAnalyse" />
                 <MenuItem Header="Eigensolution Results show" HorizontalAlignment="Left" Height="20" Width="250"
                           Margin="0,0,0,0" Click="EigensolutionHeatShow" />
