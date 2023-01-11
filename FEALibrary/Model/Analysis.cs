@@ -785,7 +785,6 @@ namespace FEALibrary.Model
                     substrings = line.Split(delimiters);
                     values.AddRange(substrings.Select(item => double.Parse(item, CultureInfo.InvariantCulture)));
                 }
-                for (var i = 0; i < values.Count; i++) { force[i] = values[i]; }
             }
             else
             {
@@ -793,9 +792,10 @@ namespace FEALibrary.Model
                 foreach (var line in lines)
                 {
                     substrings = line.Split(delimiters);
-                    force.Add(double.Parse(substrings[col - 1], CultureInfo.InvariantCulture));
+                    values.Add(double.Parse(substrings[col - 1], CultureInfo.InvariantCulture));
                 }
             }
+            for (var i = 0; i < values.Count; i++) { force[i] = values[i]; }
         }
         public List<double> FromFile(string inputDirectory)
         {

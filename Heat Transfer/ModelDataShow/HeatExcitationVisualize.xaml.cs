@@ -1,5 +1,4 @@
 ﻿using FEALibrary.Model;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,8 +12,7 @@ public partial class HeatExcitationVisualize
     private readonly Presentation presentation;
     private readonly double dt, tmax, tmin;
     private double excitationMax, excitationMin;
-    private IList<double> values;
-    //private double[] excitation;
+    private readonly double[] excitation;
 
     public HeatExcitationVisualize(FeModel feModel)
     {
@@ -26,6 +24,8 @@ public partial class HeatExcitationVisualize
         dt = feModel.Timeintegration.Dt;
         tmin = 0;
         tmax = feModel.Timeintegration.Tmax;
+        var nSteps = (int)(tmax / dt) + 1;
+        excitation = new double[nSteps];
 
         // Initialization of drawing canvas
         presentation = new Presentation(feModel, VisualExcitation);
@@ -35,16 +35,13 @@ public partial class HeatExcitationVisualize
     {
         const string inputDirectory = "\\FE-Analysis-App\\input\\HeatTransfer\\instationary\\ExcitationFiles";
         // read ordinate values in time interval dt from file
-        values = new List<double>();
-        MainWindow.modelAnalysis.FromFile(inputDirectory,1,values);
-        excitationMax = values.Max();
+        MainWindow.modelAnalysis.FromFile(inputDirectory,1, excitation);
+        excitationMax = excitation.Max();
         excitationMin = -excitationMax;
 
         // text representation of duration of excitation with number of data points and time interval
-        ExcitationText(values.Count * dt, values.Count);
+        ExcitationText(excitation.Length * dt, excitation.Length);
 
-        var excitation = new double[values.Count];
-        for (var i = 0; i < values.Count; i++) excitation[i] = values[i];
         presentation.CoordinateSystem(tmin, tmax, excitationMax, excitationMin);
         presentation.TimeHistoryDraw(dt, tmin, tmax, excitationMax, excitation);
     }
