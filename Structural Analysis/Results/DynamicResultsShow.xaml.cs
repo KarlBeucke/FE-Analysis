@@ -1,6 +1,7 @@
 ﻿using FEALibrary.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Markup;
@@ -59,10 +60,14 @@ namespace FE_Analysis.Structural_Analysis.Results
                 var maxAccY = node.NodalDerivatives[1].Max();
                 var maxAccYTime = Dt * Array.IndexOf(node.NodalDerivatives[1], maxAccY);
 
-                var maxText = "max. DeltaX = " + maxDeltaX.ToString("G4") + ", t =" + maxDeltaXTime.ToString("N2")
-                              + ", max. DeltaY = " + maxDeltaY.ToString("G4") + ", t =" + maxDeltaYTime.ToString("N2")
-                              + "\nmax. AccX = " + maxAccX.ToString("G4") + ", t =" + maxAccXTime.ToString("N2")
-                              + ", max. AccY = " + maxAccY.ToString("G4") + ", t =" + maxAccYTime.ToString("N2");
+                var maxText = "max. DeltaX = " + maxDeltaX.ToString("G4", CultureInfo.InvariantCulture) 
+                                  + ", t =" + maxDeltaXTime.ToString("N2", CultureInfo.InvariantCulture)
+                                  + ", max. DeltaY = " + maxDeltaY.ToString("G4", CultureInfo.InvariantCulture) 
+                                  + ", t =" + maxDeltaYTime.ToString("N2", CultureInfo.InvariantCulture)
+                                  + "\nmax. AccX = " + maxAccX.ToString("G4", CultureInfo.InvariantCulture) 
+                                  + ", t =" + maxAccXTime.ToString("N2", CultureInfo.InvariantCulture)
+                                  + ", max. AccY = " + maxAccY.ToString("G4", CultureInfo.InvariantCulture) 
+                                  + ", t =" + maxAccYTime.ToString("N2", CultureInfo.InvariantCulture);
                 MaxText.Text = maxText;
             }
             NodeDeformationsShow();

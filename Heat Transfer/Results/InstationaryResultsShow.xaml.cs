@@ -3,6 +3,7 @@ using FEALibrary.Model;
 using FEALibrary.Model.abstractClasses;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Markup;
@@ -61,8 +62,10 @@ namespace FE_Analysis.Heat_Transfer.Results
                 var maxTime = Dt * Array.IndexOf(node.NodalVariables[0], maxTemperature);
                 var maxGradient = node.NodalDerivatives[0].Max();
                 var maxTimeGradient = Dt * Array.IndexOf(node.NodalDerivatives[0], maxGradient);
-                var maxText = "max. Temperature = " + maxTemperature.ToString("N4") + ", at time =" + maxTime.ToString("N2")
-                              + "\nmax. Gradient       = " + maxGradient.ToString("N4") + ", at time =" + maxTimeGradient.ToString("N2");
+                var maxText = "max. Temperature = " + maxTemperature.ToString("N4",CultureInfo.InvariantCulture)  
+                                  + ", at time =" + maxTime.ToString("N2", CultureInfo.InvariantCulture)
+                                  + "\nmax. Gradient       = " + maxGradient.ToString("N4", CultureInfo.InvariantCulture) 
+                                  + ", at time =" + maxTimeGradient.ToString("N2", CultureInfo.InvariantCulture);
                 MaxText.Text = maxText;
             }
 
