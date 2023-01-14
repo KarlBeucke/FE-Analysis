@@ -497,6 +497,8 @@ namespace FEALibrary.Model
                         case 0:
                             {
                                 // read from file
+                                _ = MessageBox.Show("Boundary Condition "+item.Key+" data from file", "Heat Transfer Analysis");
+
                                 const string inputDirectory =
                                     "\\FE-Analysis-App\\input\\HeatTransfer\\instationary\\ExcitationFiles";
                                 const int col = 1;
@@ -795,7 +797,15 @@ namespace FEALibrary.Model
                     values.Add(double.Parse(substrings[col - 1], CultureInfo.InvariantCulture));
                 }
             }
-            for (var i = 0; i < values.Count; i++) { force[i] = values[i]; }
+
+            if (values.Count <= force.Count)
+            {
+                for (var i = 0; i < values.Count; i++) { force[i] = values[i]; }
+            }
+            else
+            {
+                for (var i = 0; i < force.Count; i++) { force[i] = values[i]; }
+            }
         }
         public List<double> FromFile(string inputDirectory)
         {

@@ -14,7 +14,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0"  Click="BtnExcitation_Click" Margin="3,7,41,0" IsDefault="False" Grid.Column="0">select file with heat excitation data</Button>
+                <Button Grid.Row="0"  Click="BtnExcitation_Click" Margin="3,7,41,0" IsDefault="False" Grid.Column="0">select file with excitation data</Button>
+                <Button Grid.Row="0"  Click="BtnIntervals_Click" Margin="208,7,-192,0" IsDefault="False" Grid.Column="0">piecewise linear intervals excitation data</Button>
             </Grid>
             <Canvas x:Name="VisualExcitation" Height="489" Width="1000" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
         </StackPanel>

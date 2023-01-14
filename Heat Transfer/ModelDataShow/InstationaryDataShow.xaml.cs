@@ -65,23 +65,23 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             // Nodal temperatures
             if (model.TimeDependentNodeLoads.Count > 0)
             {
-                var boundaryFile = (from item
+                var nodeLoadFile = (from item
                         in model.TimeDependentNodeLoads
                                     where item.Value.VariationType == 0
                                     select item.Value).ToList();
-                if (boundaryFile.Count > 0) NodeFileGrid.ItemsSource = boundaryFile;
+                if (nodeLoadFile.Count > 0) NodeFileGrid.ItemsSource = nodeLoadFile;
 
-                var boundaryHarmonic = (from item
+                var nodeLoadHarmonic = (from item
                         in model.TimeDependentNodeLoads
                                         where item.Value.VariationType == 2
                                         select item.Value).ToList();
-                if (boundaryHarmonic.Count > 0) NodeHarmonicGrid.ItemsSource = boundaryHarmonic;
+                if (nodeLoadHarmonic.Count > 0) NodeHarmonicGrid.ItemsSource = nodeLoadHarmonic;
 
-                var boundaryLinear = (from item
+                var nodeLoadLinear = (from item
                         in model.TimeDependentNodeLoads
                                       where item.Value.VariationType == 3
                                       select item.Value).ToList();
-                if (boundaryLinear.Count > 0) NodeLinearGrid.ItemsSource = boundaryLinear;
+                if (nodeLoadLinear.Count > 0) NodeLinearGrid.ItemsSource = nodeLoadLinear;
             }
 
             // Element temperatures
