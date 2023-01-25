@@ -62,9 +62,9 @@ namespace FE_Analysis.Heat_Transfer.Results
                 var maxTime = Dt * Array.IndexOf(node.NodalVariables[0], maxTemperature);
                 var maxGradient = node.NodalDerivatives[0].Max();
                 var maxTimeGradient = Dt * Array.IndexOf(node.NodalDerivatives[0], maxGradient);
-                var maxText = "max. Temperature = " + maxTemperature.ToString("N4",CultureInfo.InvariantCulture)  
+                var maxText = "max. Temperature = " + maxTemperature.ToString("N4", CultureInfo.InvariantCulture)
                                   + ", at time =" + maxTime.ToString("N2", CultureInfo.InvariantCulture)
-                                  + "\nmax. Gradient       = " + maxGradient.ToString("N4", CultureInfo.InvariantCulture) 
+                                  + "\nmax. Gradient       = " + maxGradient.ToString("N4", CultureInfo.InvariantCulture)
                                   + ", at time =" + maxTimeGradient.ToString("N2", CultureInfo.InvariantCulture);
                 MaxText.Text = maxText;
             }

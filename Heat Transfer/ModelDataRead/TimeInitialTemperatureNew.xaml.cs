@@ -75,7 +75,7 @@ public partial class TimeInitialTemperatureNew
 
     private void BtnDelete_Click(object sender, RoutedEventArgs e)
     {
-        model.Timeintegration.InitialConditions.RemoveAt(current+1);
+        model.Timeintegration.InitialConditions.RemoveAt(current + 1);
         current = 0;
         if (model.Timeintegration.InitialConditions.Count <= 0)
         {

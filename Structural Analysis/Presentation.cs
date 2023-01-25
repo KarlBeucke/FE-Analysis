@@ -770,7 +770,7 @@ public class Presentation
                 Foreground = Red
             };
             var placement = ((Vector)TransformNode(item.Value.Element.Nodes[0], resolution, maxY)
-                             +(Vector)TransformNode(item.Value.Element.Nodes[1], resolution, maxY)) / 2;
+                             + (Vector)TransformNode(item.Value.Element.Nodes[1], resolution, maxY)) / 2;
             placementText = (Point)placement;
             SetTop(id, placementText.Y + placementV + elementOffset);
             SetLeft(id, placementText.X + placementH);
@@ -1697,7 +1697,7 @@ public class Presentation
 
                     constant = qa * offsetMmax;
                     linear = q / l * offsetMmax * offsetMmax / 2;
-                    mmax = element.ElementState[2] - element.ElementState[1] * offsetMmax
+                    mmax = element.ElementState[2] + element.ElementState[1] * offsetMmax
                            + constant * offsetMmax / 2
                            + linear * offsetMmax / 3;
                 }

@@ -957,7 +957,7 @@ namespace FE_Analysis
                 }
                 // default = 2 Eigenstates, falls nicht anders spezifiziert
                 model.Eigenstate ??= new Eigenstates("default", 2);
-                if(model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
+                if (model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
                 var visual = new Structural_Analysis.Results.EigensolutionVisualize(model);
                 visual.Show();
             }

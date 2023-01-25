@@ -1,4 +1,6 @@
-﻿using FEALibrary.Model;
+﻿using FE_Analysis.Heat_Transfer.Model_Data;
+using FE_Analysis.Heat_Transfer.ModelDataRead;
+using FEALibrary.Model;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,8 +11,6 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using FE_Analysis.Heat_Transfer.ModelDataRead;
-using FE_Analysis.Heat_Transfer.Model_Data;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataShow;
 
@@ -182,7 +182,7 @@ public partial class HeatDataVisualize
         _ = new ElementLoadNew(model);
         MainWindow.analysed = false;
     }
-    
+
     private void MenuTimeNodeLoadNew(object sender, RoutedEventArgs e)
     {
         _ = new TimeNodeLoadNew(model);
@@ -257,41 +257,41 @@ public partial class HeatDataVisualize
                 switch (element)
                 {
                     case Element2D2:
-                    {
-                        sb.Append("Node 1 = " + element.NodeIds[0]);
-                        sb.Append("Node 2 = " + element.NodeIds[1]);
-                        if (model.Material.TryGetValue(element.ElementMaterialId, out var material))
                         {
-                            sb.Append("\nConductivity = " + material.MaterialValues[0].ToString("g3"));
-                        }
+                            sb.Append("Node 1 = " + element.NodeIds[0]);
+                            sb.Append("Node 2 = " + element.NodeIds[1]);
+                            if (model.Material.TryGetValue(element.ElementMaterialId, out var material))
+                            {
+                                sb.Append("\nConductivity = " + material.MaterialValues[0].ToString("g3"));
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                     case Element2D3:
-                    {
-                        sb.Append("\nNode 1 = " + element.NodeIds[0]);
-                        sb.Append("\nNode 2 = " + element.NodeIds[1]);
-                        sb.Append("\nNode 3 = " + element.NodeIds[2]);
-                        if (model.Material.TryGetValue(element.ElementMaterialId, out var material))
                         {
-                            sb.Append("\nConductivity = " + material.MaterialValues[0].ToString("g3"));
-                        }
+                            sb.Append("\nNode 1 = " + element.NodeIds[0]);
+                            sb.Append("\nNode 2 = " + element.NodeIds[1]);
+                            sb.Append("\nNode 3 = " + element.NodeIds[2]);
+                            if (model.Material.TryGetValue(element.ElementMaterialId, out var material))
+                            {
+                                sb.Append("\nConductivity = " + material.MaterialValues[0].ToString("g3"));
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                     case Element2D4:
-                    {
-                        sb.Append("Node 1 = " + element.NodeIds[0]);
-                        sb.Append("Node 2 = " + element.NodeIds[1]);
-                        sb.Append("Node 3 = " + element.NodeIds[2]);
-                        sb.Append("Node 4 = " + element.NodeIds[3]);
-                        if (model.Material.TryGetValue(element.ElementMaterialId, out var material))
                         {
-                            sb.Append("\nConductivity = " + material.MaterialValues[0].ToString("g3"));
-                        }
+                            sb.Append("Node 1 = " + element.NodeIds[0]);
+                            sb.Append("Node 2 = " + element.NodeIds[1]);
+                            sb.Append("Node 3 = " + element.NodeIds[2]);
+                            sb.Append("Node 4 = " + element.NodeIds[3]);
+                            if (model.Material.TryGetValue(element.ElementMaterialId, out var material))
+                            {
+                                sb.Append("\nConductivity = " + material.MaterialValues[0].ToString("g3"));
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                 }
                 sb.Append("\n");
             }

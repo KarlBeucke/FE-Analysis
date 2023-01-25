@@ -1,4 +1,5 @@
-﻿using FEALibrary.Model;
+﻿using FE_Analysis.Heat_Transfer.Model_Data;
+using FEALibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
-using FE_Analysis.Heat_Transfer.Model_Data;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataShow;
 
@@ -40,7 +40,7 @@ public partial class HeatExcitationVisualize
     {
         const string inputDirectory = "\\FE-Analysis-App\\input\\HeatTransfer\\instationary\\ExcitationFiles";
         // read ordinate values in time interval dt from file
-        MainWindow.modelAnalysis.FromFile(inputDirectory,1, excitation);
+        MainWindow.modelAnalysis.FromFile(inputDirectory, 1, excitation);
         excitationMax = excitation.Max();
         excitationMin = -excitationMax;
 
@@ -67,13 +67,13 @@ public partial class HeatExcitationVisualize
     }
     private void BtnIntervals_Click(object sender, RoutedEventArgs e)
     {
-        var boundaryLinear = (from item 
+        var boundaryLinear = (from item
                 in model.TimeDependentBoundaryConditions
-            where item.Value.VariationType == 3
-            select item.Value).ToList();
+                              where item.Value.VariationType == 3
+                              select item.Value).ToList();
         foreach (var item in boundaryLinear)
         {
-            _ = MessageBox.Show("time dependent boundary condition at node "+item.NodeId, "Heat Transfer Analysis");
+            _ = MessageBox.Show("time dependent boundary condition at node " + item.NodeId, "Heat Transfer Analysis");
             var timeDependentBc = (TimeDependentBoundaryCondition)item;
             var interval = timeDependentBc.Interval;
             PiecewiseLinear(interval, excitation);

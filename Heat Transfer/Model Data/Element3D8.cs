@@ -2,7 +2,6 @@
 using FEALibrary.Model.abstractClasses;
 using FEALibrary.Utils;
 using System;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Media3D;
 
@@ -112,8 +111,8 @@ public class Element3D8 : AbstractLinear3D8
         SystemIndicesOfElement = new int[NodesPerElement * ElementDof];
         var counter = 0;
         for (var i = 0; i < NodesPerElement; i++)
-        for (var j = 0; j < ElementDof; j++)
-            SystemIndicesOfElement[counter++] = Nodes[i].SystemIndices[j];
+            for (var j = 0; j < ElementDof; j++)
+                SystemIndicesOfElement[counter++] = Nodes[i].SystemIndices[j];
     }
 
     public override Point3D ComputeCenterOfGravity3D()

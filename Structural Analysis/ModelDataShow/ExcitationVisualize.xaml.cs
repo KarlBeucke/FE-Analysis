@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using FEALibrary.Model;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
-using FEALibrary.Model;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataShow;
 

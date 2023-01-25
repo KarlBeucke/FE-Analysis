@@ -1,9 +1,9 @@
 ﻿using FEALibrary.Model;
+using FEALibrary.Model.abstractClasses;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
-using FEALibrary.Model.abstractClasses;
-using System.Globalization;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead
 {
@@ -118,22 +118,22 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
                     existingLoad.PhaseAngle = double.Parse(Angle.Text);
                     break;
                 case 3:
-                {
-                    var delimiters = new[] { '\t' };
-                    var partialString = Linear.Text.Split(delimiters);
-                    var k = 0;
-                    char[] pairDelimiter = { ';' };
-                    var interval = new double[2 * (partialString.Length - 3)];
-                    for (var j = 3; j < partialString.Length; j++)
                     {
-                        var valuePair = partialString[j].Split(pairDelimiter);
-                        interval[k] = double.Parse(valuePair[0]);
-                        interval[k + 1] = double.Parse(valuePair[1]);
-                        k += 2;
+                        var delimiters = new[] { '\t' };
+                        var partialString = Linear.Text.Split(delimiters);
+                        var k = 0;
+                        char[] pairDelimiter = { ';' };
+                        var interval = new double[2 * (partialString.Length - 3)];
+                        for (var j = 3; j < partialString.Length; j++)
+                        {
+                            var valuePair = partialString[j].Split(pairDelimiter);
+                            interval[k] = double.Parse(valuePair[0]);
+                            interval[k + 1] = double.Parse(valuePair[1]);
+                            k += 2;
+                        }
+                        existingLoad.Interval = interval;
+                        break;
                     }
-                    existingLoad.Interval = interval;
-                    break;
-                }
             }
         }
     }

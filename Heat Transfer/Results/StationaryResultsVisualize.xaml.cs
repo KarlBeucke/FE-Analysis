@@ -149,7 +149,7 @@ namespace FE_Analysis.Heat_Transfer.Results
                 break;
             }
         }
-        
+
         private HitTestResultBehavior HitTestCallBack(HitTestResult result)
         {
             var intersectionDetail = ((GeometryHitTestResult)result).IntersectionDetail;

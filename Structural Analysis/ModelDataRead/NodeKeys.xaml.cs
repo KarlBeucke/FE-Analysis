@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using FEALibrary.Model;
+﻿using FEALibrary.Model;
+using System.Linq;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead;
 

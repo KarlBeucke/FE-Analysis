@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FEALibrary.Model;
+﻿using FEALibrary.Model;
 using FEALibrary.Model.abstractClasses;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead;
 

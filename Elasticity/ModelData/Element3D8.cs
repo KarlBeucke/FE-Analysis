@@ -69,8 +69,8 @@ public class Element3D8 : AbstractLinear3D8
     {
         int i, j, k;
         for (i = 0; i < 3; i++)
-        for (j = i, k = 0; k < 8; j += 3, k++)
-            b[i, j] = Sx[k, i];
+            for (j = i, k = 0; k < 8; j += 3, k++)
+                b[i, j] = Sx[k, i];
         for (i = 0, k = 0; i < 8; i++, k += 3) b[3, k] = Sx[i, 1];
         for (i = 0, k = 1; i < 8; i++, k += 3) b[3, k] = Sx[i, 0];
         for (i = 0, k = 1; i < 8; i++, k += 3) b[4, k] = Sx[i, 2];
@@ -121,8 +121,8 @@ public class Element3D8 : AbstractLinear3D8
         SystemIndicesOfElement = new int[NodesPerElement * ElementDof];
         var counter = 0;
         for (var i = 0; i < NodesPerElement; i++)
-        for (var j = 0; j < ElementDof; j++)
-            SystemIndicesOfElement[counter++] = Nodes[i].SystemIndices[j];
+            for (var j = 0; j < ElementDof; j++)
+                SystemIndicesOfElement[counter++] = Nodes[i].SystemIndices[j];
     }
 
     public override Point3D ComputeCenterOfGravity3D()

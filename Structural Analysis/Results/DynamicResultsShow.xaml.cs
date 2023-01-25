@@ -60,13 +60,13 @@ namespace FE_Analysis.Structural_Analysis.Results
                 var maxAccY = node.NodalDerivatives[1].Max();
                 var maxAccYTime = Dt * Array.IndexOf(node.NodalDerivatives[1], maxAccY);
 
-                var maxText = "max. DeltaX = " + maxDeltaX.ToString("G4", CultureInfo.InvariantCulture) 
+                var maxText = "max. DeltaX = " + maxDeltaX.ToString("G4", CultureInfo.InvariantCulture)
                                   + ", t =" + maxDeltaXTime.ToString("N2", CultureInfo.InvariantCulture)
-                                  + ", max. DeltaY = " + maxDeltaY.ToString("G4", CultureInfo.InvariantCulture) 
+                                  + ", max. DeltaY = " + maxDeltaY.ToString("G4", CultureInfo.InvariantCulture)
                                   + ", t =" + maxDeltaYTime.ToString("N2", CultureInfo.InvariantCulture)
-                                  + "\nmax. AccX = " + maxAccX.ToString("G4", CultureInfo.InvariantCulture) 
+                                  + "\nmax. AccX = " + maxAccX.ToString("G4", CultureInfo.InvariantCulture)
                                   + ", t =" + maxAccXTime.ToString("N2", CultureInfo.InvariantCulture)
-                                  + ", max. AccY = " + maxAccY.ToString("G4", CultureInfo.InvariantCulture) 
+                                  + ", max. AccY = " + maxAccY.ToString("G4", CultureInfo.InvariantCulture)
                                   + ", t =" + maxAccYTime.ToString("N2", CultureInfo.InvariantCulture);
                 MaxText.Text = maxText;
             }

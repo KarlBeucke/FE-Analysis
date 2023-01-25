@@ -120,10 +120,10 @@ public partial class StructuralModelVisualize
 
     private void OnBtnNodeNew_Click(object sender, RoutedEventArgs e)
     {
-        nodeNew = new NodeNew(model) { Topmost = true, Owner = (Window)Parent};
+        nodeNew = new NodeNew(model) { Topmost = true, Owner = (Window)Parent };
         MainWindow.analysed = false;
     }
-    
+
     private void MenuBeamElementNew(object sender, RoutedEventArgs e)
     {
         _ = new ElementNew(model) { Topmost = true, Owner = (Window)Parent };

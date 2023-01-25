@@ -1,10 +1,10 @@
-﻿using FEALibrary.Model;
+﻿using FE_Analysis.Heat_Transfer.Model_Data;
+using FEALibrary.Model;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
-using FE_Analysis.Heat_Transfer.Model_Data;
 using System.Windows.Markup;
-using System;
 
 namespace FE_Analysis.Heat_Transfer.ModelDataRead;
 
@@ -63,7 +63,7 @@ public partial class TimeIntegrationNew
             betaM = betaMax.ToString(CultureInfo.InvariantCulture);
         }
 
-        _ = MessageBox.Show("critical time step for β max = " + betaM 
+        _ = MessageBox.Show("critical time step for β max = " + betaM
                             + " is unrestricted for stability and must be set for accuracy", "TimeIntegration");
     }
 

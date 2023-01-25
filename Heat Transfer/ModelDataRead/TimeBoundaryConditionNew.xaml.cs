@@ -1,5 +1,4 @@
 ﻿using FE_Analysis.Heat_Transfer.Model_Data;
-using FE_Analysis.Structural_Analysis.ModelDataRead;
 using FEALibrary.Model;
 using System;
 using System.Linq;

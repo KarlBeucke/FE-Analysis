@@ -1,9 +1,9 @@
-﻿using System;
+﻿using FE_Analysis.Structural_Analysis.Model_Data;
+using FEALibrary.Model;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
-using FEALibrary.Model;
-using FE_Analysis.Structural_Analysis.Model_Data;
 
 namespace FE_Analysis.Structural_Analysis.ModelDataRead;
 
@@ -66,7 +66,7 @@ public partial class TimeIntegrationNew
     {
         Newmark.IsChecked = true;
         Wilson.IsChecked = false; Taylor.IsChecked = false;
-        Beta.Text = 0.25.ToString("G5"); 
+        Beta.Text = 0.25.ToString("G5");
         Gamma.Text = 0.5.ToString("G5");
         Theta.Text = "";
         Alfa.Text = "";
@@ -97,7 +97,7 @@ public partial class TimeIntegrationNew
         try { number = int.Parse(Eigensolution.Text, CultureInfo.InvariantCulture); }
         catch (FormatException) { _ = MessageBox.Show("number of eigensolutions has wrong format", "new TimeIntegration"); return; }
 
-        if(MainWindow.modelAnalysis == null) modelAnalysis = new Analysis(model);
+        if (MainWindow.modelAnalysis == null) modelAnalysis = new Analysis(model);
         model.Eigenstate ??= new Eigenstates("Tmin", number);
 
         if (model.Eigenstate.Eigenvalues == null)
@@ -114,7 +114,7 @@ public partial class TimeIntegrationNew
         var omegaMax = model.Eigenstate.Eigenvalues[number - 1];
         // smallest period for largest eigenvalue considered
         var tmin = 2 * Math.PI / Math.Sqrt(omegaMax);
-        TimeInterval.Text =tmin.ToString("F3");
+        TimeInterval.Text = tmin.ToString("F3");
     }
 
     private void InitialConditionNext(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -165,7 +165,7 @@ public partial class TimeIntegrationNew
         var modalValues = (ModalValues)model.Eigenstate.DampingRatios[eigenForm - 1];
         MainWindow.structuralModel.timeIntegrationNew.DampingRatio.Text = modalValues.Damping.ToString(CultureInfo.CurrentCulture);
     }
- 
+
     private void EigenformKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {
         if (Eigenform.Text.Length == 0) return;
@@ -246,7 +246,7 @@ public partial class TimeIntegrationNew
             if (model.Timeintegration == null) return;
             try { model.Timeintegration.Dt = double.Parse(TimeInterval.Text, CultureInfo.InvariantCulture); }
             catch (FormatException) { _ = MessageBox.Show("time step has wrong format", "new TimeIntegration"); }
-            
+
             try { model.Timeintegration.Tmax = double.Parse(MaximumTime.Text); }
             catch (FormatException) { _ = MessageBox.Show("maximum integration time has wrong format", "new TimeIntegration"); }
 
@@ -278,7 +278,7 @@ public partial class TimeIntegrationNew
             else if (Taylor.IsChecked == true)
             {
                 try { model.Timeintegration.Parameter1 = double.Parse(Alfa.Text, CultureInfo.InvariantCulture); }
-                catch (FormatException) { _ = MessageBox.Show("parameter alfa has wrong format", "new TimeIntegration"); } 
+                catch (FormatException) { _ = MessageBox.Show("parameter alfa has wrong format", "new TimeIntegration"); }
             }
         }
     }

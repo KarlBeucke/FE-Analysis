@@ -128,7 +128,11 @@ namespace FE_Analysis.Structural_Analysis.Results
             double maxShearForce = 0;
             if (axialForcesOn)
             {
-                foreach (Shape path in presentation.AxialForceList) VisualStructuralResults.Children.Remove(path);
+                foreach (Shape path in presentation.AxialForceList)
+                {
+                    VisualStructuralResults.Children.Remove(path);
+                }
+
                 axialForcesOn = false;
             }
 
@@ -170,7 +174,11 @@ namespace FE_Analysis.Structural_Analysis.Results
             }
             else
             {
-                foreach (Shape path in presentation.ShearForceList) VisualStructuralResults.Children.Remove(path);
+                foreach (Shape path in presentation.ShearForceList)
+                {
+                    VisualStructuralResults.Children.Remove(path);
+                }
+
                 shearForcesOn = false;
             }
         }
@@ -180,13 +188,21 @@ namespace FE_Analysis.Structural_Analysis.Results
             double maxMoment = 0;
             if (axialForcesOn)
             {
-                foreach (Shape path in presentation.AxialForceList) VisualStructuralResults.Children.Remove(path);
+                foreach (var path in presentation.AxialForceList.Cast<Shape>())
+                {
+                    VisualStructuralResults.Children.Remove(path);
+                }
+
                 axialForcesOn = false;
             }
 
             if (shearForcesOn)
             {
-                foreach (Shape path in presentation.ShearForceList) VisualStructuralResults.Children.Remove(path);
+                foreach (var path in presentation.ShearForceList.Cast<Shape>())
+                {
+                    VisualStructuralResults.Children.Remove(path);
+                }
+
                 shearForcesOn = false;
             }
 
