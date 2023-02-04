@@ -248,7 +248,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.Elements.Remove(element.ElementId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
 
@@ -307,7 +307,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.LineLoads.Remove(load.LoadId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
 
                 }
@@ -327,7 +327,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.ElementLoads.Remove(elementLoad.LoadId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
                 model.Elements.TryGetValue(elementLoad.ElementId, out var loadElement);
@@ -367,7 +367,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.TimeDependentElementLoads.Remove(timeDependentElementLoad.LoadId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
 
@@ -398,7 +398,7 @@ public partial class HeatDataVisualize
                 else
                 {
                     model.Nodes.Remove(node.Id);
-                    MainWindow.heatModel.Close();
+                    MainWindow.heatModelVisual.Close();
                 }
                 return;
             }
@@ -436,7 +436,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.Elements.Remove(element.ElementId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
 
@@ -506,7 +506,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.BoundaryConditions.Remove(nodeload.LoadId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
 
@@ -530,7 +530,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.TimeDependentNodeLoads.Remove(timeNodeload.LoadId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
 
@@ -577,7 +577,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.ElementLoads.Remove(elementLoad.LoadId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
                 var elementload = new ElementLoadNew(model)
@@ -637,7 +637,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.TimeDependentElementLoads.Remove(timeDependentElementLoad.LoadId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
                 var elementload = new TimeElementLoadNew(model)
@@ -669,7 +669,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.BoundaryConditions.Remove(boundaryCondition.SupportId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
                 _ = new BoundaryConditionNew(model)
@@ -689,7 +689,7 @@ public partial class HeatDataVisualize
                     else
                     {
                         model.TimeDependentBoundaryConditions.Remove(timeDependentBoundaryCondition.SupportId);
-                        MainWindow.heatModel.Close();
+                        MainWindow.heatModelVisual.Close();
                     }
                 }
 

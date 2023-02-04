@@ -254,7 +254,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.Elements.Remove(element.ElementId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                     continue;
@@ -307,7 +307,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.Loads.Remove(nodeLoad.LoadId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                     continue;
@@ -331,7 +331,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.PointLoads.Remove(abstractElementLoad.LoadId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                     continue;
@@ -356,7 +356,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.ElementLoads.Remove(elementLoad.LoadId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                     continue;
@@ -381,7 +381,7 @@ public partial class StructuralModelVisualize
                 else
                 {
                     model.BoundaryConditions.Remove(support.SupportId);
-                    MainWindow.structuralModel.Close();
+                    MainWindow.structuresModelVisual.Close();
                     dialogDelete.Close();
                 }
                 continue;
@@ -412,7 +412,7 @@ public partial class StructuralModelVisualize
                 else
                 {
                     model.Nodes.Remove(node.Id);
-                    MainWindow.structuralModel.Close();
+                    MainWindow.structuresModelVisual.Close();
                     dialogDelete.Close();
                 }
                 continue;
@@ -452,7 +452,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.Elements.Remove(element.ElementId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                     continue;
@@ -530,7 +530,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.Loads.Remove(nodeLoad.LoadId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                     continue;
@@ -557,7 +557,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.LineLoads.Remove(lineLoad.LoadId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                     continue;
@@ -584,7 +584,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.PointLoads.Remove(pointload.LoadId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                 }
@@ -609,7 +609,7 @@ public partial class StructuralModelVisualize
                     else
                     {
                         model.BoundaryConditions.Remove(support.SupportId);
-                        MainWindow.structuralModel.Close();
+                        MainWindow.structuresModelVisual.Close();
                         dialogDelete.Close();
                     }
                     continue;

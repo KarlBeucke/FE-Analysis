@@ -117,7 +117,7 @@ public partial class ElementLoadNew
 
             loadKeys?.Close();
             Close();
-            MainWindow.heatModel.Close();
+            MainWindow.heatModelVisual.Close();
         }
     }
 
@@ -175,6 +175,6 @@ public partial class ElementLoadNew
         model.ElementLoads.Remove(ElementLoadId.Text);
         loadKeys?.Close();
         Close();
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.Close();
     }
 }

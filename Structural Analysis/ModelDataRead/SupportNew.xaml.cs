@@ -85,7 +85,7 @@ public partial class SupportNew
 
         supportKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
     }
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
     {
@@ -122,7 +122,7 @@ public partial class SupportNew
         model.BoundaryConditions.Remove(SupportId.Text);
         supportKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
         supportKeys?.Close();
     }
 }

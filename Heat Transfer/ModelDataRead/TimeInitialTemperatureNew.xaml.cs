@@ -13,7 +13,7 @@ public partial class TimeInitialTemperatureNew
     {
         Language = XmlLanguage.GetLanguage("us-US");
         InitializeComponent();
-        current = MainWindow.heatModel.timeIntegrationNew.current;
+        current = MainWindow.heatModelVisual.timeIntegrationNew.current;
 
         this.model = model;
         if (model.Timeintegration.FromStationary)
@@ -49,7 +49,7 @@ public partial class TimeInitialTemperatureNew
         }
 
         // add new initial condition
-        if (MainWindow.heatModel.timeIntegrationNew.current > model.Timeintegration.InitialConditions.Count)
+        if (MainWindow.heatModelVisual.timeIntegrationNew.current > model.Timeintegration.InitialConditions.Count)
         {
             if (NodeId.Text == "") return;
             var values = new double[1];
@@ -80,7 +80,7 @@ public partial class TimeInitialTemperatureNew
         if (model.Timeintegration.InitialConditions.Count <= 0)
         {
             Close();
-            MainWindow.heatModel.timeIntegrationNew.Close();
+            MainWindow.heatModelVisual.timeIntegrationNew.Close();
             return;
         }
         var initial = (NodalValues)model.Timeintegration.InitialConditions[current];
@@ -88,6 +88,6 @@ public partial class TimeInitialTemperatureNew
         InitialTemperature.Text = initial.Values[0].ToString("G2");
         StationarySolution.IsChecked = model.Timeintegration.FromStationary;
         Close();
-        MainWindow.heatModel.timeIntegrationNew.Close();
+        MainWindow.heatModelVisual.timeIntegrationNew.Close();
     }
 }

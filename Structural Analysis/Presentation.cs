@@ -616,7 +616,7 @@ public class Presentation
     {
         foreach (var item in model.Elements)
         {
-            if (!(item.Value is Abstract2D element)) continue;
+            if (item.Value is not Abstract2D element) continue;
             element.SetReferences(model);
             var cg = element.ComputeCenterOfGravity();
             var id = new TextBlock
@@ -1398,7 +1398,7 @@ public class Presentation
 
             foreach (var item in model.PointLoads)
             {
-                if (!(item.Value is PointLoad last) || item.Value.ElementId != element.ElementId) continue;
+                if (item.Value is not PointLoad last || item.Value.ElementId != element.ElementId) continue;
                 beamPointLoad = true;
                 pointLoadQ = last.Loadvalues[1];
                 pointLoadOffset = last.Offset;
@@ -1408,7 +1408,7 @@ public class Presentation
             // test, ob element has line load
             foreach (var item in model.ElementLoads)
             {
-                if (!(item.Value is LineLoad last) || item.Value.ElementId != element.ElementId) continue;
+                if (item.Value is not LineLoad last || item.Value.ElementId != element.ElementId) continue;
                 beamContinuousLoad = true;
                 lineLoad = last;
                 break;
@@ -1639,7 +1639,7 @@ public class Presentation
             // find PointLoad on beam element
             foreach (var item in model.PointLoads)
             {
-                if (!(item.Value is PointLoad load) || item.Value.ElementId != element.ElementId) continue;
+                if (item.Value is not PointLoad load || item.Value.ElementId != element.ElementId) continue;
                 pointLoadOffset = load.Offset;
                 elementHasPointLoad = true;
                 break;
@@ -1651,7 +1651,7 @@ public class Presentation
             // find LineLoad on beam element
             foreach (var item in model.ElementLoads)
             {
-                if (!(item.Value is LineLoad last) || item.Value.ElementId != element.ElementId) continue;
+                if (item.Value is not LineLoad last || item.Value.ElementId != element.ElementId) continue;
                 lineLoad = last;
                 elementHasLineLoad = true;
                 break;
@@ -1681,7 +1681,7 @@ public class Presentation
                 var qa = lineLoad.Loadvalues[1];
                 var qb = lineLoad.Loadvalues[3];
                 var l = element.length;
-                double controlOffset = 3;
+                double controlOffset = 1;
                 double offsetMmax, constant, linear;
 
                 // constant load or linear ascending triangular load
@@ -1722,12 +1722,13 @@ public class Presentation
                 // only Line- no PointLoad
                 if (!elementHasPointLoad)
                 {
-                    // maxPoint as maximum moment, control point by scaling (controlOffset) of max. moment
-                    maxPoint = startPoint + offsetMmax / element.length * (endPoint - startPoint)
-                                          + vec2 * controlOffset * mmaxScaled;
+                    // maxPoint at maximum moment is control point
+                    maxPoint = startPoint + offsetMmax / element.length * (endPoint - startPoint) - vec2 * controlOffset * mmaxScaled;
                     nextPoint = endPoint + vec2 * moment2Scaled;
                     pathFigure.Segments.Add(new QuadraticBezierSegment(maxPoint, nextPoint, true));
                     pathFigure.Segments.Add(new LineSegment(endPoint, true));
+                    // maxPoint of Bezier-Spline (for Text) is about 1/2 of control Point
+                    maxPoint.Y /= 2;
                 }
 
                 // Element has PointLoad

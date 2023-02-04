@@ -63,7 +63,7 @@ public partial class TimeElementLoadNew
         }
         loadKeys?.Close();
         Close();
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.Close();
     }
 
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
@@ -78,7 +78,7 @@ public partial class TimeElementLoadNew
         model.TimeDependentElementLoads.Remove(LoadId.Text);
         loadKeys?.Close();
         Close();
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.Close();
     }
 
     private void LoadIdLostFocus(object sender, RoutedEventArgs e)

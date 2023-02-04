@@ -83,7 +83,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             if (!model.TimeDependentNodeLoads.Keys.Contains(LoadId.Text)) return;
             model.TimeDependentNodeLoads.Remove(LoadId.Text);
             Close();
-            MainWindow.heatModel.Close();
+            MainWindow.heatModelVisual.Close();
         }
 
         private void LoadIdLostFocus(object sender, RoutedEventArgs e)

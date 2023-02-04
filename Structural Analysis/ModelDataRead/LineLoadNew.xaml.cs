@@ -80,7 +80,7 @@ public partial class LineLoadNew
 
         lineLoadKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
     }
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
     {
@@ -120,7 +120,7 @@ public partial class LineLoadNew
         model.ElementLoads.Remove(LoadId.Text);
         lineLoadKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
         lineLoadKeys?.Close();
     }
 }

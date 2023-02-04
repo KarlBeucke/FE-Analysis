@@ -76,7 +76,7 @@ public partial class NodeLoadNew
         }
         nodeLoadKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
     }
 
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
@@ -113,6 +113,6 @@ public partial class NodeLoadNew
         model.Loads.Remove(LoadId.Text);
         nodeLoadKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
     }
 }

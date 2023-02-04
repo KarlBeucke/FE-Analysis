@@ -117,7 +117,7 @@ public partial class TimeIntegrationNew
             try { model.Timeintegration.Parameter1 = double.Parse(Parameter.Text, CultureInfo.InvariantCulture); }
             catch (FormatException) { _ = MessageBox.Show("parameter alfa has wrong format", "new TimeIntegration"); return; }
         }
-        MainWindow.heatModel.presentation.AnfangsbedingungenEntfernen();
+        MainWindow.heatModelVisual.presentation.AnfangsbedingungenEntfernen();
         initialTemperaturesNew?.Close();
         Close();
     }
@@ -136,14 +136,14 @@ public partial class TimeIntegrationNew
         {
             initialTemperaturesNew.NodeId.Text = "";
             initialTemperaturesNew.InitialTemperature.Text = "";
-            MainWindow.heatModel.timeIntegrationNew.InitialCondition.Text = current.ToString(CultureInfo.CurrentCulture);
+            MainWindow.heatModelVisual.timeIntegrationNew.InitialCondition.Text = current.ToString(CultureInfo.CurrentCulture);
         }
         else
         {
             var nodalValues = (NodalValues)model.Timeintegration.InitialConditions[current - 1];
-            MainWindow.heatModel.timeIntegrationNew.InitialCondition.Text =
+            MainWindow.heatModelVisual.timeIntegrationNew.InitialCondition.Text =
                 current.ToString(CultureInfo.CurrentCulture);
-            MainWindow.heatModel.timeIntegrationNew.Show();
+            MainWindow.heatModelVisual.timeIntegrationNew.Show();
             if (model.Timeintegration.FromStationary)
             {
                 initialTemperaturesNew.StationarySolution.IsChecked = true;
@@ -159,8 +159,8 @@ public partial class TimeIntegrationNew
                 initialTemperaturesNew.NodeId.Text = nodalValues.NodeId;
                 initialTemperaturesNew.InitialTemperature.Text = nodalValues.Values[0].ToString(CultureInfo.CurrentCulture);
                 var start = current.ToString("D");
-                MainWindow.heatModel.timeIntegrationNew.InitialCondition.Text = start;
-                MainWindow.heatModel.presentation.InitialConditionsDraw(nodalValues.NodeId, nodalValues.Values[0], start);
+                MainWindow.heatModelVisual.timeIntegrationNew.InitialCondition.Text = start;
+                MainWindow.heatModelVisual.presentation.InitialConditionsDraw(nodalValues.NodeId, nodalValues.Values[0], start);
             }
         }
     }

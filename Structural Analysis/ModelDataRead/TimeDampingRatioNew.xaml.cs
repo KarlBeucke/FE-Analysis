@@ -13,7 +13,7 @@ public partial class TimeDampingRatioNew
     {
         InitializeComponent();
         this.model = model;
-        eigenform = MainWindow.structuralModel.timeIntegrationNew.eigenForm;
+        eigenform = MainWindow.structuresModelVisual.timeIntegrationNew.eigenForm;
         if (eigenform > model.Eigenstate.DampingRatios.Count)
         {
             Xi.Text = "";
@@ -49,7 +49,7 @@ public partial class TimeDampingRatioNew
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
     {
         Close();
-        MainWindow.structuralModel.timeIntegrationNew.Close();
+        MainWindow.structuresModelVisual.timeIntegrationNew.Close();
     }
 
     private void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -59,12 +59,12 @@ public partial class TimeDampingRatioNew
         if (model.Eigenstate.DampingRatios.Count <= 0)
         {
             Close();
-            MainWindow.structuralModel.timeIntegrationNew.Close();
+            MainWindow.structuresModelVisual.timeIntegrationNew.Close();
             return;
         }
         var startValues = (ModalValues)model.Eigenstate.DampingRatios[eigenform];
         Xi.Text = startValues.Damping.ToString("G2");
         Close();
-        MainWindow.structuralModel.timeIntegrationNew.Close();
+        MainWindow.structuresModelVisual.timeIntegrationNew.Close();
     }
 }

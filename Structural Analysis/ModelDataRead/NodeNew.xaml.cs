@@ -18,7 +18,7 @@ public partial class NodeNew
         InitializeComponent();
         model = feModel;
         // activate event handler for Canvas
-        MainWindow.structuralModel.VisualStructuralModel.Background = System.Windows.Media.Brushes.Transparent;
+        MainWindow.structuresModelVisual.VisualStructuralModel.Background = System.Windows.Media.Brushes.Transparent;
         Show();
         var nodeKeys = new NodeKeys(model) { Owner = this };
         nodeKeys.Show();
@@ -27,9 +27,9 @@ public partial class NodeNew
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
     {
         // remove pilot node and deactivate event handler for Canvas
-        MainWindow.structuralModel.VisualStructuralModel.Children.Remove(MainWindow.structuralModel.Node);
-        MainWindow.structuralModel.VisualStructuralModel.Background = null;
-        MainWindow.structuralModel.isNode = false;
+        MainWindow.structuresModelVisual.VisualStructuralModel.Children.Remove(MainWindow.structuresModelVisual.Node);
+        MainWindow.structuresModelVisual.VisualStructuralModel.Background = null;
+        MainWindow.structuresModelVisual.isNode = false;
         Close();
     }
 
@@ -65,10 +65,10 @@ public partial class NodeNew
         }
 
         // remove pilot node and deactivate event handler for Canvas
-        MainWindow.structuralModel.VisualStructuralModel.Children.Remove(MainWindow.structuralModel.Node);
-        MainWindow.structuralModel.VisualStructuralModel.Background = null;
-        MainWindow.structuralModel.isNode = false;
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.VisualStructuralModel.Children.Remove(MainWindow.structuresModelVisual.Node);
+        MainWindow.structuresModelVisual.VisualStructuralModel.Background = null;
+        MainWindow.structuresModelVisual.isNode = false;
+        MainWindow.structuresModelVisual.Close();
         Close();
     }
 

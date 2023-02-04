@@ -66,7 +66,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             }
             loadKeys?.Close();
             Close();
-            MainWindow.heatModel.Close();
+            MainWindow.heatModelVisual.Close();
         }
 
         private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
@@ -81,7 +81,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             model.Loads.Remove(NodeLoadId.Text);
             loadKeys?.Close();
             Close();
-            MainWindow.heatModel.Close();
+            MainWindow.heatModelVisual.Close();
         }
 
         private void NodeLoadIdLostFocus(object sender, RoutedEventArgs e)

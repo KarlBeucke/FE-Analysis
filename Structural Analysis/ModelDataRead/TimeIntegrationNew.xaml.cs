@@ -127,14 +127,14 @@ public partial class TimeIntegrationNew
             initialValuesNew.Dof1D0.Text = ""; initialValuesNew.Dof1V0.Text = "";
             initialValuesNew.Dof2D0.Text = ""; initialValuesNew.Dof2V0.Text = "";
             initialValuesNew.Dof3D0.Text = ""; initialValuesNew.Dof3V0.Text = "";
-            MainWindow.structuralModel.timeIntegrationNew.InitialCondition.Text = current.ToString(CultureInfo.CurrentCulture);
+            MainWindow.structuresModelVisual.timeIntegrationNew.InitialCondition.Text = current.ToString(CultureInfo.CurrentCulture);
         }
         else
         {
             var nodalValues = (NodalValues)model.Timeintegration.InitialConditions[current - 1];
-            MainWindow.structuralModel.timeIntegrationNew.InitialCondition.Text =
+            MainWindow.structuresModelVisual.timeIntegrationNew.InitialCondition.Text =
                 current.ToString(CultureInfo.CurrentCulture);
-            MainWindow.structuralModel.timeIntegrationNew.Show();
+            MainWindow.structuresModelVisual.timeIntegrationNew.Show();
 
             initialValuesNew.NodeId.Text = nodalValues.NodeId;
             initialValuesNew.Dof1D0.Text = nodalValues.Values[0].ToString(CultureInfo.CurrentCulture);
@@ -151,19 +151,19 @@ public partial class TimeIntegrationNew
                 initialValuesNew.Dof3V0.Text = nodalValues.Values[5].ToString(CultureInfo.CurrentCulture);
             }
             var start = current.ToString("D");
-            MainWindow.structuralModel.timeIntegrationNew.InitialCondition.Text = start;
+            MainWindow.structuresModelVisual.timeIntegrationNew.InitialCondition.Text = start;
         }
     }
 
     private void DampingRatioNext(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         eigenForm++;
-        MainWindow.structuralModel.timeIntegrationNew.Eigenform.Text =
+        MainWindow.structuresModelVisual.timeIntegrationNew.Eigenform.Text =
             eigenForm.ToString(CultureInfo.CurrentCulture);
         _ = new TimeDampingRatioNew(model);
 
         var modalValues = (ModalValues)model.Eigenstate.DampingRatios[eigenForm - 1];
-        MainWindow.structuralModel.timeIntegrationNew.DampingRatio.Text = modalValues.Damping.ToString(CultureInfo.CurrentCulture);
+        MainWindow.structuresModelVisual.timeIntegrationNew.DampingRatio.Text = modalValues.Damping.ToString(CultureInfo.CurrentCulture);
     }
 
     private void EigenformKeyDown(object sender, System.Windows.Input.KeyEventArgs e)

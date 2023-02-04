@@ -54,7 +54,7 @@ public partial class BoundaryConditionNew
         }
         boundaryConditionKeys?.Close();
         Close();
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.Close();
     }
 
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
@@ -69,7 +69,7 @@ public partial class BoundaryConditionNew
         model.BoundaryConditions.Remove(BoundaryConditionId.Text);
         boundaryConditionKeys?.Close();
         Close();
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.Close();
     }
 
     private void BoundaryConditionIdLostFocus(object sender, RoutedEventArgs e)

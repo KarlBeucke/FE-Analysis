@@ -12,7 +12,7 @@ public partial class TimeNodalInitialConditionsNew
     {
         InitializeComponent();
         this.model = model;
-        current = MainWindow.structuralModel.timeIntegrationNew.current;
+        current = MainWindow.structuresModelVisual.timeIntegrationNew.current;
         var start = (NodalValues)model.Timeintegration.InitialConditions[current];
         NodeId.Text = start.NodeId;
         Dof1D0.Text = start.Values[0].ToString("G2");
@@ -35,7 +35,7 @@ public partial class TimeNodalInitialConditionsNew
         if (NodeId.Text.Length == 0) Close();
 
         // add new initial condition
-        if (MainWindow.structuralModel.timeIntegrationNew.current > model.Timeintegration.InitialConditions.Count)
+        if (MainWindow.structuresModelVisual.timeIntegrationNew.current > model.Timeintegration.InitialConditions.Count)
         {
             if (NodeId.Text == "") return;
             var nodeId = NodeId.Text;
@@ -79,7 +79,7 @@ public partial class TimeNodalInitialConditionsNew
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
     {
         Close();
-        MainWindow.structuralModel.timeIntegrationNew.Close();
+        MainWindow.structuresModelVisual.timeIntegrationNew.Close();
     }
 
     private void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -89,7 +89,7 @@ public partial class TimeNodalInitialConditionsNew
         if (model.Timeintegration.InitialConditions.Count <= 0)
         {
             Close();
-            MainWindow.structuralModel.timeIntegrationNew.Close();
+            MainWindow.structuresModelVisual.timeIntegrationNew.Close();
             return;
         }
         var initialValues = (NodalValues)model.Timeintegration.InitialConditions[current];
@@ -109,6 +109,6 @@ public partial class TimeNodalInitialConditionsNew
             Dof3V0.Text = initialValues.Values[5].ToString("G2");
         }
         Close();
-        MainWindow.structuralModel.timeIntegrationNew.Close();
+        MainWindow.structuresModelVisual.timeIntegrationNew.Close();
     }
 }

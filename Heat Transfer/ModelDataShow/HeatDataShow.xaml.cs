@@ -59,13 +59,13 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             removeKey = node.Id;
             if (lastNode != null)
             {
-                MainWindow.heatModel.VisualHeatModel.Children.Remove(lastNode);
+                MainWindow.heatModelVisual.VisualHeatModel.Children.Remove(lastNode);
             }
-            lastNode = MainWindow.heatModel.presentation.NodeIndicate(node, Brushes.Green, 1);
+            lastNode = MainWindow.heatModelVisual.presentation.NodeIndicate(node, Brushes.Green, 1);
         }
         private void NoNodeSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.heatModel.VisualHeatModel.Children.Remove(lastNode);
+            MainWindow.heatModelVisual.VisualHeatModel.Children.Remove(lastNode);
         }
 
         private void Elements_Loaded(object sender, RoutedEventArgs e)
@@ -102,14 +102,14 @@ namespace FE_Analysis.Heat_Transfer.ModelDataShow
             removeKey = element.ElementId;
             if (lastElement != null)
             {
-                MainWindow.heatModel.VisualHeatModel.Children.Remove(lastElement);
+                MainWindow.heatModelVisual.VisualHeatModel.Children.Remove(lastElement);
             }
-            lastElement = MainWindow.heatModel.presentation.ElementFillDraw((Abstract2D)element,
+            lastElement = MainWindow.heatModelVisual.presentation.ElementFillDraw((Abstract2D)element,
                 Brushes.Black, Colors.Green, .2, 2);
         }
         private void NoElementSelected(object sender, RoutedEventArgs e)
         {
-            MainWindow.heatModel.VisualHeatModel.Children.Remove(lastElement);
+            MainWindow.heatModelVisual.VisualHeatModel.Children.Remove(lastElement);
         }
 
         private void Material_Loaded(object sender, RoutedEventArgs e)

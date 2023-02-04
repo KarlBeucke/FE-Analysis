@@ -85,7 +85,7 @@ public partial class ElementNew
             model.Elements.Add(ElementId.Text, element);
         }
         Close();
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.Close();
         elementKeys?.Close();
     }
 
@@ -101,7 +101,7 @@ public partial class ElementNew
         model.Elements.Remove(ElementId.Text);
         elementKeys?.Close();
         Close();
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.Close();
     }
 
     private void ElementIdLostFocus(object sender, RoutedEventArgs e)

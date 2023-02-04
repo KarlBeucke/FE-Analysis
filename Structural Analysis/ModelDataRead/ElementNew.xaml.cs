@@ -108,7 +108,7 @@ public partial class ElementNew
         }
 
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
         elementKeys?.Close();
     }
 
@@ -124,7 +124,7 @@ public partial class ElementNew
         model.Elements.Remove(ElementId.Text);
         elementKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
         elementKeys?.Close();
     }
 

@@ -21,6 +21,7 @@ namespace FEALibrary.Model
         // parsing a new model to be read from file
         public void ParseModel(string[] lines)
         {
+            InputFound = "";
             for (var i = 0; i < lines.Length; i++)
             {
                 if (lines[i] != "Model Name") continue;

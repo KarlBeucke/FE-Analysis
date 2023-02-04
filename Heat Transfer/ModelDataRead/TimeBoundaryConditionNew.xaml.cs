@@ -107,7 +107,7 @@ namespace FE_Analysis.Heat_Transfer.ModelDataRead
             if (!model.TimeDependentBoundaryConditions.Keys.Contains(timeDependentTemperatureId)) return;
             model.Elements.Remove(timeDependentTemperatureId);
             Close();
-            MainWindow.heatModel.Close();
+            MainWindow.heatModelVisual.Close();
         }
     }
 }

@@ -71,7 +71,7 @@ public partial class PointLoadNew
         }
         pointLoadKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
     }
 
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
@@ -110,7 +110,7 @@ public partial class PointLoadNew
         model.PointLoads.Remove(LoadId.Text);
         pointLoadKeys?.Close();
         Close();
-        MainWindow.structuralModel.Close();
+        MainWindow.structuresModelVisual.Close();
         pointLoadKeys?.Close();
     }
 }

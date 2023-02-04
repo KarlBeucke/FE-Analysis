@@ -19,7 +19,7 @@ public partial class NodeNew
         InitializeComponent();
         model = feModel;
         // activate evnet handler for Canvas
-        MainWindow.heatModel.VisualHeatModel.Background = System.Windows.Media.Brushes.Transparent;
+        MainWindow.heatModelVisual.VisualHeatModel.Background = System.Windows.Media.Brushes.Transparent;
         Show();
     }
     private void BtnDialogOk_Click(object sender, RoutedEventArgs e)
@@ -51,19 +51,19 @@ public partial class NodeNew
         }
 
         // remove pilot Node and deactivate event handler for Canvas
-        MainWindow.heatModel.VisualHeatModel.Children.Remove(MainWindow.heatModel.Node);
-        MainWindow.heatModel.VisualHeatModel.Background = null;
-        MainWindow.heatModel.isNode = false;
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.VisualHeatModel.Children.Remove(MainWindow.heatModelVisual.Node);
+        MainWindow.heatModelVisual.VisualHeatModel.Background = null;
+        MainWindow.heatModelVisual.isNode = false;
+        MainWindow.heatModelVisual.Close();
         Close();
     }
 
     private void BtnDialogCancel_Click(object sender, RoutedEventArgs e)
     {
         // remove pilot node and deactivate event handler for Canvas
-        MainWindow.heatModel.VisualHeatModel.Children.Remove(MainWindow.heatModel.Node);
-        MainWindow.heatModel.VisualHeatModel.Background = null;
-        MainWindow.heatModel.isNode = false;
+        MainWindow.heatModelVisual.VisualHeatModel.Children.Remove(MainWindow.heatModelVisual.Node);
+        MainWindow.heatModelVisual.VisualHeatModel.Background = null;
+        MainWindow.heatModelVisual.isNode = false;
         Close();
     }
 
@@ -82,6 +82,6 @@ public partial class NodeNew
         if (!model.Nodes.Keys.Contains(NodeId.Text)) return;
         model.Nodes.Remove(NodeId.Text);
         Close();
-        MainWindow.heatModel.Close();
+        MainWindow.heatModelVisual.Close();
     }
 }

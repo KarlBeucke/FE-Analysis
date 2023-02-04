@@ -15,14 +15,16 @@ namespace FE_Analysis
     public partial class MainWindow
     {
         private FeParser parse;
-        private FeModel model;
         public static Analysis modelAnalysis;
         private OpenFileDialog fileDialog;
         private string path;
-        public static Structural_Analysis.ModelDataShow.StructuralModelVisualize structuralModel;
+        private FeModel structuresModel;
+        public static Structural_Analysis.ModelDataShow.StructuralModelVisualize structuresModelVisual;
         public static Structural_Analysis.Results.StaticResultsVisualize staticResults;
-        public static Heat_Transfer.ModelDataShow.HeatDataVisualize heatModel;
+        private FeModel heatModel;
+        public static Heat_Transfer.ModelDataShow.HeatDataVisualize heatModelVisual;
         public static Heat_Transfer.Results.StationaryResultsVisualize stationaryResults;
+        private FeModel elasticityModel;
 
         private string[] lines;
         public static bool heatData, structuresData, timeintegrationData;
@@ -75,23 +77,23 @@ namespace FE_Analysis
 
             parse = new FeParser();
             parse.ParseModel(lines);
-            model = parse.FeModel;
+            heatModel = parse.FeModel;
             parse.ParseNodes(lines);
 
             var heatElements = new Heat_Transfer.ModelDataRead.ElementParser();
-            heatElements.ParseElements(lines, model);
+            heatElements.ParseElements(lines, heatModel);
 
             var heatMaterial = new Heat_Transfer.ModelDataRead.MaterialParser();
-            heatMaterial.ParseMaterials(lines, model);
+            heatMaterial.ParseMaterials(lines, heatModel);
 
             var heatLoads = new Heat_Transfer.ModelDataRead.LoadParser();
-            heatLoads.ParseLoads(lines, model);
+            heatLoads.ParseLoads(lines, heatModel);
 
             var heatBoundaryCondition = new Heat_Transfer.ModelDataRead.BoundaryConditionParser();
-            heatBoundaryCondition.ParseBoundaryConditions(lines, model);
+            heatBoundaryCondition.ParseBoundaryConditions(lines, heatModel);
 
             var heatTransient = new Heat_Transfer.ModelDataRead.TransientParser();
-            heatTransient.ParseTimeIntegration(lines, model);
+            heatTransient.ParseTimeIntegration(lines, heatModel);
 
             timeintegrationData = heatTransient.timeIntegrationData;
             heatData = true;
@@ -102,8 +104,8 @@ namespace FE_Analysis
             _ = MessageBox.Show(sb.ToString(), "Heat Transfer Analysis");
             sb.Clear();
 
-            heatModel = new Heat_Transfer.ModelDataShow.HeatDataVisualize(model);
-            heatModel.Show();
+            heatModelVisual = new Heat_Transfer.ModelDataShow.HeatDataVisualize(heatModel);
+            heatModelVisual.Show();
         }
         private void HeatDataEdit(object sender, RoutedEventArgs e)
         {
@@ -126,7 +128,7 @@ namespace FE_Analysis
 
             var name = heatFile.fileName;
 
-            if (model == null)
+            if (heatModel == null)
             {
                 _ = MessageBox.Show("Model has not yet been defined", "Heat Transfer Analysis");
                 return;
@@ -135,30 +137,30 @@ namespace FE_Analysis
             var rows = new List<string>
             {
                 "ModelName",
-                model.ModelId,
+                heatModel.ModelId,
                 "\nSpace dimension"
             };
             var numberNodalDof = 1;
-            rows.Add(model.SpatialDimension + "\t" + numberNodalDof + "\n");
+            rows.Add(heatModel.SpatialDimension + "\t" + numberNodalDof + "\n");
 
             // Nodes
             rows.Add("Node");
-            if (model.SpatialDimension == 2)
-                rows.AddRange(model.Nodes.Select(knoten => knoten.Key
-                                                           + "\t" + knoten.Value.Coordinates[0] + "\t" +
-                                                           knoten.Value.Coordinates[1]));
+            if (heatModel.SpatialDimension == 2)
+                rows.AddRange(heatModel.Nodes.Select(knoten => knoten.Key
+                                                               + "\t" + knoten.Value.Coordinates[0] + "\t" +
+                                                               knoten.Value.Coordinates[1]));
             else
-                rows.AddRange(model.Nodes.Select(knoten => knoten.Key
-                                                           + "\t" + knoten.Value.Coordinates[0] + "\t" +
-                                                           knoten.Value.Coordinates[1] + "\t" +
-                                                           knoten.Value.Coordinates[2]));
+                rows.AddRange(heatModel.Nodes.Select(knoten => knoten.Key
+                                                               + "\t" + knoten.Value.Coordinates[0] + "\t" +
+                                                               knoten.Value.Coordinates[1] + "\t" +
+                                                               knoten.Value.Coordinates[2]));
 
             // Elements
             var allElements2D2 = new List<Element2D2>();
             var allElements2D3 = new List<Element2D3>();
             var allElements2D4 = new List<Element2D4>();
             var allElements3D8 = new List<Element3D8>();
-            foreach (var item in model.Elements)
+            foreach (var item in heatModel.Elements)
                 switch (item.Value)
                 {
                     case Element2D2 element2D2:
@@ -211,7 +213,7 @@ namespace FE_Analysis
 
             // Materials
             rows.Add("\n" + "Material");
-            foreach (var item in model.Material)
+            foreach (var item in heatModel.Material)
             {
                 sb.Clear();
                 sb.Append(item.Value.MaterialId + "\t" + item.Value.MaterialValues[0]);
@@ -221,7 +223,7 @@ namespace FE_Analysis
             }
 
             // Loads
-            foreach (var item in model.Loads)
+            foreach (var item in heatModel.Loads)
             {
                 sb.Clear();
                 sb.Append("\n" + "NodeLoads");
@@ -230,7 +232,7 @@ namespace FE_Analysis
                 rows.Add(sb.ToString());
             }
 
-            foreach (var item in model.LineLoads)
+            foreach (var item in heatModel.LineLoads)
             {
                 sb.Clear();
                 sb.Append("\n" + "LineLoads");
@@ -241,7 +243,7 @@ namespace FE_Analysis
 
             var allElementLoads3 = new List<ElementLoad3>();
             var allElementLoads4 = new List<ElementLoad4>();
-            foreach (var item in model.ElementLoads)
+            foreach (var item in heatModel.ElementLoads)
                 switch (item.Value)
                 {
                     case ElementLoad3 elementload3:
@@ -271,7 +273,7 @@ namespace FE_Analysis
 
             // Boundary conditions
             rows.Add("\n" + "BoundaryConditions");
-            foreach (var item in model.BoundaryConditions)
+            foreach (var item in heatModel.BoundaryConditions)
             {
                 sb.Clear();
                 sb.Append(item.Value.SupportId + "\t" + item.Value.NodeId + "\t" + item.Value.Prescribed[0]);
@@ -279,36 +281,36 @@ namespace FE_Analysis
             }
 
             // Eigensolutions
-            if (model.Eigenstate != null)
+            if (heatModel.Eigenstate != null)
             {
                 rows.Add("\n" + "Eigensolutions");
-                rows.Add(model.Eigenstate.Id + "\t" + model.Eigenstate.NumberOfStates);
+                rows.Add(heatModel.Eigenstate.Id + "\t" + heatModel.Eigenstate.NumberOfStates);
             }
 
             // Parameter
-            if (model.Timeintegration != null)
+            if (heatModel.Timeintegration != null)
             {
                 rows.Add("\n" + "TimeIntegration");
-                rows.Add(model.Timeintegration.Id + "\t" + model.Timeintegration.Tmax + "\t" +
-                         model.Timeintegration.Dt
-                         + "\t" + model.Timeintegration.Parameter1);
+                rows.Add(heatModel.Timeintegration.Id + "\t" + heatModel.Timeintegration.Tmax + "\t" +
+                         heatModel.Timeintegration.Dt
+                         + "\t" + heatModel.Timeintegration.Parameter1);
             }
 
             // time dependent initial conditions
-            if (model.Timeintegration.FromStationary || model.Timeintegration.InitialConditions.Count != 0)
+            if (heatModel.Timeintegration.FromStationary || heatModel.Timeintegration.InitialConditions.Count != 0)
                 rows.Add("\n" + "InitialTemperatures");
-            if (model.Timeintegration.FromStationary) rows.Add("stationary solution");
+            if (heatModel.Timeintegration.FromStationary) rows.Add("stationary solution");
 
-            foreach (var item in model.Timeintegration.InitialConditions)
+            foreach (var item in heatModel.Timeintegration.InitialConditions)
             {
                 var knotenwerte = (NodalValues)item;
                 rows.Add(knotenwerte.NodeId + "\t" + knotenwerte.Values[0]);
             }
 
             // time dependent boundary conditions 
-            if (model.TimeDependentBoundaryConditions.Count != 0)
+            if (heatModel.TimeDependentBoundaryConditions.Count != 0)
                 rows.Add("\n" + "Time Dependent Boundary Temperatures");
-            foreach (var item in model.TimeDependentBoundaryConditions)
+            foreach (var item in heatModel.TimeDependentBoundaryConditions)
             {
                 sb.Clear();
                 sb.Append(item.Value.SupportId + "\t" + item.Value.NodeId);
@@ -334,8 +336,8 @@ namespace FE_Analysis
             }
 
             // time dependent nodal temperatures
-            if (model.TimeDependentNodeLoads.Count != 0) rows.Add("\n" + "TimeDependent Node Loads");
-            foreach (var item in model.TimeDependentNodeLoads)
+            if (heatModel.TimeDependentNodeLoads.Count != 0) rows.Add("\n" + "TimeDependent Node Loads");
+            foreach (var item in heatModel.TimeDependentNodeLoads)
             {
                 sb.Clear();
                 sb.Append(item.Value.LoadId + "\t" + item.Value.NodeId);
@@ -360,8 +362,8 @@ namespace FE_Analysis
             }
 
             // time dependent element temperatures
-            if (model.TimeDependentElementLoads.Count != 0) rows.Add("\n" + "time dependent ElementTemperatures");
-            foreach (var item in model.TimeDependentElementLoads)
+            if (heatModel.TimeDependentElementLoads.Count != 0) rows.Add("\n" + "time dependent ElementTemperatures");
+            foreach (var item in heatModel.TimeDependentElementLoads)
             {
                 sb.Clear();
                 sb.Append(item.Key + "\t" + item.Value.ElementId);
@@ -385,19 +387,33 @@ namespace FE_Analysis
         }
         private void HeatDataShow(object sender, RoutedEventArgs e)
         {
-            var heat = new Heat_Transfer.ModelDataShow.HeatDataShow(model);
-            heat.Show();
+            if (heatModel == null)
+            {
+                var heat = new Heat_Transfer.ModelDataShow.HeatDataShow(heatModel);
+                heat.Show();
+            }
+            else
+            {
+                _ = MessageBox.Show("Heat Model Data must be defined first", "Heat Transfer Analysis");
+            }
         }
         private void HeatDataVisualize(object sender, RoutedEventArgs e)
         {
-            heatModel = new Heat_Transfer.ModelDataShow.HeatDataVisualize(model);
-            heatModel.Show();
+            if (heatModel == null)
+            {
+                heatModelVisual = new Heat_Transfer.ModelDataShow.HeatDataVisualize(heatModel);
+                heatModelVisual.Show();
+            }
+            else
+            {
+                _ = MessageBox.Show("Heat Model Data must be defined first", "Heat Transfer Analysis");
+            }
         }
         private void HeatDataAnalyse(object sender, EventArgs e)
         {
-            if (heatData)
+            if (heatData && heatModel!= null)
             {
-                modelAnalysis = new Analysis(model);
+                modelAnalysis = new Analysis(heatModel);
                 modelAnalysis.ComputeSystemMatrix();
                 modelAnalysis.ComputeSystemVector();
                 modelAnalysis.SolveEquations();
@@ -411,18 +427,18 @@ namespace FE_Analysis
         }
         private void HeatTransferAnalysisResultsShow(object sender, EventArgs e)
         {
-            if (heatData)
+            if (heatData && heatModel != null)
             {
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
+                    modelAnalysis = new Analysis(heatModel);
                     modelAnalysis.ComputeSystemMatrix();
                     modelAnalysis.ComputeSystemVector();
                     modelAnalysis.SolveEquations();
                     analysed = true;
                 }
 
-                var results = new Heat_Transfer.Results.StationaryResultsShow(model);
+                var results = new Heat_Transfer.Results.StationaryResultsShow(heatModel);
                 results.Show();
             }
             else
@@ -432,18 +448,18 @@ namespace FE_Analysis
         }
         private void HeatTransferAnalysisResultsVisualize(object sender, RoutedEventArgs e)
         {
-            if (heatData)
+            if (heatData && heatModel != null)
             {
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
+                    modelAnalysis = new Analysis(heatModel);
                     modelAnalysis.ComputeSystemMatrix();
                     modelAnalysis.ComputeSystemVector();
                     modelAnalysis.SolveEquations();
                     analysed = true;
                 }
 
-                stationaryResults = new Heat_Transfer.Results.StationaryResultsVisualize(model);
+                stationaryResults = new Heat_Transfer.Results.StationaryResultsVisualize(heatModel);
                 stationaryResults.Show();
             }
             else
@@ -453,36 +469,37 @@ namespace FE_Analysis
         }
         private void InstationaryData(object sender, RoutedEventArgs e)
         {
-            if (model == null)
+            if (heatModel == null)
             {
                 _ = MessageBox.Show("Model Data for instationary Heat Transfer Analysis not defined yet", "Heat Transfer Analysis");
             }
             else
             {
-                var heat = new Heat_Transfer.ModelDataShow.InstationaryDataShow(model);
+                var heat = new Heat_Transfer.ModelDataShow.InstationaryDataShow(heatModel);
                 heat.Show();
                 timeintegrationAnalysed = false;
             }
         }
         private void HeatExcitationVisualize(object sender, RoutedEventArgs e)
         {
-            modelAnalysis ??= new Analysis(model);
-            var excitation = new Heat_Transfer.ModelDataShow.HeatExcitationVisualize(model);
+            if (heatModel == null) return;
+            modelAnalysis ??= new Analysis(heatModel);
+            var excitation = new Heat_Transfer.ModelDataShow.HeatExcitationVisualize(heatModel);
             excitation.Show();
         }
         private void EigensolutionHeatAnalyse(object sender, RoutedEventArgs e)
         {
-            if (model != null)
+            if (heatModel != null)
             {
-                modelAnalysis ??= new Analysis(model);
+                modelAnalysis ??= new Analysis(heatModel);
                 if (!analysed)
                 {
                     modelAnalysis.ComputeSystemMatrix();
                     analysed = true;
                 }
                 // default = 2 Eigenstates, if not specified otherwise
-                model.Eigenstate ??= new Eigenstates("default", 2);
-                if (model.Eigenstate.Eigenvalues != null) return;
+                heatModel.Eigenstate ??= new Eigenstates("default", 2);
+                if (heatModel.Eigenstate.Eigenvalues != null) return;
                 modelAnalysis.Eigenstates();
                 eigenAnalysed = true;
                 _ = MessageBox.Show("Eigensolutions successfully analysed", "Heat Transfer Analysis");
@@ -494,9 +511,9 @@ namespace FE_Analysis
         }
         private void EigensolutionHeatShow(object sender, RoutedEventArgs e)
         {
-            if (model != null)
+            if (heatModel != null)
             {
-                modelAnalysis ??= new Analysis(model);
+                modelAnalysis ??= new Analysis(heatModel);
                 if (!analysed)
                 {
                     modelAnalysis.ComputeSystemMatrix();
@@ -504,9 +521,9 @@ namespace FE_Analysis
                 }
 
                 // default = 2 Eigenstates, if not specified otherwise
-                model.Eigenstate ??= new Eigenstates("default", 2);
-                if (model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
-                var eigen = new Heat_Transfer.Results.EigensolutionsShow(model);
+                heatModel.Eigenstate ??= new Eigenstates("default", 2);
+                if (heatModel.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
+                var eigen = new Heat_Transfer.Results.EigensolutionsShow(heatModel);
                 eigen.Show();
             }
             else
@@ -516,19 +533,19 @@ namespace FE_Analysis
         }
         private void EigensolutionHeatVisualize(object sender, RoutedEventArgs e)
         {
-            if (model != null)
+            if (heatModel != null)
             {
-                modelAnalysis ??= new Analysis(model);
+                modelAnalysis ??= new Analysis(heatModel);
                 if (!timeintegrationAnalysed)
                 {
                     modelAnalysis.ComputeSystemMatrix();
                     // default = 2 Eigenstates, if not specified otherwise
-                    model.Eigenstate ??= new Eigenstates("default", 2);
+                    heatModel.Eigenstate ??= new Eigenstates("default", 2);
                 }
                 // default = 2 Eigenstates, if not specified otherwise
-                model.Eigenstate ??= new Eigenstates("default", 2);
-                if (model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
-                var visual = new Heat_Transfer.Results.EigensolutionVisualize(model);
+                heatModel.Eigenstate ??= new Eigenstates("default", 2);
+                if (heatModel.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
+                var visual = new Heat_Transfer.Results.EigensolutionVisualize(heatModel);
                 visual.Show();
             }
             else
@@ -538,11 +555,11 @@ namespace FE_Analysis
         }
         private void InstationaryHeatTransferAnalysis(object sender, RoutedEventArgs e)
         {
-            if (timeintegrationData)
+            if (timeintegrationData && heatModel != null)
             {
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
+                    modelAnalysis = new Analysis(heatModel);
                     modelAnalysis.ComputeSystemMatrix();
                     modelAnalysis.ComputeSystemVector();
                     modelAnalysis.SolveEquations();
@@ -556,28 +573,32 @@ namespace FE_Analysis
             else
             {
                 _ = MessageBox.Show("Model Data for time history analysis not yet defined", "instationary Heat Transfer Analysis");
-                double tmax = 0;
-                double dt = 0;
-                double alfa = 0;
-                model.Timeintegration = new Heat_Transfer.Model_Data.TimeIntegration(tmax, dt, alfa) { FromStationary = false };
-                timeintegrationData = true;
-                var heat = new Heat_Transfer.ModelDataShow.InstationaryDataShow(model);
-                heat.Show();
+                const double tmax = 0;
+                const double dt = 0;
+                const double alfa = 0;
+                if (heatModel != null)
+                {
+                    heatModel.Timeintegration = new Heat_Transfer.Model_Data.TimeIntegration(tmax, dt, alfa) { FromStationary = false };
+                    timeintegrationData = true;
+                    var heat = new Heat_Transfer.ModelDataShow.InstationaryDataShow(heatModel);
+                    heat.Show();
+                }
+
                 timeintegrationAnalysed = false;
             }
         }
         private void InstationaryHeatTransferAnalysisResultsShow(object sender, RoutedEventArgs e)
         {
-            if (timeintegrationAnalysed)
-                _ = new Heat_Transfer.Results.InstationaryResultsShow(model);
+            if (timeintegrationAnalysed && heatModel != null)
+                _ = new Heat_Transfer.Results.InstationaryResultsShow(heatModel);
             else
                 _ = MessageBox.Show("Time Integration not yet completed!!", "instationary Heat Transfer Analysis");
         }
         private void InstationaryModelStatesVisualize(object sender, RoutedEventArgs e)
         {
-            if (timeintegrationAnalysed)
+            if (timeintegrationAnalysed && heatModel != null)
             {
-                var wärmeModell = new Heat_Transfer.Results.InstationaryModelStatesVisualize(model);
+                var wärmeModell = new Heat_Transfer.Results.InstationaryModelStatesVisualize(heatModel);
                 wärmeModell.Show();
             }
             else
@@ -587,9 +608,9 @@ namespace FE_Analysis
         }
         private void NodalTimeHistoryVisualize(object sender, RoutedEventArgs e)
         {
-            if (timeintegrationAnalysed)
+            if (timeintegrationAnalysed && heatModel != null)
             {
-                var nodalTimeHistoriesVisualize = new Heat_Transfer.Results.NodalTimeHistoriesVisualize(model);
+                var nodalTimeHistoriesVisualize = new Heat_Transfer.Results.NodalTimeHistoriesVisualize(heatModel);
                 nodalTimeHistoriesVisualize.Show();
             }
             else
@@ -641,23 +662,23 @@ namespace FE_Analysis
 
             parse = new FeParser();
             parse.ParseModel(lines);
-            model = parse.FeModel;
+            structuresModel = parse.FeModel;
             parse.ParseNodes(lines);
 
             var structuralElements = new Structural_Analysis.ModelDataRead.ElementParser();
-            structuralElements.ParseElements(lines, model);
+            structuralElements.ParseElements(lines, structuresModel);
 
             var tragwerksMaterial = new Structural_Analysis.ModelDataRead.MaterialParser();
-            tragwerksMaterial.ParseMaterials(lines, model);
+            tragwerksMaterial.ParseMaterials(lines, structuresModel);
 
             var tragwerksLasten = new Structural_Analysis.ModelDataRead.LoadParser();
-            tragwerksLasten.ParseLoads(lines, model);
+            tragwerksLasten.ParseLoads(lines, structuresModel);
 
             var tragwerksRandbedingungen = new Structural_Analysis.ModelDataRead.BoundaryConditionParser();
-            tragwerksRandbedingungen.ParseBoundaryConditions(lines, model);
+            tragwerksRandbedingungen.ParseBoundaryConditions(lines, structuresModel);
 
             var structureTransient = new Structural_Analysis.ModelDataRead.TransientParser();
-            structureTransient.ParseTimeIntegration(lines, model);
+            structureTransient.ParseTimeIntegration(lines, structuresModel);
 
             timeintegrationData = structureTransient.timeIntegrationData;
             structuresData = true;
@@ -668,8 +689,8 @@ namespace FE_Analysis
             _ = MessageBox.Show(sb.ToString(), "Structural Analysis");
             sb.Clear();
 
-            structuralModel = new Structural_Analysis.ModelDataShow.StructuralModelVisualize(model);
-            structuralModel.Show();
+            structuresModelVisual = new Structural_Analysis.ModelDataShow.StructuralModelVisualize(structuresModel);
+            structuresModelVisual.Show();
         }
         private void StructuralModelDataEdit(object sender, RoutedEventArgs e)
         {
@@ -695,26 +716,26 @@ namespace FE_Analysis
             var rows = new List<string>
             {
                 "Model Name",
-                model.ModelId,
+                structuresModel.ModelId,
                 "\nSpatial Dimension",
-                model.SpatialDimension + "\t" + model.NumberNodalDof,
+                structuresModel.SpatialDimension + "\t" + structuresModel.NumberNodalDof,
                 // Nodes
                 "\nNodes"
             };
 
-            switch (model.SpatialDimension)
+            switch (structuresModel.SpatialDimension)
             {
                 case 1:
-                    rows.AddRange(model.Nodes.Select(node => node.Key
+                    rows.AddRange(structuresModel.Nodes.Select(node => node.Key
                                                    + "\t" + node.Value.Coordinates[0]));
                     break;
                 case 2:
-                    rows.AddRange(model.Nodes.Select(node => node.Key
+                    rows.AddRange(structuresModel.Nodes.Select(node => node.Key
                                                    + "\t" + node.Value.Coordinates[0]
                                                    + "\t" + node.Value.Coordinates[1]));
                     break;
                 case 3:
-                    rows.AddRange(model.Nodes.Select(node => node.Key
+                    rows.AddRange(structuresModel.Nodes.Select(node => node.Key
                                                    + "\t" + node.Value.Coordinates[0]
                                                    + "\t" + node.Value.Coordinates[1]
                                                    + "\t" + node.Value.Coordinates[2]));
@@ -729,8 +750,7 @@ namespace FE_Analysis
             var allBeamElements = new List<Beam>();
             var allBeamHingedElements = new List<BeamHinged>();
             var allSpringElements = new List<SpringElement>();
-            var allCrossSections = new List<CrossSection>();
-            foreach (var item in model.Elements)
+            foreach (var item in structuresModel.Elements)
                 switch (item.Value)
                 {
                     case Truss truss:
@@ -747,7 +767,7 @@ namespace FE_Analysis
                         break;
                 }
 
-            foreach (var item in model.CrossSection) allCrossSections.Add(item.Value);
+            var allCrossSections = structuresModel.CrossSection.Select(item => item.Value).ToList();
 
             if (allTrussElements.Count != 0)
             {
@@ -791,7 +811,7 @@ namespace FE_Analysis
 
             // Materials
             rows.Add("\nMaterial");
-            foreach (var item in model.Material)
+            foreach (var item in structuresModel.Material)
             {
                 sb.Clear();
                 sb.Append(item.Value.MaterialId + "\t" + item.Value.MaterialValues[0]);
@@ -800,7 +820,7 @@ namespace FE_Analysis
             }
 
             // Loads
-            foreach (var item in model.Loads)
+            foreach (var item in structuresModel.Loads)
             {
                 rows.Add("\nNodeLoad");
                 sb.Clear();
@@ -809,7 +829,7 @@ namespace FE_Analysis
                 rows.Add(sb.ToString());
             }
 
-            foreach (var item in model.PointLoads)
+            foreach (var item in structuresModel.PointLoads)
             {
                 var pointLoad = (PointLoad)item.Value;
                 sb.Clear();
@@ -818,7 +838,7 @@ namespace FE_Analysis
                            + "\t" + pointLoad.Loadvalues[0] + "\t" + pointLoad.Loadvalues[1] + "\t" + pointLoad.Offset);
             }
 
-            foreach (var item in model.ElementLoads)
+            foreach (var item in structuresModel.ElementLoads)
             {
                 sb.Clear();
                 rows.Add("\nLineLoad");
@@ -831,7 +851,7 @@ namespace FE_Analysis
             // Boundary Conditions
             var fix = string.Empty;
             rows.Add("\nSupport");
-            foreach (var item in model.BoundaryConditions)
+            foreach (var item in structuresModel.BoundaryConditions)
             {
                 if (item.Value.Type == 1) fix = "x";
                 else if (item.Value.Type == 2) fix = "y";
@@ -850,19 +870,33 @@ namespace FE_Analysis
         }
         private void StructuralModelDataShow(object sender, EventArgs e)
         {
-            var tragwerk = new Structural_Analysis.ModelDataShow.StructuralModelDataShow(model);
-            tragwerk.Show();
+            if (structuresData && structuresModel != null)
+            {
+                var tragwerk = new Structural_Analysis.ModelDataShow.StructuralModelDataShow(structuresModel);
+                tragwerk.Show();
+            }
+            else
+            {
+                _ = MessageBox.Show("Structural Model Data must be defined first", "static Structural Analysis");
+            }
         }
         private void StructuralModelDataVisualize(object sender, RoutedEventArgs e)
         {
-            structuralModel = new Structural_Analysis.ModelDataShow.StructuralModelVisualize(model);
-            structuralModel.Show();
+            if (structuresData && structuresModel != null)
+            {
+                structuresModelVisual = new Structural_Analysis.ModelDataShow.StructuralModelVisualize(structuresModel);
+                structuresModelVisual.Show();
+            }
+            else
+            {
+                _ = MessageBox.Show("Structural Model Data must be defined first", "static Structural Analysis");
+            }
         }
         private void StructuralModelStaticAnalysis(object sender, EventArgs e)
         {
-            if (structuresData)
+            if (structuresData && structuresModel != null)
             {
-                modelAnalysis = new Analysis(model);
+                modelAnalysis = new Analysis(structuresModel);
                 modelAnalysis.ComputeSystemMatrix();
                 modelAnalysis.ComputeSystemVector();
                 modelAnalysis.SolveEquations();
@@ -876,45 +910,58 @@ namespace FE_Analysis
         }
         private void StructuralModelStaticResultsShow(object sender, EventArgs e)
         {
-            if (!analysed)
+            if (!structuresData && structuresModel != null)
             {
-                modelAnalysis = new Analysis(model);
-                modelAnalysis.ComputeSystemMatrix();
-                modelAnalysis.ComputeSystemVector();
-                modelAnalysis.SolveEquations();
-                analysed = true;
-            }
+                if (!analysed)
+                {
+                    modelAnalysis = new Analysis(structuresModel);
+                    modelAnalysis.ComputeSystemMatrix();
+                    modelAnalysis.ComputeSystemVector();
+                    modelAnalysis.SolveEquations();
+                    analysed = true;
+                }
 
-            var results = new Structural_Analysis.Results.StaticResultsShow(model);
-            results.Show();
+                var results = new Structural_Analysis.Results.StaticResultsShow(structuresModel);
+                results.Show();
+            }
+            else
+            {
+                _ = MessageBox.Show("Structural Model Data must be defined first", "static Structural Analysis");
+            }
         }
         private void StructuralModelStaticResultsVisualize(object sender, RoutedEventArgs e)
         {
-            if (!analysed)
+            if (structuresData && structuresModel != null)
             {
-                modelAnalysis = new Analysis(model);
-                modelAnalysis.ComputeSystemMatrix();
-                modelAnalysis.ComputeSystemVector();
-                modelAnalysis.SolveEquations();
-                analysed = true;
+                if (!analysed)
+                {
+                    modelAnalysis = new Analysis(structuresModel);
+                    modelAnalysis.ComputeSystemMatrix();
+                    modelAnalysis.ComputeSystemVector();
+                    modelAnalysis.SolveEquations();
+                    analysed = true;
+                }
+                staticResults = new Structural_Analysis.Results.StaticResultsVisualize(structuresModel);
+                staticResults.Show();
             }
-
-            staticResults = new Structural_Analysis.Results.StaticResultsVisualize(model);
-            staticResults.Show();
+            else
+            {
+                _ = MessageBox.Show("Structural Model Data must be defined first", "static Structural Analysis");
+            }
         }
         private void StructuralModelEigensolutionAnalysis(object sender, RoutedEventArgs e)
         {
-            if (model != null)
+            if (structuresModel != null)
             {
-                modelAnalysis ??= new Analysis(model);
+                modelAnalysis ??= new Analysis(structuresModel);
                 if (!analysed)
                 {
                     modelAnalysis.ComputeSystemMatrix();
                     analysed = true;
                 }
                 // default = 2 Eigenstates, if not specified otherwise
-                model.Eigenstate ??= new Eigenstates("default", 2);
-                if (model.Eigenstate.Eigenvalues != null) return;
+                structuresModel.Eigenstate ??= new Eigenstates("default", 2);
+                if (structuresModel.Eigenstate.Eigenvalues != null) return;
                 modelAnalysis.Eigenstates();
                 eigenAnalysed = true;
                 _ = MessageBox.Show("Eigenfrequencies successfully analysed", "dynamic Structural Analysis");
@@ -926,18 +973,18 @@ namespace FE_Analysis
         }
         private void StructuralModelEigensolutionShow(object sender, RoutedEventArgs e)
         {
-            if (model != null)
+            if (structuresModel != null)
             {
-                modelAnalysis ??= new Analysis(model);
+                modelAnalysis ??= new Analysis(structuresModel);
                 if (!analysed)
                 {
                     modelAnalysis.ComputeSystemMatrix();
                     analysed = true;
                 }
                 // default = 2 Eigenstates, if not specified otherwise
-                model.Eigenstate ??= new Eigenstates("default", 2);
-                if (model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
-                var eigen = new Structural_Analysis.Results.EigensolutionShow(model);
+                structuresModel.Eigenstate ??= new Eigenstates("default", 2);
+                if (structuresModel.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
+                var eigen = new Structural_Analysis.Results.EigensolutionShow(structuresModel);
                 eigen.Show();
             }
             else
@@ -947,18 +994,18 @@ namespace FE_Analysis
         }
         private void StructuralModelEigensolutionVisualize(object sender, RoutedEventArgs e)
         {
-            if (model != null)
+            if (structuresModel != null)
             {
-                modelAnalysis ??= new Analysis(model);
+                modelAnalysis ??= new Analysis(structuresModel);
                 if (!analysed)
                 {
                     modelAnalysis.ComputeSystemMatrix();
                     analysed = true;
                 }
                 // default = 2 Eigenstates, falls nicht anders spezifiziert
-                model.Eigenstate ??= new Eigenstates("default", 2);
-                if (model.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
-                var visual = new Structural_Analysis.Results.EigensolutionVisualize(model);
+                structuresModel.Eigenstate ??= new Eigenstates("default", 2);
+                if (structuresModel.Eigenstate.Eigenvalues == null) modelAnalysis.Eigenstates();
+                var visual = new Structural_Analysis.Results.EigensolutionVisualize(structuresModel);
                 visual.Show();
             }
             else
@@ -968,9 +1015,9 @@ namespace FE_Analysis
         }
         private void StructuralModelDynamicDataShow(object sender, EventArgs e)
         {
-            if (timeintegrationData)
+            if (timeintegrationData && structuresModel != null)
             {
-                var tragwerk = new Structural_Analysis.ModelDataShow.DynamicModelDataShow(model);
+                var tragwerk = new Structural_Analysis.ModelDataShow.DynamicModelDataShow(structuresModel);
                 tragwerk.Show();
             }
             else
@@ -980,18 +1027,25 @@ namespace FE_Analysis
         }
         private void ExcitationVisualize(object sender, RoutedEventArgs e)
         {
-            modelAnalysis ??= new Analysis(model);
-            var excitation = new Structural_Analysis.ModelDataShow.ExcitationVisualize(model);
-            excitation.Show();
+            if (timeintegrationData && structuresModel != null)
+            {
+                modelAnalysis ??= new Analysis(structuresModel);
+                var excitation = new Structural_Analysis.ModelDataShow.ExcitationVisualize(structuresModel);
+                excitation.Show();
+            }
+            else
+            {
+                _ = MessageBox.Show("Model Data for time history analysis have not been specified yet", "dynamic Structural Analysis");
+            }
         }
 
         private void StructuralModelDynamicAnalysis(object sender, EventArgs e)
         {
-            if (timeintegrationData)
+            if (timeintegrationData && structuresModel != null)
             {
                 if (!analysed)
                 {
-                    modelAnalysis = new Analysis(model);
+                    modelAnalysis = new Analysis(structuresModel);
                     modelAnalysis.ComputeSystemMatrix();
                     modelAnalysis.ComputeSystemVector();
                     modelAnalysis.SolveEquations();
@@ -1008,16 +1062,16 @@ namespace FE_Analysis
         }
         private void StructuralModelDynamicResultsShow(object sender, RoutedEventArgs e)
         {
-            if (timeintegrationAnalysed)
-                _ = new Structural_Analysis.Results.DynamicResultsShow(model);
+            if (timeintegrationAnalysed && structuresModel != null)
+                _ = new Structural_Analysis.Results.DynamicResultsShow(structuresModel);
             else
                 _ = MessageBox.Show("Time Integration has not yet been completed!!", "dynamic Structural Analysis");
         }
         private void StructuralModelDynamicModelStatesVisualize(object sender, RoutedEventArgs e)
         {
-            if (timeintegrationAnalysed)
+            if (timeintegrationAnalysed && structuresModel != null)
             {
-                var dynamicResults = new Structural_Analysis.Results.DynamicModelStatesVisualize(model);
+                var dynamicResults = new Structural_Analysis.Results.DynamicModelStatesVisualize(structuresModel);
                 dynamicResults.Show();
             }
             else
@@ -1027,9 +1081,9 @@ namespace FE_Analysis
         }
         private void StructuralModelNodalTimeHistoriesVisualize(object sender, RoutedEventArgs e)
         {
-            if (timeintegrationAnalysed)
+            if (timeintegrationAnalysed && structuresModel != null)
             {
-                var nodalTimeHistories = new Structural_Analysis.Results.NodalTimeHistoriesVisualize(model);
+                var nodalTimeHistories = new Structural_Analysis.Results.NodalTimeHistoriesVisualize(structuresModel);
                 nodalTimeHistories.Show();
             }
             else
@@ -1081,11 +1135,11 @@ namespace FE_Analysis
 
             parse = new FeParser();
             parse.ParseModel(lines);
-            model = parse.FeModel;
+            elasticityModel = parse.FeModel;
             parse.ParseNodes(lines);
 
             var parseElasticity = new Elasticity.ModelDataRead.ElasticityParser();
-            parseElasticity.ParseElasticity(lines, model);
+            parseElasticity.ParseElasticity(lines, elasticityModel);
 
             analysed = false;
 
@@ -1109,13 +1163,13 @@ namespace FE_Analysis
         }
         private void ElasticityDataShow(object sender, EventArgs e)
         {
-            if (model == null)
+            if (elasticityModel == null)
             {
                 _ = MessageBox.Show("Model data not yet specified", "Elasticity Analysis");
                 return;
             }
 
-            var structure = new Elasticity.ModelDataShow.ElasticityDataShow(model);
+            var structure = new Elasticity.ModelDataShow.ElasticityDataShow(elasticityModel);
             structure.Show();
         }
         private void ElasticityDataSave(object sender, RoutedEventArgs e)
@@ -1128,29 +1182,29 @@ namespace FE_Analysis
             var found = new List<string>
             {
                 "Model Name",
-                model.ModelId,
+                elasticityModel.ModelId,
                 "\nSpatial Dimension"
             };
             var nodalDof = 3;
-            found.Add(model.SpatialDimension + "\t" + nodalDof);
+            found.Add(elasticityModel.SpatialDimension + "\t" + nodalDof);
 
             // Node
             found.Add("\nNodes");
-            if (model.SpatialDimension == 2)
-                found.AddRange(model.Nodes.Select(knoten => knoten.Key
-                                                            + "\t" + knoten.Value.Coordinates[0] + "\t" +
-                                                            knoten.Value.Coordinates[1]));
+            if (elasticityModel.SpatialDimension == 2)
+                found.AddRange(elasticityModel.Nodes.Select(knoten => knoten.Key
+                                                                      + "\t" + knoten.Value.Coordinates[0] + "\t" +
+                                                                      knoten.Value.Coordinates[1]));
             else
-                found.AddRange(model.Nodes.Select(knoten => knoten.Key
-                                                            + "\t" + knoten.Value.Coordinates[0] + "\t" +
-                                                            knoten.Value.Coordinates[1] + "\t" +
-                                                            knoten.Value.Coordinates[2]));
+                found.AddRange(elasticityModel.Nodes.Select(knoten => knoten.Key
+                                                                      + "\t" + knoten.Value.Coordinates[0] + "\t" +
+                                                                      knoten.Value.Coordinates[1] + "\t" +
+                                                                      knoten.Value.Coordinates[2]));
 
             // Elements
             var alleElemente2D3 = new List<Elasticity.ModelData.Element2D3>();
             var alleElemente3D8 = new List<Elasticity.ModelData.Element3D8>();
             var allCrossSections = new List<CrossSection>();
-            foreach (var item in model.Elements)
+            foreach (var item in elasticityModel.Elements)
                 switch (item.Value)
                 {
                     case Elasticity.ModelData.Element2D3 element2D3:
@@ -1161,7 +1215,7 @@ namespace FE_Analysis
                         break;
                 }
 
-            foreach (var item in model.CrossSection) allCrossSections.Add(item.Value);
+            foreach (var item in elasticityModel.CrossSection) allCrossSections.Add(item.Value);
 
             if (alleElemente2D3.Count != 0)
             {
@@ -1193,7 +1247,7 @@ namespace FE_Analysis
             // Materialien
             found.Add("\n" + "Material");
             var sb = new StringBuilder();
-            foreach (var item in model.Material)
+            foreach (var item in elasticityModel.Material)
             {
                 sb.Clear();
                 sb.Append(item.Value.MaterialId + "\t" + item.Value.MaterialValues[0]);
@@ -1202,8 +1256,8 @@ namespace FE_Analysis
             }
 
             // Lasten
-            if (model.Loads.Count > 0) found.Add("\nNodeLoads");
-            foreach (var item in model.Loads)
+            if (elasticityModel.Loads.Count > 0) found.Add("\nNodeLoads");
+            foreach (var item in elasticityModel.Loads)
             {
                 sb.Clear();
                 sb.Append(item.Value.LoadId + "\t" + item.Value.NodeId + "\t" + item.Value.Loadvalues[0]);
@@ -1211,8 +1265,8 @@ namespace FE_Analysis
                 found.Add(sb.ToString());
             }
 
-            if (model.LineLoads.Count > 0) found.Add("\nLineLoads");
-            foreach (var item in model.LineLoads)
+            if (elasticityModel.LineLoads.Count > 0) found.Add("\nLineLoads");
+            foreach (var item in elasticityModel.LineLoads)
                 found.Add(item.Value.LoadId + "\t" + item.Value.StartNodeId
                           + "\t" + item.Value.Loadvalues[0] + "\t" + item.Value.Loadvalues[1]
                           + "\t" + item.Value.EndNodeId
@@ -1221,17 +1275,17 @@ namespace FE_Analysis
             // Randbedingungen
             var fest = string.Empty;
             found.Add("\nBoundaryConditions");
-            foreach (var item in model.BoundaryConditions)
+            foreach (var item in elasticityModel.BoundaryConditions)
             {
                 sb.Clear();
-                if (model.SpatialDimension == 2)
+                if (elasticityModel.SpatialDimension == 2)
                 {
                     if (item.Value.Type == 1) fest = "x";
                     else if (item.Value.Type == 2) fest = "y";
                     else if (item.Value.Type == 3) fest = "xy";
                     else if (item.Value.Type == 7) fest = "xyr";
                 }
-                else if (model.SpatialDimension == 3)
+                else if (elasticityModel.SpatialDimension == 3)
                 {
                     if (item.Value.Type == 1) fest = "x";
                     else if (item.Value.Type == 2) fest = "y";
@@ -1258,23 +1312,23 @@ namespace FE_Analysis
 
         private void ElasticityDataVisualize(object sender, RoutedEventArgs e)
         {
-            if (model == null)
+            if (elasticityModel == null)
             {
                 _ = MessageBox.Show("Modelldaten sind noch nicht spezifiziert", "Elastizitätsberechnung");
                 return;
             }
 
-            switch (model.SpatialDimension)
+            switch (elasticityModel.SpatialDimension)
             {
                 case 2:
                     {
-                        var tragwerk = new Elasticity.ModelDataShow.ElasticityModelVisualize(model);
+                        var tragwerk = new Elasticity.ModelDataShow.ElasticityModelVisualize(elasticityModel);
                         tragwerk.Show();
                         break;
                     }
                 case 3:
                     {
-                        var tragwerk = new Elasticity.ModelDataShow.ElasticityModel3DVisualize(model);
+                        var tragwerk = new Elasticity.ModelDataShow.ElasticityModel3DVisualize(elasticityModel);
                         tragwerk.Show();
                         break;
                     }
@@ -1283,7 +1337,7 @@ namespace FE_Analysis
 
         private void ElasticityDataAnalyze(object sender, EventArgs e)
         {
-            if (model == null)
+            if (elasticityModel == null)
             {
                 _ = MessageBox.Show("Model data for elasticity analysis not yet specified",
                     "Elasticity Analysis");
@@ -1292,7 +1346,7 @@ namespace FE_Analysis
 
             try
             {
-                modelAnalysis = new Analysis(model);
+                modelAnalysis = new Analysis(elasticityModel);
                 modelAnalysis.ComputeSystemMatrix();
                 modelAnalysis.ComputeSystemVector();
                 modelAnalysis.SolveEquations();
@@ -1310,21 +1364,21 @@ namespace FE_Analysis
         {
             if (!analysed)
             {
-                if (model == null)
+                if (elasticityModel == null)
                 {
                     _ = MessageBox.Show("Model data for Elasticity Analysis not yet specified",
                         "Elasticity Analysis");
                     return;
                 }
 
-                modelAnalysis = new Analysis(model);
+                modelAnalysis = new Analysis(elasticityModel);
                 modelAnalysis.ComputeSystemMatrix();
                 modelAnalysis.ComputeSystemVector();
                 modelAnalysis.SolveEquations();
                 analysed = true;
             }
 
-            var results = new Elasticity.Results.StaticResultsShow(model);
+            var results = new Elasticity.Results.StaticResultsShow(elasticityModel);
             results.Show();
         }
         private void ElasticityResultsVisualize(object sender, RoutedEventArgs e)
@@ -1332,28 +1386,28 @@ namespace FE_Analysis
             var sb = new StringBuilder();
             if (!analysed)
             {
-                if (model == null)
+                if (elasticityModel == null)
                 {
                     _ = MessageBox.Show("Model data for Elasticity Analysis not yet specified",
                         "Elasticity Analysis");
                     return;
                 }
 
-                modelAnalysis = new Analysis(model);
+                modelAnalysis = new Analysis(elasticityModel);
                 modelAnalysis.ComputeSystemMatrix();
                 modelAnalysis.ComputeSystemVector();
                 modelAnalysis.SolveEquations();
                 analysed = true;
             }
 
-            if (model.SpatialDimension == 2)
+            if (elasticityModel.SpatialDimension == 2)
             {
-                var physicalStructure = new Elasticity.Results.StaticResultsVisualize(model);
+                var physicalStructure = new Elasticity.Results.StaticResultsVisualize(elasticityModel);
                 physicalStructure.Show();
             }
-            else if (model.SpatialDimension == 3)
+            else if (elasticityModel.SpatialDimension == 3)
             {
-                var physicalStructure = new Elasticity.Results.StaticResults3DVisualize(model);
+                var physicalStructure = new Elasticity.Results.StaticResults3DVisualize(elasticityModel);
                 physicalStructure.Show();
             }
             else
